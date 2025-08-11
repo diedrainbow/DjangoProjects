@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1dc906f7-2f3d-4d15-b9de-048c30c4b47e'
+SECRET_KEY = '4f1657a0-22bb-428f-b80d-0f9ba174ebad'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'OrdersList',
 ]
 
 # Middleware framework
@@ -51,14 +52,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'DjangoProdactionControl.urls'
+ROOT_URLCONF = 'DetailsProdactionOnDjango.urls'
 
 # Template configuration
 # https://docs.djangoproject.com/en/2.1/topics/templates/
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR + r'\DjangoProdactionControl\base_templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

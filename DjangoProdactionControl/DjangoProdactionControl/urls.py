@@ -1,5 +1,5 @@
 """
-DjangoProdactionControl URL Configuration
+DetailsProdactionOnDjango URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -17,10 +17,14 @@ Including another URLconf
 """
 
 # Uncomment next two lines to enable admin:
-#from django.contrib import admin
-#from django.urls import path
+from django.contrib import admin
+from django.urls import path, include, re_path
+
+import OrdersList.views
 
 urlpatterns = [
     # Uncomment the next line to enable the admin:
-    #path('admin/', admin.site.urls)
+    #path('admin/', admin.site.urls, name='admin13'),
+    path('', OrdersList.views.ordersList, name='ordersList'),
+    re_path(r'^postuser/+', OrdersList.views.postuser),
 ]

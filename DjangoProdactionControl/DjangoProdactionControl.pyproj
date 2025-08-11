@@ -3,6 +3,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>DjangoProdactionControl</Name>
     <RootNamespace>DjangoProdactionControl</RootNamespace>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -34,12 +35,35 @@
     <Compile Include="DjangoProdactionControl\settings.py" />
     <Compile Include="DjangoProdactionControl\urls.py" />
     <Compile Include="DjangoProdactionControl\wsgi.py" />
+    <Compile Include="OrdersList\admin.py" />
+    <Compile Include="OrdersList\apps.py" />
+    <Compile Include="OrdersList\migrations\__init__.py" />
+    <Compile Include="OrdersList\models.py" />
+    <Compile Include="OrdersList\tests.py" />
+    <Compile Include="OrdersList\views.py" />
+    <Compile Include="OrdersList\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="OrdersList\templates\OrdersList\index.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DjangoProdactionControl\" />
+    <Folder Include="OrdersList\" />
+    <Folder Include="OrdersList\migrations\" />
+    <Folder Include="OrdersList\templates\" />
+    <Folder Include="OrdersList\templates\OrdersList\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.9</Version>
+      <Description>env (Python 3.9 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
