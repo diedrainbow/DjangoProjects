@@ -44,7 +44,6 @@
     <Compile Include="OrdersList\__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OrdersList\templates\OrdersList\index.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +51,6 @@
     <Folder Include="OrdersList\" />
     <Folder Include="OrdersList\migrations\" />
     <Folder Include="OrdersList\templates\" />
-    <Folder Include="OrdersList\templates\OrdersList\" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
