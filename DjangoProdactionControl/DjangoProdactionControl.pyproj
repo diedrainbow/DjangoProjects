@@ -44,12 +44,17 @@
     <Compile Include="OrdersList\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DjangoProdactionControl\base_templates\base.html" />
+    <Content Include="OrdersList\static\Stylesheet1.css" />
+    <Content Include="OrdersList\templates\ordersList.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DjangoProdactionControl\" />
+    <Folder Include="DjangoProdactionControl\base_templates\" />
     <Folder Include="OrdersList\" />
     <Folder Include="OrdersList\migrations\" />
+    <Folder Include="OrdersList\static\" />
     <Folder Include="OrdersList\templates\" />
   </ItemGroup>
   <ItemGroup>
