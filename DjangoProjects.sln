@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.36227.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DjangoProdactionControl", "DjangoProdactionControl\DjangoProdactionControl.pyproj", "{F1E212D5-72FE-47FB-9172-81C0267204F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1E212D5-72FE-47FB-9172-81C0267204F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E212D5-72FE-47FB-9172-81C0267204F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E212D5-72FE-47FB-9172-81C0267204F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E212D5-72FE-47FB-9172-81C0267204F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27982476-B816-4C36-8915-5345132A24F7}
+	EndGlobalSection
+EndGlobal
