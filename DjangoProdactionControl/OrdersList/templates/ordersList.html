@@ -4,64 +4,39 @@
 {% block content %}
 
 {% load static %} <!-- Instruct Django to load static files -->
-<link rel="stylesheet" type="text/css" href="{% static 'Stylesheet1.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'OrdersListStyles.css' %}" />
 
-<div class="container">
+<div>
 	<form method="post" action="postuser/">
         {% csrf_token %}
-		<table class="orderline">
-		<tr>
-		    <td><br /><input type="submit" value="Add" /></td>
-			<td>Number<br /><input name="order_number" type="text" /></td>
-			<td>Statys<br /><input name="order_statys" list="statys"></td>
-			<!--<td>Date add<br /><input name="order_add" type="datetime" /></td>-->
-			<td>Date start<br /><input name="order_start" type="date" /></td>
-			<td>Date end<br /><input name="order_end" type="date" /></td>
-			<td>Comment<br /><input name="order_comment"  type="text"/></td>
-		</tr>
-			{% for order in orders %} 
-			<tr>
-				<td>Edit</td>
-				<td>{{ order.order_number }} </td>
-				<td>{{ order.statys }} </td>
-				<!--<td>{{ order.date_add|date:"d.m.Y G:i" }} </td>-->
-				<td>{{ order.date_start|date:"d.m.Y" }} </td>
-				<td>{{ order.date_end|date:"d.m.Y" }} </td>
-				<td>{{ order.comment }} </td>
-			</tr>
-			<tr>
-				<table class="iksweb">
-		<tr>
-			<td>12</td>
-			<td>45</td>
-			<td>65</td>
-			<td>dg</td>
-			<td>,</td>
-		</tr>
-		<tr>
-			<td>ss</td>
-			<td>f</td>
-			<td>kkl</td>
-			<td>56</td>
-			<td>22</td>
-		</tr>
-		<tr>
-			<td>fh</td>
-			<td>lkj</td>
-			<td>qw</td>
-			<td>ss</td>
-			<td>cf</td>
-		</tr>
-				</table>
-			</tr>
-			{% endfor %}
-		</table>
+		<div class="order_edit">
+		    <div class="order_element_buttons"><br /><input type="submit" value="Add" /></div>
+			<div class="order_element_number">Number<br /><input name="order_number" type="text" size="5" /></div>
+			<div class="order_element_statys">Statys<br /><input name="order_statys" list="statys" size="10" /></div>
+			<!--<div class="order_edit_element">Date add<br /><input name="order_add" type="datetime" /></div>-->
+			<div class="order_element_start">Date start<br /><input name="order_start" type="date" /></div>
+			<div class="order_element_stop">Date end<br /><input name="order_end" type="date" /></div>
+			<div class="order_element_comm">Comment<br /><input name="order_comment"  type="text"/></div>
+		</div>
 		<datalist id="statys">
 			<option value="prodaction">
 			<option value="paused">
 			<option value="closed">
 		</datalist>
     </form>
+
+	{% for order in orders %} 
+		<div class="order_line">
+			<div class="order_element_buttons">Edit</div>
+			<div class="order_element_number">{{ order.order_number }} </div>
+			<div class="order_element_statys">{{ order.statys }} </div>
+			<!--<div class="order_element">{{ order.date_add|date:"d.m.Y G:i" }} </div>-->
+			<div class="order_element_start">{{ order.date_start|date:"d.m.Y" }} </div>
+			<div class="order_element_stop">{{ order.date_end|date:"d.m.Y" }} </div>
+			<div class="order_element_comm">{{ order.comment }} </div>
+		</div>
+	{% endfor %}
+
 	<br />
 </div>
 

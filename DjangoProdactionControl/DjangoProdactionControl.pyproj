@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DjangoProdactionControl\base_templates\base.html" />
-    <Content Include="OrdersList\static\Stylesheet1.css" />
+    <Content Include="OrdersList\static\OrdersListStyles.css" />
     <Content Include="OrdersList\templates\ordersList.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>

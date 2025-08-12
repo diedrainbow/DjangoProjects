@@ -1,0 +1,64 @@
+body
+{
+}
+
+div.order_line tr:hover {
+    background-color: #f0f0f0;
+}
+
+div.order_element_buttons {
+    display: inline-block;
+    width: 45px;
+}
+
+div.order_element_number {
+    display: inline-block;
+    width: 80px;
+}
+
+div.order_element_statys {
+    display: inline-block;
+    width: 120px;
+}
+
+div.order_element_start {
+    display: inline-block;
+    width: 130px;
+}
+
+div.order_element_stop {
+    display: inline-block;
+    width: 130px;
+}
+
+div.order_element_comm {
+    display: inline-block;
+    width: 300px;
+}
+
+
+
+
+table.iksweb {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    height: auto;
+}
+
+    table.iksweb, table.iksweb td, table.iksweb th {
+        border: 1px solid #595959;
+    }
+
+        table.iksweb td, table.iksweb th {
+            padding: 3px;
+            width: 30px;
+            height: 35px;
+        }
+
+        table.iksweb th {
+            background: #4e6982;
+            color: #fff;
+            font-weight: normal;
+        }
+
