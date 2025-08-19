@@ -6,6 +6,10 @@ div.order_line tr:hover {
     background-color: #f0f0f0;
 }
 
+a.order_line tr:hover {
+    background-color: #f0f0f0;
+}
+
 div.order_element_buttons {
     display: inline-block;
     width: 45px;
@@ -34,6 +38,43 @@ div.order_element_stop {
 div.order_element_comm {
     display: inline-block;
     width: 300px;
+}
+
+
+
+details {
+    margin: 10px 0;
+    padding: 0px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: normal;
+    padding: 5px;
+    outline: medium;
+    background: #7ca7cf;
+    list-style: none;
+    content: "  ";
+}
+
+summary:hover {
+    background: #6081a0;
+}
+
+details[open] {
+}
+
+details details {
+    margin-left: 20px;
+    background: #f0f0f0;
+}
+
+.content {
+    padding: 10px;
+    margin-top: 5px;
 }
 
 

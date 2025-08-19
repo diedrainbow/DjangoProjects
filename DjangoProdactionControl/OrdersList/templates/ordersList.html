@@ -26,7 +26,8 @@
     </form>
 
 	{% for order in orders %} 
-		<div class="order_line">
+	<details>
+		<summary>
 			<div class="order_element_buttons">Edit</div>
 			<div class="order_element_number">{{ order.order_number }} </div>
 			<div class="order_element_statys">{{ order.statys }} </div>
@@ -34,7 +35,9 @@
 			<div class="order_element_start">{{ order.date_start|date:"d.m.Y" }} </div>
 			<div class="order_element_stop">{{ order.date_end|date:"d.m.Y" }} </div>
 			<div class="order_element_comm">{{ order.comment }} </div>
-		</div>
+		</summary>
+		<div class="content"> hhh </div>
+	</details>
 	{% endfor %}
 
 	<br />
