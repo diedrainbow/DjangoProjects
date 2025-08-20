@@ -25,6 +25,11 @@ div.order_element_statys {
     width: 120px;
 }
 
+div.order_element_add {
+    display: inline-block;
+    width: 140px;
+}
+
 div.order_element_start {
     display: inline-block;
     width: 130px;
@@ -52,7 +57,8 @@ details {
 
 summary {
     cursor: pointer;
-    font-weight: normal;
+	color: #ffffff;
+    font-weight: bold;
     padding: 5px;
     outline: medium;
     background: #7ca7cf;
@@ -72,9 +78,15 @@ details details {
     background: #f0f0f0;
 }
 
-.content {
+.prodacts_list {
     padding: 10px;
     margin-top: 5px;
+}
+
+img.loadinf_gif {
+	width: 50px;
+	height: 50px;
+	/*align-self: center;*/
 }
 
 

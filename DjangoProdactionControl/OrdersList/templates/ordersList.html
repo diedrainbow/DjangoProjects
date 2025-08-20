@@ -4,20 +4,30 @@
 {% block content %}
 
 {% load static %} <!-- Instruct Django to load static files -->
-<script src="{% static 'htmx.min.js' %}"></script>
+<script src="{% static 'htmx.min.js' %}"> </script>
 <link rel="stylesheet" type="text/css" href="{% static 'OrdersListStyles.css' %}" />
 
 <div>
+	<div class="order_caption">
+		<div class="order_element_buttons">-</div>
+		<div class="order_element_number">Number</div>
+		<div class="order_element_statys">Statys</div>
+		<div class="order_element_add">Date add</div>
+		<div class="order_element_start">Date start</div>
+		<div class="order_element_stop">Date end</div>
+		<div class="order_element_comm">Comment</div>
+	</div>
+	
 	<form method="post" action="postuser/">
         {% csrf_token %}
 		<div class="order_edit">
-		    <div class="order_element_buttons"><br /><input type="submit" value="Add" /></div>
-			<div class="order_element_number">Number<br /><input name="order_number" type="text" size="5" /></div>
-			<div class="order_element_statys">Statys<br /><input name="order_statys" list="statys" size="10" /></div>
-			<!--<div class="order_edit_element">Date add<br /><input name="order_add" type="datetime" /></div>-->
-			<div class="order_element_start">Date start<br /><input name="order_start" type="date" /></div>
-			<div class="order_element_stop">Date end<br /><input name="order_end" type="date" /></div>
-			<div class="order_element_comm">Comment<br /><input name="order_comment"  type="text"/></div>
+		    <div class="order_element_buttons"><input type="submit" value="Add" /></div>
+			<div class="order_element_number"><input name="order_number" type="text" size="5" /></div>
+			<div class="order_element_statys"><input name="order_statys" list="statys" size="10" /></div>
+			<div class="order_element_add"></div>
+			<div class="order_element_start"><input name="order_start" type="date" /></div>
+			<div class="order_element_stop"><input name="order_end" type="date" /></div>
+			<div class="order_element_comm"><input name="order_comment"  type="text"/></div>
 		</div>
 		<datalist id="statys">
 			<option value="prodaction">
@@ -32,12 +42,12 @@
 			<div class="order_element_buttons">Edit</div>
 			<div class="order_element_number">{{ order.order_number }} </div>
 			<div class="order_element_statys">{{ order.statys }} </div>
-			<!--<div class="order_element">{{ order.date_add|date:"d.m.Y G:i" }} </div>-->
+			<div class="order_element_add">{{ order.date_add|date:"d.m.Y G:i" }} </div>
 			<div class="order_element_start">{{ order.date_start|date:"d.m.Y" }} </div>
 			<div class="order_element_stop">{{ order.date_end|date:"d.m.Y" }} </div>
 			<div class="order_element_comm">{{ order.comment }} </div>
 		</summary>
-		<div class="content"> hhh </div>
+		<div class="prodacts_list"><img class="loadinf_gif" src="{% static 'loading.gif' %}"/></div>
 	</details>
 	{% endfor %}
 

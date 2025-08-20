@@ -13,6 +13,7 @@ class Prodact(models.Model):
     number_in_order_list = models.IntegerField()
     name = models.CharField(max_length=40)
     factory_number = models.IntegerField()
+    #specification = models.CharField(max_length=40)
     amount = models.IntegerField()
     kategory = models.CharField(max_length=20)
     comment = models.CharField(max_length=40)
