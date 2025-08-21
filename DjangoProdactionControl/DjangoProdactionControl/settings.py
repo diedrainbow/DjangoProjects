@@ -59,7 +59,7 @@ ROOT_URLCONF = 'DjangoProdactionControl.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + r'\DjangoProdactionControl\base_templates'],
+        'DIRS': [BASE_DIR + r'\DjangoProdactionControl\templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,3 +112,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+STATICFILES_DIRS = [
+       BASE_DIR + r'\DjangoProdactionControl\static',
+   ]

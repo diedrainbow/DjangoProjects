@@ -2,14 +2,22 @@ body
 {
 }
 
-div.order_line tr:hover {
-    background-color: #f0f0f0;
+div.order_caption {
+	background: #6081a0;
+	color: #ffffff;
+	font-weight: bold;
+	padding: 5px;
 }
 
-a.order_line tr:hover {
-    background-color: #f0f0f0;
+div.order_form {
+	background: #6081a0;
+	color: #ffffff;
+	font-weight: bold;
+	padding: 5px;
 }
 
+
+/* Order table styles */
 div.order_element_buttons {
     display: inline-block;
     width: 45px;
@@ -60,14 +68,14 @@ summary {
 	color: #ffffff;
     font-weight: bold;
     padding: 5px;
-    outline: medium;
-    background: #7ca7cf;
+    /*outline: medium;*/
+    background: #6081a0;
     list-style: none;
     content: "  ";
 }
 
 summary:hover {
-    background: #6081a0;
+    background: #7ca7cf;
 }
 
 details[open] {
@@ -90,28 +98,4 @@ img.loadinf_gif {
 }
 
 
-
-
-table.iksweb {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    height: auto;
-}
-
-    table.iksweb, table.iksweb td, table.iksweb th {
-        border: 1px solid #595959;
-    }
-
-        table.iksweb td, table.iksweb th {
-            padding: 3px;
-            width: 30px;
-            height: 35px;
-        }
-
-        table.iksweb th {
-            background: #4e6982;
-            color: #fff;
-            font-weight: normal;
-        }
 

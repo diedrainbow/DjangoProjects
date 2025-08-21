@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from datetime import date
 from datetime import datetime
 from .models import Order
+from .models import Prodact
 
 
 def ordersList(request):
@@ -10,6 +11,11 @@ def ordersList(request):
     context = {'orders': orders}
     return render(request, 'ordersList.html', context)
     #return HttpResponse("Hello, Django!")
+    
+def load_prodacts(request):
+    prodacts = Prodact.objects.all()
+    context = {'prodacts': prodacts}
+    return render(request, 'prodactsList.html', context)
 
 def postuser(request):
     # получаем из данных запроса POST отправленные через форму данные

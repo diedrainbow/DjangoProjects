@@ -27,4 +27,5 @@ urlpatterns = [
     #path('admin/', admin.site.urls, name='admin13'),
     path('', OrdersList.views.ordersList, name='ordersList'),
     re_path(r'^postuser/+', OrdersList.views.postuser),
+    re_path(r'^load/+', OrdersList.views.load_prodacts),
 ]

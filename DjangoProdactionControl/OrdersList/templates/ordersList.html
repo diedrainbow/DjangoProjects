@@ -18,6 +18,7 @@
 		<div class="order_element_comm">Comment</div>
 	</div>
 	
+	<div class="order_form">
 	<form method="post" action="postuser/">
         {% csrf_token %}
 		<div class="order_edit">
@@ -35,6 +36,7 @@
 			<option value="closed">
 		</datalist>
     </form>
+	</div>
 
 	{% for order in orders %} 
 	<details>
@@ -47,7 +49,9 @@
 			<div class="order_element_stop">{{ order.date_end|date:"d.m.Y" }} </div>
 			<div class="order_element_comm">{{ order.comment }} </div>
 		</summary>
-		<div class="prodacts_list"><img class="loadinf_gif" src="{% static 'loading.gif' %}"/></div>
+		<div class="prodacts_list"  hx-get="/load/{{ order.order_number }}" hx-trigger="intersect">
+			<img class="loadinf_gif" src="{% static 'loading.gif' %}"/>
+		</div>
 	</details>
 	{% endfor %}
 
