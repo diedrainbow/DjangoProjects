@@ -41,10 +41,11 @@ def postuser(request):
         new_order = Order.objects.get(order_number=order_number1)
     except Order.DoesNotExist:
         new_order = Order()
+        new_order.date_add = order_add
     
     new_order.order_number = order_number1
     new_order.statys = order_statys
-    new_order.date_add = order_add
+    #new_order.date_add = order_add
     new_order.date_start = order_start
     new_order.date_end = order_end
     new_order.comment = order_comment
