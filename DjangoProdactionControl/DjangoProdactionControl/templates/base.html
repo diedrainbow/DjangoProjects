@@ -2,35 +2,48 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>{% block title %}{% endblock title %}</title>
+	<title>{% block title %} Title {% endblock title %}</title>
 </head>
 
 <body>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'baseStylesheet.css' %}" />
-	<div class="container"> 
-	<header> 
-		<div>{% block header %}Simple header{% endblock header %}</div> 
-		<div> 
-			<a href="{% url 'ordersList' %}" class="nav-link active" aria-current="page">Home</a>
-			<a href="{% url 'ordersList' %}" class="nav-link">Features</a> 
-			<a href="{% url 'ordersList' %}" class="nav-link">Pricing</a> 
-			<a href="{% url 'ordersList' %}" class="nav-link">Admin</a> 
-			<a href="#" class="nav-link">About</a> 
-		</div> 
-	</header> 
-	</div>
 	
+	
+	<!-- Site Header -->
+    <header>
+        <div class="header-container">
+            <div class="site-title">{% block header %} header {% endblock header %}</div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'ordersList' %}">Orders List</a></li>
+                    <li><a href="{% url 'ordersList' %}">Details Base</a></li>
+                    <li><a href="{% url 'ordersList' %}">Statistics</a></li>
+                    <li><a href="{% url 'ordersList' %}">Any</a></li>
+                    <li><a href="{% url 'ordersList' %}" class="register-btn">Registry</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+	
+	
+	<!-- Main content -->
 	<div class="container_content">
-	<div>{% block content %}{% endblock content %}</div>
+		{% block content %}{% endblock content %}
 	</div>
 
-
-	<div class="container"> 
-	<footer> 
-		<span>© 2025 Company, Inc</span> 
-	</footer> 
-	</div>
+	
+	<!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2024 My site. Oll right reserved.</p>
+            <div class="footer-links">
+                <a href="#">Link1</a>
+                <a href="#">Link2</a>
+                <a href="#">Contacts</a>
+            </div>
+        </div>
+    </footer>
 
 
 </body>

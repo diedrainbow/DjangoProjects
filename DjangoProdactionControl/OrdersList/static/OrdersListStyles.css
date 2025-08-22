@@ -1,62 +1,39 @@
-body
-{
-}
 
 div.order_caption {
-	background: #6081a0;
-	color: #ffffff;
+	/*background: #254e58;*/
+	color: #254e58;
 	font-weight: bold;
 	padding: 5px;
+	/*border: 1px solid #ddd;
+    border-radius: 5px;
+	margin: 5px 0;*/
 }
 
 div.order_form {
-	background: #6081a0;
+	background: #254e58;
 	color: #ffffff;
 	font-weight: bold;
 	padding: 5px;
+	border: 1px solid #ddd;
+    border-radius: 5px;
+	margin: 5px 0;
 }
+
+input { font-size: 12 }
 
 
 /* Order table styles */
-div.order_element_buttons {
-    display: inline-block;
-    width: 45px;
-}
-
-div.order_element_number {
-    display: inline-block;
-    width: 80px;
-}
-
-div.order_element_statys {
-    display: inline-block;
-    width: 120px;
-}
-
-div.order_element_add {
-    display: inline-block;
-    width: 140px;
-}
-
-div.order_element_start {
-    display: inline-block;
-    width: 130px;
-}
-
-div.order_element_stop {
-    display: inline-block;
-    width: 130px;
-}
-
-div.order_element_comm {
-    display: inline-block;
-    width: 300px;
-}
-
+div.order_element_buttons	{ display: inline-block; width: 45px;}
+div.order_element_number 	{ display: inline-block; width: 80px;}
+div.order_element_statys 	{ display: inline-block; width: 120px;}
+div.order_element_add 		{ display: inline-block; width: 140px;}
+div.order_element_start 	{ display: inline-block; width: 130px;}
+div.order_element_stop 		{ display: inline-block; width: 130px;}
+div.order_element_comm 		{ display: inline-block; width: 400px;}
 
 
 details {
-    margin: 10px 0;
+    margin: 5px 0;
     padding: 0px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -68,14 +45,16 @@ summary {
 	color: #ffffff;
     font-weight: bold;
     padding: 5px;
+	border-radius: 5px;
+	width: 100%;
     /*outline: medium;*/
-    background: #6081a0;
+    background: #254e58;
     list-style: none;
     content: "  ";
 }
 
 summary:hover {
-    background: #7ca7cf;
+    background: #88bdbc;
 }
 
 details[open] {
@@ -94,6 +73,7 @@ details details {
 img.loadinf_gif {
     width: 50px;
     height: 50px;
+	margin: 0 auto;
     /*align-self: center;*/
 }
 
