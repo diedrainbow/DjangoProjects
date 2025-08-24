@@ -1,5 +1,5 @@
 
-
+/*
 table.iksweb {
     width: 100%;
     border-collapse: collapse;
@@ -22,4 +22,25 @@ table.iksweb {
             color: #fff;
             font-weight: bold;
         }
+    */
 
+.spreadsheet {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.cell {
+    border: 1px solid #ccc;
+    padding: 4px;
+    min-width: 100px;
+    height: 25px;
+}
+
+    .cell:focus {
+        outline: 2px solid #007bff;
+    }
+
+.header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}

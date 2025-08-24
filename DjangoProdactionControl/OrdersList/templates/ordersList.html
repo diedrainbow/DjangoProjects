@@ -27,10 +27,10 @@
 			<span class="order_element_start">{{ order.date_start|date:"d.m.Y" }} </span>
 			<span class="order_element_stop">{{ order.date_end|date:"d.m.Y" }} </span>
 			<span class="order_element_comm">{{ order.comment }} </span>
-			<span class="order_element_buttons">Edit</span>
+			<span class="order_element_buttons">-</span>
 		</summary>
 		<div class="prodacts_list"  hx-get="/load_prodacts/{{ order.order_number }}" hx-trigger="intersect">
-			<img class="loadinf_gif" src="{% static 'loading.gif' %}"/>
+			<img class="loadinf_gif" src="{% static 'loading.gif' %}" alt="Loading..."/>
 		</div>
 	</details>
 	{% endfor %}
@@ -43,8 +43,8 @@
 			<span class="order_element_number"><input name="order_number" type="text" size="5" /></span>
 			<span class="order_element_statys"><input name="order_statys" list="statys" size="10" /></span>
 			<span class="order_element_add"> Current </span>
-			<span class="order_element_start"><input name="order_start" type="date" /></span>
-			<span class="order_element_stop"><input name="order_end" type="date" /></span>
+			<span class="order_element_start"><input name="order_start" type="date"  size="10" /></span>
+			<span class="order_element_stop"><input name="order_end" type="date"  size="10" /></span>
 			<span class="order_element_comm"><input name="order_comment"  type="text"  size="45"/></span>
 			<span class="order_element_buttons"><input type="submit" value="Add" /></span>
 		</div>

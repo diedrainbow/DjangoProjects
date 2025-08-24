@@ -3,12 +3,36 @@
 <link rel="stylesheet" type="text/css" href="{% static 'ProdactsListStyles.css' %}" />
 
 <div>
-	<table class="iksweb">
+
+	<table  class="spreadsheet">
 		<tr>
-			<th>212</th>
+			<th class="header">number_in_order_list</th>
+			<th class="header">name</th>
+			<th class="header">factory_number</th>
+			<th class="header">amount</th>
+			<th class="header">kategory</th>
+			<th class="header">comment</th>
 		</tr>
+
+		{% for prodact in prodacts %}
 		<tr>
-			<td>212</td>
+			<td class="cell">{{ prodact.number_in_order_list }}</td>
+			<td class="cell">{{ prodact.name }}</td>
+			<td class="cell">{{ prodact.factory_number }}</td>
+			<td class="cell">{{ prodact.amount }}</td>
+			<td class="cell">{{ prodact.kategory }}</td>
+			<td class="cell">{{ prodact.comment }}</td>
+		</tr>
+		<tr><td>444</td></tr>
+		{% endfor %}
+
+		<tr>
+			<td class="cell"></td>
+			<td class="cell"></td>
+			<td class="cell"></td>
+			<td class="cell"></td>
+			<td class="cell"></td>
+			<td class="cell"></td>
 		</tr>
 	</table>
 </div>

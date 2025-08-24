@@ -3,7 +3,7 @@ div.order_caption {
 	/*background: #254e58;*/
 	color: #254e58;
 	font-weight: bold;
-	padding: 5px;
+	/*padding: 5px;*/
 	padding-left: 15px;
 	/*border: 1px solid #ddd;
     border-radius: 5px;
@@ -21,24 +21,29 @@ div.order_form {
 	/*margin: 5px 0;*/
 }
 
-input { 
-	font-size: 12px
+input {
+	font-size: 16px;
+	background: #254e58;
+	color: #ffffff;
+	font-weight: bold;
 }
 
 
 /* Order table styles */
 .order_element_buttons	{ display: inline-block; width: 45px;}
 .order_element_number 	{ display: inline-block; width: 80px;}
-.order_element_statys 	{ display: inline-block; width: 120px;}
+.order_element_statys 	{ display: inline-block; width: 125px;}
 .order_element_add 		{ display: inline-block; width: 140px;}
-.order_element_start 	{ display: inline-block; width: 130px;}
-.order_element_stop 	{ display: inline-block; width: 120px;}
-.order_element_comm 	{ 
-	display: inline-block; width: 400px;
+.order_element_start 	{ display: inline-block; width: 135px;}
+.order_element_stop 	{ display: inline-block; width: 135px;}
+.order_element_comm {
+	display: inline-block;
+	width: 350px;
+	margin-left: 5px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	text-align: bottom;
+	vertical-align: bottom;
 	/*font-size: 10px*/
 }
 
@@ -52,18 +57,19 @@ details {
 }
 
 summary {
-    cursor: pointer;
+	cursor: pointer;
 	color: #ffffff;
-    font-weight: bold;
-    padding: 5px;
+	font-weight: bold;
+	
+	padding: 5px;
 	padding-left: 15px;
 	border-radius: 5px;
 	width: 100%;
-    /*outline: medium;*/
-    background: #254e58;
+	/*outline: medium;*/
+	background: #254e58;
 	transition: background-color 0.3s;
-    list-style: none;
-    /*content: "  ";*/
+	list-style: none;
+	/*content: "  ";*/
 }
 
 summary:hover {
@@ -72,8 +78,8 @@ summary:hover {
 
 details[open] .order_element_comm {
 	word-break: break-all;
-	white-space: wrap;
-	overflow: none;
+	white-space: normal;
+	overflow: visible;
 }
 
 details details {

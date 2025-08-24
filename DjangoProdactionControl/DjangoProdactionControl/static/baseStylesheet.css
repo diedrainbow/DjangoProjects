@@ -21,7 +21,7 @@ div.container_content {
         header {
             background: #112d32; /*linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
             color: white;
-            padding: 1rem 0;
+            padding: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 			position: fixed; /* Фиксирует элемент относительно окна браузера */
 			top: 0;         /* Прижимает шапку к верхнему краю экрана */
@@ -81,7 +81,7 @@ div.container_content {
             background: #112d32;
             color: white;
             text-align: center;
-            padding: 2rem 0;
+            padding: 5px;
             margin-top: 3rem;
 			bottom: 0;         /* Прижимает к нижнему краю экрана */
 			left: 0;        /* Прижимает шапку к левому краю экрана */
