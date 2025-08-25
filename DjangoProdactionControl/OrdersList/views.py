@@ -1,9 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from datetime import date
-from datetime import datetime
-from .models import Order
-from .models import Prodact
+from datetime import date, datetime
+from .models import Order, Prodact, CutOperation
 
 
 def ordersList(request):
@@ -12,12 +10,13 @@ def ordersList(request):
     return render(request, 'ordersList.html', context)
     #return HttpResponse("Hello, Django!")
     
-def load_prodacts(request):
+def load_prodacts(request, request_order_number):
     prodacts = Prodact.objects.all()
+    prodacts = prodacts.filter(order_number = request_order_number)
     context = {'prodacts': prodacts}
     return render(request, 'prodactsList.html', context)
 
-def postuser(request):
+def post_new_order(request):
     # получаем из данных запроса POST отправленные через форму данные
     order_number1 = request.POST.get("order_number", "")
     order_statys = request.POST.get("order_statys", "prodaction")
@@ -51,4 +50,54 @@ def postuser(request):
     new_order.comment = order_comment
     new_order.save()
 
-    return ordersList(request)
+    return redirect('urlOrdersList')
+    
+    
+    
+    
+# Interactive Cells
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+#from .models import Spreadsheet, Cell
+
+#def spreadsheet_view(request, spreadsheet_id):
+#    spreadsheet = get_object_or_404(Spreadsheet, id=spreadsheet_id)
+#    return render(request, 'spreadsheet.html', {
+#        'spreadsheet': spreadsheet,
+#        'rows': range(1, 51),  # 50 строк
+#        'cols': range(1, 27),  # 26 колонок (A-Z)
+#    })
+
+def cell_value_view(request, spreadsheet_id, row, col):
+    if spreadsheet_id == 'prodacts_sheet' then:
+        cell, created = Prodact.objects.get_or_create(
+            sheet_row=row,
+            col=col,
+            defaults={'value': ''}
+        )
+        
+    return render(request, 'partials/cell_value.html', {'cell': cell})
+    
+
+@require_http_methods(["POST"])
+def update_cell_view(request, spreadsheet_id, row, col):
+    value = request.POST.get('value', '')
+    
+    cell, created = Cell.objects.get_or_create(
+        spreadsheet_id=spreadsheet_id,
+        row=row,
+        col=col
+    )
+    cell.value = value
+    cell.save()
+    
+    return render(request, 'partials/cell_value.html', {'cell': cell})
+
+def cell_edit_view(request, spreadsheet_id, row, col):
+    cell, created = Cell.objects.get_or_create(
+        spreadsheet_id=spreadsheet_id,
+        row=row,
+        col=col,
+        defaults={'value': ''}
+    )
+    return render(request, 'partials/cell_edit.html', {'cell': cell})

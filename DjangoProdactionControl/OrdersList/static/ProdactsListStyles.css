@@ -34,13 +34,25 @@ table.iksweb {
     padding: 4px;
     min-width: 100px;
     height: 25px;
+	cursor: cell;
 }
 
     .cell:focus {
         outline: 2px solid #007bff;
     }
 
-.header {
-    background-color: #f8f9fa;
+.cell_header {
+    /*background-color: #f8f9fa;*/
+	color: #f18212;
     font-weight: bold;
 }
+
+input.cell-input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            font: inherit;
+        }

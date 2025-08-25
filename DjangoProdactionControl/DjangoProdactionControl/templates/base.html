@@ -15,11 +15,11 @@
             <div class="site-title">{% block header %} header {% endblock header %}</div>
             <nav>
                 <ul>
-                    <li><a href="{% url 'ordersList' %}">Orders List</a></li>
-                    <li><a href="{% url 'ordersList' %}">Details Base</a></li>
-                    <li><a href="{% url 'ordersList' %}">Statistics</a></li>
-                    <li><a href="{% url 'ordersList' %}">Any</a></li>
-                    <li><a href="{% url 'ordersList' %}" class="register-btn">Registry</a></li>
+                    <li><a href="{% url 'urlOrdersList' %}">Orders List</a></li>
+                    <li><a href="{% url 'urlOrdersList' %}">Details Base</a></li>
+                    <li><a href="{% url 'urlOrdersList' %}">Statistics</a></li>
+                    <li><a href="{% url 'admin:login' %}">Admin</a></li>
+                    <li><a href="{% url 'urlOrdersList' %}" class="register-btn">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -27,15 +27,15 @@
 	
 	
 	<!-- Main content -->
-	<div class="container_content">
+	<main class="container_content">
 		{% block content %}{% endblock content %}
-	</div>
+	</main>
 
 	
 	<!-- Footer -->
     <footer>
         <div class="footer-content">
-            <p>© 2024 My site. Oll right reserved.</p>
+            <p>© 2024 My site. All right reserved.</p>
             <div class="footer-links">
                 <a href="#">Link1</a>
                 <a href="#">Link2</a>

@@ -1,0 +1,27 @@
+<!-- partials/cell_edit.html -->
+<form hx-post="{% url 'update_cell' cell.spreadsheet.id cell.row cell.col %}"
+      hx-target="this"
+      hx-swap="outerHTML"
+      hx-ext="cell-events"
+      class="cell-form">
+    <input type="text" 
+           name="value" 
+           value="{{ cell.value }}" 
+           class="cell-input"
+           hx-trigger="keyup delay:500ms"
+           hx-post="{% url 'update_cell' cell.spreadsheet.id cell.row cell.col %}"
+           hx-target="closest .cell"
+           hx-swap="outerHTML">
+</form>
+
+<script>
+    // Автосохранение при потере фокуса
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.querySelector('.cell-input');
+        if (input) {
+            input.addEventListener('blur', function() {
+                htmx.trigger(this.form, 'submit');
+            });
+        }
+    });
+</script>

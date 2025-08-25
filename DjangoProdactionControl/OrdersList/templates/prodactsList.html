@@ -1,29 +1,39 @@
 {% load static %} <!-- Instruct Django to load static files -->
 <script src="{% static 'htmx.min.js' %}"> </script>
+<script src="{% static 'prodactsListScripts.js' %}"> </script>
 <link rel="stylesheet" type="text/css" href="{% static 'ProdactsListStyles.css' %}" />
 
 <div>
 
 	<table  class="spreadsheet">
+		<thead>
 		<tr>
-			<th class="header">number_in_order_list</th>
-			<th class="header">name</th>
-			<th class="header">factory_number</th>
-			<th class="header">amount</th>
-			<th class="header">kategory</th>
-			<th class="header">comment</th>
+			<th class="cell_header">number_in_order_list</th>
+			<th class="cell_header">name</th>
+			<th class="cell_header">factory_number</th>
+			<th class="cell_header">amount</th>
+			<th class="cell_header">kategory</th>
+			<th class="cell_header">comment</th>
 		</tr>
+		</thead>
 
+		<tbody>
 		{% for prodact in prodacts %}
 		<tr>
-			<td class="cell">{{ prodact.number_in_order_list }}</td>
+			<td class="cell"
+                hx-get="{% url 'cell_value' 'prodacts_sheet' {{ prodact.number_in_order_list }} 1 %}"
+                hx-trigger="load, cellUpdated from:body"
+                hx-target="this"
+                hx-swap="innerHTML">
+				<div class="cell-content">{{ prodact.number_in_order_list }}</div>
+			</td>
 			<td class="cell">{{ prodact.name }}</td>
 			<td class="cell">{{ prodact.factory_number }}</td>
 			<td class="cell">{{ prodact.amount }}</td>
 			<td class="cell">{{ prodact.kategory }}</td>
 			<td class="cell">{{ prodact.comment }}</td>
 		</tr>
-		<tr><td>444</td></tr>
+		<!--<tr><td>444</td></tr>-->
 		{% endfor %}
 
 		<tr>
@@ -34,6 +44,7 @@
 			<td class="cell"></td>
 			<td class="cell"></td>
 		</tr>
+		</tbody>
 	</table>
 </div>
 
