@@ -28,6 +28,7 @@ input {
 	font-weight: bold;
 	padding-left: 5px;
 	border: 1px solid #ddd;
+	border-radius: 2px;
 }
 
 
@@ -64,7 +65,7 @@ summary {
 	font-weight: bold;
 	
 	padding: 5px;
-	padding-left: 15px;
+	padding-left: 10px;
 	border-radius: 5px;
 	width: 100%;
 	/*outline: medium;*/

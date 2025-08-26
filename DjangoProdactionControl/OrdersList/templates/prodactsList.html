@@ -1,6 +1,5 @@
 {% load static %} <!-- Instruct Django to load static files -->
-<script src="{% static 'htmx.min.js' %}"> </script>
-<script src="{% static 'prodactsListScripts.js' %}"> </script>
+<!-- <script src="{% static 'prodactsListScripts.js' %}"> </script> -->
 <link rel="stylesheet" type="text/css" href="{% static 'ProdactsListStyles.css' %}" />
 
 <div>
@@ -8,9 +7,10 @@
 	<table  class="spreadsheet">
 		<thead>
 		<tr>
-			<th class="cell_header">number_in_order_list</th>
+			<th class="cell_header">number</th>
 			<th class="cell_header">name</th>
 			<th class="cell_header">factory_number</th>
+			<th class="cell_header">specification</th>
 			<th class="cell_header">amount</th>
 			<th class="cell_header">kategory</th>
 			<th class="cell_header">comment</th>
@@ -19,30 +19,22 @@
 
 		<tbody>
 		{% for prodact in prodacts %}
-		<tr>
-			<td class="cell"
-                hx-get="{% url 'cell_value' 'prodacts_sheet' {{ prodact.number_in_order_list }} 1 %}"
-                hx-trigger="load, cellUpdated from:body"
-                hx-target="this"
-                hx-swap="innerHTML">
-				<div class="cell-content">{{ prodact.number_in_order_list }}</div>
-			</td>
+		<tr hx-get="/new_prodact_form"
+			hx-trigger="click"
+			hx-target="this">
+			<td class="cell">{{ prodact.number }}</td>
 			<td class="cell">{{ prodact.name }}</td>
 			<td class="cell">{{ prodact.factory_number }}</td>
+			<td class="cell">{{ prodact.specification }}</td>
 			<td class="cell">{{ prodact.amount }}</td>
 			<td class="cell">{{ prodact.kategory }}</td>
 			<td class="cell">{{ prodact.comment }}</td>
 		</tr>
-		<!--<tr><td>444</td></tr>-->
+		<!--<tr><td>Cut operations</td></tr>-->
 		{% endfor %}
 
-		<tr>
-			<td class="cell"></td>
-			<td class="cell"></td>
-			<td class="cell"></td>
-			<td class="cell"></td>
-			<td class="cell"></td>
-			<td class="cell"></td>
+		<tr >
+			{% include "partials/new_prodact_form.html" %}
 		</tr>
 		</tbody>
 	</table>

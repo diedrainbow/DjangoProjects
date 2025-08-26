@@ -55,4 +55,6 @@ input.cell-input {
             padding: 0;
             margin: 0;
             font: inherit;
+			background-color: #fff;
+			color: #000;
         }

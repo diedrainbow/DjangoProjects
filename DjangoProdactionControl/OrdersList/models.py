@@ -9,8 +9,9 @@ class Order(models.Model):
     comment             = models.CharField(max_length=150)
 
 class Prodact(models.Model):
-    order               = models.models.OneToOneField(Order, on_delete = models.CASCADE, primary_key = True)
-    sheet_row           = models.PositiveIntegerField()
+    #order               = models.models.OneToOneField(Order, on_delete = models.CASCADE, primary_key = True)
+    order_number        = models.CharField(max_length=15)
+    number              = models.PositiveIntegerField()
     name                = models.CharField(max_length=40)
     factory_number      = models.PositiveIntegerField()
     specification       = models.CharField(max_length=40)
@@ -19,8 +20,9 @@ class Prodact(models.Model):
     comment             = models.CharField(max_length=50)
 
 class CutOperation(models.Model):
-    order               = models.models.OneToOneField(Order, on_delete = models.CASCADE, primary_key = True)
-    sheet_row           = models.PositiveIntegerField()
+    #order               = models.models.OneToOneField(Order, on_delete = models.CASCADE, primary_key = True)
+    order_number        = models.CharField(max_length=15)
+    number              = models.PositiveIntegerField()
     prodact_or_group    = models.CharField(max_length=50)
     material            = models.CharField(max_length=40)
     operation_number    = models.PositiveSmallIntegerField()

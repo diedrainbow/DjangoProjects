@@ -13,8 +13,12 @@ def ordersList(request):
 def load_prodacts(request, request_order_number):
     prodacts = Prodact.objects.all()
     prodacts = prodacts.filter(order_number = request_order_number)
-    context = {'prodacts': prodacts}
+    context = {'prodacts': prodacts, 'order_number': request_order_number}
     return render(request, 'prodactsList.html', context)
+    
+def new_prodact_form(request):
+    context = {}
+    return render(request, 'new_prodact_form.html', context)
 
 def post_new_order(request):
     # получаем из данных запроса POST отправленные через форму данные
@@ -27,7 +31,7 @@ def post_new_order(request):
 
     if order_number1 == "":
         print ("no order number")
-        return ordersList(request)
+        return redirect('urlOrdersList')
 
     if order_add == "":
         order_add = datetime.now()
@@ -53,51 +57,41 @@ def post_new_order(request):
     return redirect('urlOrdersList')
     
     
-    
-    
-# Interactive Cells
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
-#from .models import Spreadsheet, Cell
+def post_new_prodact(request, request_order_number):
+    # получаем из данных запроса POST отправленные через форму данные
+    order_number = request_order_number
+    prodact_number = request.POST.get("prodact_number", "")
+    prodact_name = request.POST.get("prodact_name", "")
+    prodact_factory_number = request.POST.get("prodact_factory_number", "")
+    prodact_specification = request.POST.get("prodact_specification", "")
+    prodact_amount = request.POST.get("prodact_amount", "")
+    prodact_kategory = request.POST.get("prodact_kategory", "")
+    prodact_comment = request.POST.get("prodact_comment", "")
 
-#def spreadsheet_view(request, spreadsheet_id):
-#    spreadsheet = get_object_or_404(Spreadsheet, id=spreadsheet_id)
-#    return render(request, 'spreadsheet.html', {
-#        'spreadsheet': spreadsheet,
-#        'rows': range(1, 51),  # 50 строк
-#        'cols': range(1, 27),  # 26 колонок (A-Z)
-#    })
+    if order_number == "":
+        print ("no order number")
+        return redirect('urlOrdersList')
 
-def cell_value_view(request, spreadsheet_id, row, col):
-    if spreadsheet_id == 'prodacts_sheet' then:
-        cell, created = Prodact.objects.get_or_create(
-            sheet_row=row,
-            col=col,
-            defaults={'value': ''}
-        )
-        
-    return render(request, 'partials/cell_value.html', {'cell': cell})
-    
+    if order_add == "":
+        order_add = datetime.now()
+    if order_start == "":
+        order_start = date.today()
+    if order_end == "":
+        order_end = date.today()
 
-@require_http_methods(["POST"])
-def update_cell_view(request, spreadsheet_id, row, col):
-    value = request.POST.get('value', '')
+    try:
+        new_order = Order.objects.get(order_number=order_number1)
+    except Order.DoesNotExist:
+        new_order = Order()
+        new_order.date_add = order_add
     
-    cell, created = Cell.objects.get_or_create(
-        spreadsheet_id=spreadsheet_id,
-        row=row,
-        col=col
-    )
-    cell.value = value
-    cell.save()
-    
-    return render(request, 'partials/cell_value.html', {'cell': cell})
+    new_order.order_number = order_number1
+    new_order.statys = order_statys
+    #new_order.date_add = order_add
+    new_order.date_start = order_start
+    new_order.date_end = order_end
+    new_order.comment = order_comment
+    new_order.save()
 
-def cell_edit_view(request, spreadsheet_id, row, col):
-    cell, created = Cell.objects.get_or_create(
-        spreadsheet_id=spreadsheet_id,
-        row=row,
-        col=col,
-        defaults={'value': ''}
-    )
-    return render(request, 'partials/cell_edit.html', {'cell': cell})
+    return redirect('urlOrdersList')
+

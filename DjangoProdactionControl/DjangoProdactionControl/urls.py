@@ -28,13 +28,7 @@ urlpatterns = [
     
     # interactions
     path('post_new_order/', OrdersList.views.post_new_order),
+    path('post_new_prodact/', OrdersList.views.post_new_prodact),
     path('load_prodacts/<str:request_order_number>', OrdersList.views.load_prodacts),
-    
-    # cells interactions
-    path('api/cell/<int:spreadsheet_id>/<int:row>/<int:col>/', 
-         OrdersList.views.update_cell_view, name='update_cell'),
-    path('api/cell/<int:spreadsheet_id>/<int:row>/<int:col>/value/', 
-         OrdersList.views.cell_value_view, name='cell_value'),
-    path('api/cell/<int:spreadsheet_id>/<int:row>/<int:col>/edit/', 
-         OrdersList.views.cell_edit_view, name='cell_edit'),
+    path('new_prodact_form/<str:request_order_number>', OrdersList.views.new_prodact_form),
 ]

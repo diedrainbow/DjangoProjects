@@ -1,0 +1,58 @@
+<!-- partials/ -->
+<form form method="post" action="post_new_prodact/" {{order_number}}>
+	{% csrf_token %}
+	<td class="cell">
+	<input type="text" 
+           name="prodact_number" 
+           value="{{ prodact.prodact_number }}" 
+           class="cell-input"
+	</td>
+	<td class="cell">
+	<input type="text" 
+           name="prodact_name" 
+           value="{{ prodact.prodact_name }}" 
+           class="cell-input"
+	</td>
+	<td class="cell">
+	<input type="text" 
+           name="prodact_factory_number" 
+           value="{{ prodact.prodact_factory_number }}" 
+           class="cell-input"
+	</td>
+	<td class="cell">
+	<input type="text" 
+           name="prodact_specification" 
+           value="{{ prodact.prodact_specification }}" 
+           class="cell-input"
+	</td>
+	<td class="cell">
+	<input type="text" 
+           name="prodact_amount" 
+           value="{{ prodact.prodact_amount }}" 
+           class="cell-input"
+	</td>
+	<td class="cell">
+	<input type="text" 
+           name="prodact_kategory" 
+           value="{{ prodact.prodact_kategory }}" 
+           class="cell-input"
+	</td>
+	<td class="cell">
+	<input type="text" 
+           name="prodact_comment" 
+           value="{{ prodact.prodact_comment }}" 
+           class="cell-input"
+	</td>
+</form>
+
+<script>
+    // Автосохранение при потере фокуса
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.querySelector('.cell-input');
+        if (input) {
+            input.addEventListener('blur', function() {
+                htmx.trigger(this.form, 'submit');
+            });
+        }
+    });
+</script>
