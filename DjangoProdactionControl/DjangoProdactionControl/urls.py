@@ -27,8 +27,8 @@ urlpatterns = [
     path('', OrdersList.views.ordersList, name='urlOrdersList'),
     
     # interactions
-    path('post_new_order/', OrdersList.views.post_new_order),
-    path('post_new_prodact/', OrdersList.views.post_new_prodact),
+    re_path(r'^post_new_order/+', OrdersList.views.post_new_order),
     path('load_prodacts/<str:request_order_number>', OrdersList.views.load_prodacts),
-    path('new_prodact_form/<str:request_order_number>', OrdersList.views.new_prodact_form),
+    re_path(r'^post_new_prodact/+', OrdersList.views.post_new_prodact),
+    path('new_prodact_form/', OrdersList.views.new_prodact_form),
 ]

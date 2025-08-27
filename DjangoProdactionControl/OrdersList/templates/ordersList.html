@@ -54,6 +54,14 @@
 		</datalist>
     </form>
 	</div>
+	
+	<div class="order_form">
+	<form method="post" action="post_new_order/">
+        {% csrf_token %}
+		<table> {{ order_form.as_table }} </table>
+		<input type="submit" value="Send" >
+	</form>
+	</div>
 
 </div>
 

@@ -1,58 +1,69 @@
-<!-- partials/ -->
-<form form method="post" action="post_new_prodact/" {{order_number}}>
+<!-- partials/new_prodact_form.html -->
+<form method="post" action="post_new_prodact/">
 	{% csrf_token %}
+	
 	<td class="cell">
 	<input type="text" 
            name="prodact_number" 
-           value="{{ prodact.prodact_number }}" 
+           value="{{ prodact.number }}" 
            class="cell-input"
-	</td>
+	 /></td>
+	 
 	<td class="cell">
 	<input type="text" 
            name="prodact_name" 
-           value="{{ prodact.prodact_name }}" 
+           value="{{ prodact.name }}" 
            class="cell-input"
-	</td>
+	 /></td>
+	 
 	<td class="cell">
 	<input type="text" 
            name="prodact_factory_number" 
-           value="{{ prodact.prodact_factory_number }}" 
+           value="{{ prodact.factory_number }}" 
            class="cell-input"
-	</td>
+	 /></td>
+	 
 	<td class="cell">
 	<input type="text" 
            name="prodact_specification" 
-           value="{{ prodact.prodact_specification }}" 
+           value="{{ prodact.specification }}" 
            class="cell-input"
-	</td>
+	 /></td>
+	 
 	<td class="cell">
 	<input type="text" 
            name="prodact_amount" 
-           value="{{ prodact.prodact_amount }}" 
+           value="{{ prodact.amount }}" 
            class="cell-input"
-	</td>
+	 /></td>
+	 
 	<td class="cell">
 	<input type="text" 
            name="prodact_kategory" 
-           value="{{ prodact.prodact_kategory }}" 
+           value="{{ prodact.kategory }}" 
            class="cell-input"
-	</td>
+	 /></td>
+	 
 	<td class="cell">
 	<input type="text" 
            name="prodact_comment" 
-           value="{{ prodact.prodact_comment }}" 
+           value="{{ prodact.comment }}" 
            class="cell-input"
+	 /></td>
+	 
+	<td>
+	<input type="submit" value="Add" />
 	</td>
 </form>
 
 <script>
     // Автосохранение при потере фокуса
-    document.addEventListener('DOMContentLoaded', function() {
+    /*document.addEventListener('DOMContentLoaded', function() {
         const input = document.querySelector('.cell-input');
         if (input) {
             input.addEventListener('blur', function() {
                 htmx.trigger(this.form, 'submit');
             });
         }
-    });
+    });*/
 </script>

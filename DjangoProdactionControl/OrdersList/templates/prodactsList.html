@@ -19,7 +19,7 @@
 
 		<tbody>
 		{% for prodact in prodacts %}
-		<tr hx-get="/new_prodact_form"
+		<tr hx-get="/new_prodact_form" {{ prodact }}
 			hx-trigger="click"
 			hx-target="this">
 			<td class="cell">{{ prodact.number }}</td>
