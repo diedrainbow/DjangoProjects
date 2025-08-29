@@ -20,11 +20,15 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 import OrdersList.views
+import DetailsBase.views
 
 urlpatterns = [
     # pages
     path('admin/', admin.site.urls),
     path('', OrdersList.views.ordersList, name='urlOrdersList'),
+    path('details_base', DetailsBase.views.detailsBase, name='urlDetailsBase'),
+    path('sb_base', DetailsBase.views.SBBase, name='urlSBBase'),
+    path('details_base/load_from_file', DetailsBase.views.load_from_file, name='urlLoadFromFile'),
     
     # interactions
     re_path(r'^post_new_order/+', OrdersList.views.post_new_order),
