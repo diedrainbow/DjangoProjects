@@ -52,8 +52,67 @@ class Material(models.Model):
     # например: ст.3, ст.45, Zn140, Zn350, AISI321, AISI430 и т.д
     sort                = models.CharField(max_length=30, null=True, blank=True) 
     # 
+    original            = models.CharField(max_length=50, null=True, blank=True)
+    # цвет материала
+    color               = models.CharField(max_length=7, null=True, blank=True)
+    # 
     slash_time          = models.FloatField(default=0)
     plate_width         = models.FloatField(default=0)
     plate_lenght        = models.FloatField(default=0)
     square_m_weidth     = models.FloatField(default=0)
+
+    def SetMaterialFromString(self, mat):
+        mat = mat.lower()
+        
+        # type
+        self.type = "..."
+        self.size = "..."
+        types = { 
+            "лист": "лист", 
+            "круг": "круг", 
+            "труба": "труба", 
+            "уголок": "уголок", 
+            "швеллер": "швеллер",
+            "двутавр": "двутавр",
+            "полоса": "полоса",
+            "шестигранник": "шестигранник",
+            "шпилька оцинкованная": "шпилька оц.",
+            "чечевица": "чечевица",
+            "просеч": "просечка"
+            }
+        for t_key in types:
+            if t_key in mat: 
+                self.type = types[t_key]
+                # size
+                self.size = mat[len(t_key)+1 : mat.find(" ", len(t_key)+2)]
+                break
+        
+        # sort
+        self.sort = "..."
+        self.color = "#000000"
+        sorts = { 
+            "оц.": "",
+            "марка 350": "Zn350",
+            "zn275": "Zn350",
+            "ст.3": "ст.3", 
+            "09г2с": "09Г2С",
+            "aisi.321": "AISI.321",
+            "aisi.430": "AISI.430",
+            "ral": "RAL",
+            "ре1000": "РЕ1000",
+            "пнд": "ПНД",
+            "сталь 45": "ст.45",
+            "алюминий": "алюминий"
+            }
+        for s_key in sorts:
+            if s_key in mat: 
+                self.sort = sorts[s_key]
+                break
+        
+        self.original = mat
+        self.name = self.type + " " + self.size + " " + self.sort
+
+
+
+
 

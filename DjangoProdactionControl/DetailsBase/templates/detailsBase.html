@@ -5,11 +5,11 @@
 
 {% load static %} <!-- Instruct Django to load static files -->
 <script src="{% static 'htmx.min.js' %}"> </script>
-<link rel="stylesheet" type="text/css" href="{% static 'OrdersListStyles.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'DetailsBaseStyles.css' %}" />
 
 <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a>
 
-<table>
+<table class="details_table">
 <thead><tr>
 	<th>material_name</th>
 	<th>number</th>
@@ -22,11 +22,11 @@
 	<th>actual_date</th>
 	
 	<th>frw_file_name</th>
-	<th>frw_file_folder</th>
-	<th>frw_file_date</th>
+	<!-- <th>frw_file_folder</th> -->
+	<!-- <th>frw_file_date</th> -->
 	<th>cdw_file_name</th>
-	<th>cdw_file_folder</th>
-	<th>cdw_file_date</th>
+	<!-- <th>cdw_file_folder</th> -->
+	<!-- <th>cdw_file_date</th> -->
 	<th>frw_file_parts</th>
 	
 	<th>stages</th>
@@ -44,14 +44,14 @@
 		<td> {{detail.marshrut}} </td>
 		<td> {{detail.poddon}} </td>
 		<td> {{detail.comment}} </td>
-		<td> {{detail.actual_date}} </td>
+		<td> {{detail.actual_date|date:"d.m.Y G:i"}} </td>
 		
 		<td> {{detail.frw_file_name}} </td>
-		<td> {{detail.frw_file_folder}} </td>
-		<td> {{detail.frw_file_date}} </td>
+		<!-- <td> {{detail.frw_file_folder}} </td> -->
+		<!-- <td> {{detail.frw_file_date|date:"d.m.Y G:i"}} </td> -->
 		<td> {{detail.cdw_file_name}} </td>
-		<td> {{detail.cdw_file_folder}} </td>
-		<td> {{detail.cdw_file_date}} </td>
+		<!-- <td> {{detail.cdw_file_folder}} </td> -->
+		<!-- <td> {{detail.cdw_file_date|date:"d.m.Y G:i"}} </td> -->
 		<td> {{detail.frw_file_parts}} </td>
 		
 		<td> {{detail.stages}} </td>
