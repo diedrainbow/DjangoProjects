@@ -138,5 +138,31 @@ def materialsBase(request):
     
     
 def load_detail_row(request, detail_id):
-    detail_row = ""
+    detail = Detail.objects.get(id = detail_id)
+    detail_row = f"""
+        <td> {detail.id} </td>
+		<td> {detail.material_name} </td>
+		<td> {detail.number} </td>
+		<td> {detail.name} </td>
+		<td> {detail.grave} </td>
+		<td> {detail.size} </td>
+		<td> {detail.marshrut} </td>
+		<td> {detail.poddon} </td>
+		<td> {detail.comment} </td>
+		<td> {detail.actual_date} </td>
+		
+		<td> {detail.frw_file_name} </td>
+		<td> {detail.cdw_file_name} </td>
+		<td> {detail.frw_file_parts} </td>
+		
+		<td> {detail.stages} </td>
+		<td> {detail.times} </td>
+		<td> {detail.descriptions} </td>
+    """
     return HttpResponse(detail_row)
+
+
+
+
+
+

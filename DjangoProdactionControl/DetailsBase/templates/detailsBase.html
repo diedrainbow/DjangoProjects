@@ -12,55 +12,34 @@
 <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a>
 
 <table class="details_table">
-<thead><tr>
-	<th>id</th>
-	<th>material_name</th>
-	<th>number</th>
-	<th>name</th>
-	<th>grave</th>
-	<th>size</th>
-	<th>marshrut</th>
-	<th>poddon</th>
-	<th>comment</th>
-	<th>actual_date</th>
-	
-	<th>frw_file_name</th>
-	<!-- <th>frw_file_folder</th> -->
-	<!-- <th>frw_file_date</th> -->
-	<th>cdw_file_name</th>
-	<!-- <th>cdw_file_folder</th> -->
-	<!-- <th>cdw_file_date</th> -->
-	<th>frw_file_parts</th>
-	
-	<th>stages</th>
-	<th>times</th>
-	<th>descriptions</th>
-</tr></thead>
 <tbody>
-{% for detail in details %} 
-	<tr>
-	<div class="detail_row"  hx-get="/load_detail_row/{{ detail.id }}" hx-trigger="revealed">
-		<img class="loadinf_gif" src="{% static 'loading.gif' %}" alt="Loading..."/>
-	</div>
+
+<tr class="head_row">
+	<td>id</td>
+	<td>material_name</td>
+	<td>number</td>
+	<td>name</td>
+	<td>grave</td>
+	<td>size</td>
+	<td>marshrut</td>
+	<td>poddon</td>
+	<td>comment</td>
+	<td>actual_date</td>
 	
-		<!-- <td> {{detail.id}} </td> -->
-		<!-- <td> {{detail.material_name}} </td> -->
-		<!-- <td> {{detail.number}} </td> -->
-		<!-- <td> {{detail.name}} </td> -->
-		<!-- <td> {{detail.grave}} </td> -->
-		<!-- <td> {{detail.size}} </td> -->
-		<!-- <td> {{detail.marshrut}} </td> -->
-		<!-- <td> {{detail.poddon}} </td> -->
-		<!-- <td> {{detail.comment}} </td> -->
-		<!-- <td> {{detail.actual_date|date:"d.m.Y G:i"}} </td> -->
-		
-		<!-- <td> {{detail.frw_file_name}} </td> -->
-		<!-- <td> {{detail.cdw_file_name}} </td> -->
-		<!-- <td> {{detail.frw_file_parts}} </td> -->
-		
-		<!-- <td> {{detail.stages}} </td> -->
-		<!-- <td> {{detail.times}} </td> -->
-		<!-- <td> {{detail.descriptions}} </td> -->
+	<td>frw_file_name</td>
+	<td>cdw_file_name</td>
+	<td>frw_file_parts</td>
+	
+	<td>stages</td>
+	<td>times</td>
+	<td>descriptions</td>
+</tr>
+
+{% for detail in details %} 
+	<tr class="detail_row"  
+		hx-get="/load_detail_row/{{ detail.id }}" 
+		hx-trigger="revealed"
+		hx-swap="innerHTML">
 	</tr>
 {% endfor %}
 </tbody>
