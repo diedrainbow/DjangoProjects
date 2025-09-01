@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}SB Base{% endblock title %}
+{% block header %}SB Base{% endblock header %}
+{% block content %}
+
+{% load static %} <!-- Instruct Django to load static files -->
+<script src="{% static 'htmx.min.js' %}"> </script>
+<link rel="stylesheet" type="text/css" href="{% static 'DetailsBaseStyles.css' %}" />
+
+<div class="base_content">
+
+<!-- <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a> -->
+
+<table class="details_table">
+<thead><tr>
+	<th>id</th>
+	<th>number</th>
+	<th>name</th>
+	<th>composition</th>
+	<th>size</th>
+	<th>comment</th>
+	<th>actual_date</th>
+	
+	<th>cdw_file_name</th>
+	<!-- <th>cdw_file_folder</th> -->
+	<!-- <th>cdw_file_date</th> -->
+</tr></thead>
+<tbody>
+{% for sb in sbs %} 
+	<tr>
+		<td> {{sb.id}} </td>
+		<td> {{sb.number}} </td>
+		<td> {{sb.name}} </td>
+		<td> {{sb.composition}} </td>
+		<td> {{sb.size}} </td>
+		<td> {{sb.comment}} </td>
+		<td> {{sb.actual_date|date:"d.m.Y G:i"}} </td>
+		
+		<td> {{sb.cdw_file_name}} </td>
+		<!-- <td> {{sb.cdw_file_folder}} </td> -->
+		<!-- <td> {{sb.cdw_file_date|date:"d.m.Y G:i"}} </td> -->
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+
+</div>
+{% endblock content %}

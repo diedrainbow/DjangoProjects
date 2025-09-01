@@ -25,6 +25,9 @@ class Detail(models.Model):
     stages              = models.TextField(default=";;;;;;")
     times               = models.TextField(default=";;;;;;")
     descriptions        = models.TextField(default=";;;;;;")
+    
+    class Meta:
+        ordering = ['number']
 
 
 class SB(models.Model):
@@ -40,6 +43,9 @@ class SB(models.Model):
     cdw_file_folder     = models.FilePathField(null=True, blank=True)
     cdw_file_date       = models.DateTimeField(null=True, blank=True)
     cdw_valid           = models.FloatField(default=0)
+    
+    class Meta:
+        ordering = ['number']
     
     
 class Material(models.Model):
@@ -60,6 +66,9 @@ class Material(models.Model):
     plate_width         = models.FloatField(default=0)
     plate_lenght        = models.FloatField(default=0)
     square_m_weidth     = models.FloatField(default=0)
+    
+    class Meta:
+        ordering = ['name']
 
     def SetMaterialFromString(self, mat):
         mat = mat.lower()
@@ -68,8 +77,11 @@ class Material(models.Model):
         self.type = "..."
         self.size = "..."
         types = { 
+            "лист рифленый чечевица": "чечевица",
+            "лист просечно-вытяжной": "просечка",
             "лист": "лист", 
             "круг": "круг", 
+            "труба оцинкованная": "труба оц.",
             "труба": "труба", 
             "уголок": "уголок", 
             "швеллер": "швеллер",
@@ -77,32 +89,36 @@ class Material(models.Model):
             "полоса": "полоса",
             "шестигранник": "шестигранник",
             "шпилька оцинкованная": "шпилька оц.",
-            "чечевица": "чечевица",
-            "просеч": "просечка"
+            "шпоночный материал": "шпонка",
+            "болт": "болт",
+            "шестерня": "шестерня",
             }
         for t_key in types:
             if t_key in mat: 
                 self.type = types[t_key]
                 # size
-                self.size = mat[len(t_key)+1 : mat.find(" ", len(t_key)+2)]
+                pos1 = len(t_key)+1
+                pos2 = mat.find(" ", pos1)
+                if pos2 == -1: pos2 = len(mat)
+                self.size = mat[pos1 : pos2]
                 break
         
         # sort
         self.sort = "..."
         self.color = "#000000"
         sorts = { 
-            "оц.": "",
             "марка 350": "Zn350",
             "zn275": "Zn350",
+            "ral": "RAL",
+            "оц.": "Zn",
             "ст.3": "ст.3", 
             "09г2с": "09Г2С",
             "aisi.321": "AISI.321",
             "aisi.430": "AISI.430",
-            "ral": "RAL",
             "ре1000": "РЕ1000",
             "пнд": "ПНД",
             "сталь 45": "ст.45",
-            "алюминий": "алюминий"
+            "алюминий": "алюминий",
             }
         for s_key in sorts:
             if s_key in mat: 

@@ -7,6 +7,7 @@ import csv
 
 def detailsBase(request):
     details = Detail.objects.all()
+    # details = details.order_by(number)
     context = {'details': details}
     return render(request, 'detailsBase.html', context)
 
@@ -15,14 +16,15 @@ def detailsBase(request):
 
     
 def load_from_file(request):
-    #FILENAME = r"d:\DjangoProject\DjangoProdactionControl\DetailsBase\details2.csv"
-    FILENAME = r"d:\django\DjangoProdactionControl\DetailsBase\details.csv"
+    FILENAME = r"d:\DjangoProject\DjangoProdactionControl\DetailsBase\details.csv"
+    # FILENAME = r"d:\django\DjangoProdactionControl\DetailsBase\details.csv"
     
     try:
         with open(FILENAME, "r", newline="") as file:
             reader = csv.reader(file, delimiter=';')
             #header = next(reader)
             #print(header)
+            count = 0
             
             for row in reader:
                 try:
@@ -32,69 +34,89 @@ def load_from_file(request):
                 
                 # Общие данные о детали
                 detail.material_name    = GetMaterialNameFromString(row[0])
-                detail.number           = row[1] #.replace("[,]", ";")
+                detail.number           = row[1]
                 detail.name             = row[2]
                 detail.grave            = row[3]
                 detail.size             = row[4]
                 detail.marshrut         = row[5]
                 detail.poddon           = row[6]
                 detail.comment          = row[7]
-                detail.actual_date      = DateTimeFromString(row[8]) #datetime(2000, 1, 1, 1, 1, 1)
+                act_date = DateTimeFromString(row[8])
+                if act_date == None: act_date = datetime(2000, 1, 1, 1, 1, 1)
+                detail.actual_date      = act_date
+                
                 # Ссылки на файлы чертежа и фрагмента
-                detail.frw_file_name    = row[9]
-                detail.frw_file_folder  = row[10]
-                detail.frw_file_date    = DateTimeFromString(row[11])
-                detail.frw_file_parts   = row[15]
-                detail.frw_valid        = 1.0
-                detail.cdw_file_name    = row[12]
-                detail.cdw_file_folder  = row[13]
-                detail.cdw_file_date    = DateTimeFromString(row[14])
-                detail.cdw_valid        = 1.0
+                if row[9] == "":
+                    detail.frw_file_name    = ""
+                    detail.frw_file_folder  = ""
+                    detail.frw_file_date    = None
+                    detail.frw_file_parts   = ""
+                    detail.frw_valid        = 0.0
+                else:    
+                    detail.frw_file_name    = row[9].replace("[,]", ";")
+                    detail.frw_file_folder  = row[10].replace("[,]", ";")
+                    detail.frw_file_date    = DateTimeFromString(row[11])
+                    detail.frw_file_parts   = row[15].replace("[,]", ";")
+                    detail.frw_valid        = 1.0
+                
+                if row[12] == "":
+                    detail.cdw_file_name    = ""
+                    detail.cdw_file_folder  = ""
+                    detail.cdw_file_date    = None
+                    detail.cdw_valid        = 0.0
+                else:
+                    detail.cdw_file_name    = row[12].replace("[,]", ";")
+                    detail.cdw_file_folder  = row[13].replace("[,]", ";")
+                    detail.cdw_file_date    = DateTimeFromString(row[14])
+                    detail.cdw_valid        = 1.0
+                    
                 # Технологические операции
-                detail.stages           = ";;;;;;"
+                detail.stages           = row[16]+";"+row[18]+";"+row[20]+";"+row[22]+";"+row[24]+";"+";"
                 detail.times            = ";;;;;;"
-                detail.descriptions     = ";;;;;;"
+                detail.descriptions     = row[17]+";"+row[19]+";"+row[21]+";"+row[23]+";"+row[25]+";"+";"
                 
                 detail.save()
-                print("-", end="")
+                count += 1
+                print(f"Прогресс: {count} строк", end='\r')
             
     except Exception as ex:
         print("============================== ERROR ===============================")
-        print(ex)
+        print(count, " строка => ", ex)
         print("====================================================================")
         return redirect('urlDetailsBase')
     
+    print("\n === Complit")
     return redirect('urlDetailsBase')
 
 def DateTimeFromString(date_string):
+    if date_string == "": return None
     # Преобразование строки в объект datetime
     try:
         date_object = datetime.strptime(date_string, "%d.%m.%Y")
-        #print(f"Строка '{date_string}' успешно преобразована в объект datetime: {date_object}")
-        return timezone.make_aware(date_object)
     except ValueError as e:
-        # print("================= ERROR =====================")
-        # print(f"Ошибка преобразования строки '{date_string}': {e}")
-        # print("=============================================")
-        return timezone.make_aware(datetime(2000, 1, 1, 1, 1, 1))
+        date_object = datetime(2000, 1, 1, 1, 1, 1)
+    return timezone.make_aware(date_object)
 
 def GetMaterialNameFromString(material_string):
     if material_string == "": return ""
+    
+    try:
+        material = Material.objects.get(original = material_string)
+        return material.name
+    except:
+        pass
+    
+    material = Material()
+    material.SetMaterialFromString( material_string )    
         
     try:
-        material2 = Material()
-        material2.SetMaterialFromString( material_string )
-        #print("=== try "+material.name)
-        material = Material.objects.get(name = material2.name)
+        material = Material.objects.get(name = material.name)
     except Material.DoesNotExist:
-        material = Material()
-        material.SetMaterialFromString( material_string )
-        #print("=== exp "+material.name)
         if "..." not in material.name:
-            print("new material "+material.name)
+            #print("new material "+material.name)
             material.save()
         else:
-            material.name = material.name + " _" + material_string
+            material.name = material.name + " [" + material_string + "]"
             
     return material.name
 
@@ -102,4 +124,19 @@ def GetMaterialNameFromString(material_string):
 
     
 def SBBase(request):
-    return HttpResponse("SBBase")
+    sbs = SB.objects.all()
+    context = {'sbs': sbs}
+    return render(request, 'SBBase.html', context)
+    
+def materialsBase(request):
+    mat = Material.objects.all()
+    context = {'mat': mat}
+    return render(request, 'materialsBase.html', context)
+    
+    
+    
+    
+    
+def load_detail_row(request, detail_id):
+    detail_row = ""
+    return HttpResponse(detail_row)

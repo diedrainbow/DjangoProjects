@@ -26,8 +26,10 @@ urlpatterns = [
     # pages
     path('admin/', admin.site.urls),
     path('', OrdersList.views.ordersList, name='urlOrdersList'),
+    
     path('details_base', DetailsBase.views.detailsBase, name='urlDetailsBase'),
     path('sb_base', DetailsBase.views.SBBase, name='urlSBBase'),
+    path('materialsBase', DetailsBase.views.materialsBase, name='urlMaterialsBase'),
     path('details_base/load_from_file', DetailsBase.views.load_from_file, name='urlLoadFromFile'),
     
     # interactions
@@ -35,4 +37,6 @@ urlpatterns = [
     path('load_prodacts/<str:request_order_number>', OrdersList.views.load_prodacts),
     re_path(r'^post_new_prodact/+', OrdersList.views.post_new_prodact),
     path('new_prodact_form/', OrdersList.views.new_prodact_form),
+    
+    path('load_detail_row/<int:detail_id>', DetailsBase.views.load_detail_row),
 ]

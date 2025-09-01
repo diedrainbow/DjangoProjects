@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Materials{% endblock title %}
+{% block header %}Materials{% endblock header %}
+{% block content %}
+
+{% load static %} <!-- Instruct Django to load static files -->
+<script src="{% static 'htmx.min.js' %}"> </script>
+<link rel="stylesheet" type="text/css" href="{% static 'DetailsBaseStyles.css' %}" />
+
+<div class="base_content">
+
+<!-- <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a> -->
+
+<table class="details_table">
+<thead><tr>
+	<th>id</th>
+	<th>name</th>
+	<th>original</th>
+	<th>type</th>
+	<th>size</th>
+	<th>sort</th>
+	<th>color</th>
+	<th>slash_time</th>
+	<th>plate_width</th>
+	<th>plate_lenght</th>
+	<th>square_m_weidth</th>
+</tr></thead>
+<tbody>
+{% for m in mat %} 
+	<tr>
+		<td> {{m.id}} </td>
+		<td> {{m.name}} </td>
+		<td> {{m.original}} </td>
+		<td> {{m.type}} </td>
+		<td> {{m.size}} </td>
+		<td> {{m.sort}} </td>
+		<td> {{m.color}} </td>
+		<td> {{m.slash_time}} </td>
+		<td> {{m.plate_width}} </td>
+		<td> {{m.plate_lenght}} </td>
+		<td> {{m.square_m_weidth}} </td>
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+
+</div>
+{% endblock content %}

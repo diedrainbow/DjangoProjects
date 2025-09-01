@@ -1,4 +1,10 @@
 
+div.container_content {
+     width: 1100px; /*Ширина элемента в пикселах */
+     padding: 0px; /*Поля вокруг текста */
+     margin: auto; /*Выравниваем по центру */
+}
+
 div.order_caption {
 	/*background: #254e58;*/
 	color: #254e58;
