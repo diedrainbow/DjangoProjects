@@ -8,9 +8,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'DetailsBaseStyles.css' %}" />
 
 <div class="base_content">
+<div class="base_control_panel">
+	<a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a>
+	<a href="#d-666">Go to detail id=666</a>
+</div>
+</div>
 
-<a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a>
-
+<div class="base_content">
 <table class="details_table">
 <tbody>
 
@@ -36,7 +40,8 @@
 </tr>
 
 {% for detail in details %} 
-	<tr class="detail_row"  
+	<tr class="detail_row"
+		id="d-{{ detail.id }}"
 		hx-get="/load_detail_row/{{ detail.id }}" 
 		hx-trigger="revealed"
 		hx-swap="innerHTML">

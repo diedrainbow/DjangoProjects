@@ -5,15 +5,6 @@ from datetime import date, datetime
 from django.utils import timezone
 import csv
 
-def detailsBase(request):
-    details = Detail.objects.all()
-    # details = details.order_by(number)
-    context = {'details': details}
-    return render(request, 'detailsBase.html', context)
-
-
-
-
     
 def load_from_file(request):
     FILENAME = r"d:\DjangoProject\DjangoProdactionControl\DetailsBase\details.csv"
@@ -135,10 +126,15 @@ def materialsBase(request):
     
     
     
-    
+def detailsBase(request):
+    details = Detail.objects.all()
+    # details = details.order_by(number)
+    context = {'details': details}
+    return render(request, 'detailsBase.html', context)
     
 def load_detail_row(request, detail_id):
     detail = Detail.objects.get(id = detail_id)
+    date = detail.actual_date.strftime('%d.%m.%Y')
     detail_row = f"""
         <td> {detail.id} </td>
 		<td> {detail.material_name} </td>
@@ -149,7 +145,7 @@ def load_detail_row(request, detail_id):
 		<td> {detail.marshrut} </td>
 		<td> {detail.poddon} </td>
 		<td> {detail.comment} </td>
-		<td> {detail.actual_date} </td>
+		<td> {date} </td>
 		
 		<td> {detail.frw_file_name} </td>
 		<td> {detail.cdw_file_name} </td>

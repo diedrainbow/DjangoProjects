@@ -12,7 +12,8 @@
 <!-- <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a> -->
 
 <table class="details_table">
-<thead><tr>
+<tbody>
+<tr class="head_row">
 	<th>id</th>
 	<th>name</th>
 	<th>original</th>
@@ -24,8 +25,8 @@
 	<th>plate_width</th>
 	<th>plate_lenght</th>
 	<th>square_m_weidth</th>
-</tr></thead>
-<tbody>
+</tr>
+
 {% for m in mat %} 
 	<tr>
 		<td> {{m.id}} </td>

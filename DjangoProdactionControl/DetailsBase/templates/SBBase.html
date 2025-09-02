@@ -12,7 +12,8 @@
 <!-- <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a> -->
 
 <table class="details_table">
-<thead><tr>
+<tbody>
+<tr class="head_row">
 	<th>id</th>
 	<th>number</th>
 	<th>name</th>
@@ -24,8 +25,8 @@
 	<th>cdw_file_name</th>
 	<!-- <th>cdw_file_folder</th> -->
 	<!-- <th>cdw_file_date</th> -->
-</tr></thead>
-<tbody>
+</tr>
+
 {% for sb in sbs %} 
 	<tr>
 		<td> {{sb.id}} </td>

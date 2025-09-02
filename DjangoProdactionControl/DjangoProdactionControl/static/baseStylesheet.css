@@ -14,7 +14,7 @@ main.container_content {
      min-width: 1100px; /*Ширина элемента в пикселах */
 	 min-height: 900px;
      padding: 0px; /*Поля вокруг текста */
-	 padding-top: 90px; /* фактическая высота вашей шапки */
+	 padding-top: 61px; /* фактическая высота вашей шапки */
      margin: auto; /*Выравниваем по центру */
 }
 
