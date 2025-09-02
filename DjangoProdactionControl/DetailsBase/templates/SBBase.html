@@ -12,21 +12,19 @@
 <!-- <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a> -->
 
 <table class="details_table">
-<tbody>
+<thead>
 <tr class="head_row">
-	<th>id</th>
+	<th class="id_col">id</th>
 	<th>number</th>
 	<th>name</th>
 	<th>composition</th>
-	<th>size</th>
+	<th class="size_col">size</th>
 	<th>comment</th>
-	<th>actual_date</th>
-	
+	<th class="actdate_col">actual_date</th>
 	<th>cdw_file_name</th>
-	<!-- <th>cdw_file_folder</th> -->
-	<!-- <th>cdw_file_date</th> -->
 </tr>
-
+</thead>
+<tbody>
 {% for sb in sbs %} 
 	<tr>
 		<td> {{sb.id}} </td>

@@ -16,36 +16,32 @@
 
 <div class="base_content">
 <table class="details_table">
-<tbody>
-
+<thead>
 <tr class="head_row">
-	<td>id</td>
-	<td>material_name</td>
-	<td>number</td>
-	<td>name</td>
-	<td>grave</td>
-	<td>size</td>
-	<td>marshrut</td>
-	<td>poddon</td>
-	<td>comment</td>
-	<td>actual_date</td>
+	<th class="id_col">id</th>
+	<th class="material_col">material_name</th>
+	<th>number</th>
+	<th>name</th>
+	<th class="grave_col">grave</th>
+	<th class="size_col">size</th>
+	<th>marshrut</th>
+	<th class="poddon_col">poddon</th>
+	<th class="comment_col">comment</th>
+	<th class="actdate_col">actual_date</th>
 	
-	<td>frw_file_name</td>
-	<td>cdw_file_name</td>
-	<td>frw_file_parts</td>
+	<th>frw_file_name</th>
+	<th>cdw_file_name</th>
+	<th class="parts_col">frw_file_parts</th>
 	
-	<td>stages</td>
-	<td>times</td>
-	<td>descriptions</td>
+	<th>stages</th>
+	<th class="times_col">times</th>
+	<th>descriptions</th>
 </tr>
+</thead>
 
+<tbody>
 {% for detail in details %} 
-	<tr class="detail_row"
-		id="d-{{ detail.id }}"
-		hx-get="/load_detail_row/{{ detail.id }}" 
-		hx-trigger="revealed"
-		hx-swap="innerHTML">
-	</tr>
+	<tr class="detail_row" id="d-{{ detail.id }}" hx-get="/load_detail_row/{{ detail.id }}" hx-trigger="revealed" 	hx-swap="innerHTML"></tr>
 {% endfor %}
 </tbody>
 </table>
