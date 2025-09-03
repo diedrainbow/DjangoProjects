@@ -9,7 +9,8 @@ def load_from_file(request):
     #FILENAME_CSV = r"d:\django\DjangoProdactionControl\DetailsBase\details.csv"
     #load_from_csv(FILENAME_CSV)
     
-    FILENAME_XLSX = r"k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm"
+    #FILENAME_XLSX = r"k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm"
+    FILENAME_XLSX = r"d:\Documents\_База деталей 25-07-25\9-я версия\База деталей 9.xlsm"
     load_from_xlsx(FILENAME_XLSX)
     return redirect('urlDetailsBase')
 

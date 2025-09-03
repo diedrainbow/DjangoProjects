@@ -10,6 +10,10 @@ def load_from_xlsx(FILENAME):
     wb = load_workbook(FILENAME)
     # Получение активного листа
     sheet = wb['Список сборочных']
+    
+    # Получение номера последней строки
+    last_row_number = sheet.max_row
+    print(f"Номер последней строки с данными: {last_row_number}")
 
     # Чтение данных из ячеек (например, из первой ячейки)
     cell_value = sheet['B7'].value
