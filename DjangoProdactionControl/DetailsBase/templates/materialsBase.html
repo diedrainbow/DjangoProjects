@@ -9,24 +9,23 @@
 
 <div class="base_content">
 
-<!-- <a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a> -->
-
 <table class="details_table">
-<tbody>
+<thead>
 <tr class="head_row">
-	<th>id</th>
+	<th class="id_col">id</th>
 	<th>name</th>
 	<th>original</th>
 	<th>type</th>
 	<th>size</th>
 	<th>sort</th>
 	<th>color</th>
-	<th>slash_time</th>
-	<th>plate_width</th>
-	<th>plate_lenght</th>
-	<th>square_m_weidth</th>
+	<th class="times_col">slash_time</th>
+	<th class="times_col">plate_width</th>
+	<th class="times_col">plate_lenght</th>
+	<th class="times_col">square_m_weidth</th>
 </tr>
-
+</thead>
+<tbody>
 {% for m in mat %} 
 	<tr>
 		<td> {{m.id}} </td>
