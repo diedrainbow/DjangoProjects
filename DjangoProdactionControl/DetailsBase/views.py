@@ -9,10 +9,12 @@ def load_from_file(request):
     #FILENAME_CSV = r"d:\django\DjangoProdactionControl\DetailsBase\details.csv"
     #load_from_csv(FILENAME_CSV)
     
-    #FILENAME_XLSX = r"k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm"
-    FILENAME_XLSX = r"d:\Documents\_База деталей 25-07-25\9-я версия\База деталей 9.xlsm"
+    FILENAME_XLSX = r"k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm"
+    #FILENAME_XLSX = r"d:\Documents\_База деталей 25-07-25\9-я версия\База деталей 9.xlsm"
     load_from_xlsx(FILENAME_XLSX)
-    return redirect('urlDetailsBase')
+    
+    return redirect('urlSBBase')
+    #return redirect('urlDetailsBase')
 
     
 def SBBase(request):
@@ -58,7 +60,19 @@ def load_detail_row(request, detail_id):
     """
     return HttpResponse(detail_row)
 
-
+def load_sb_row(request, sb_id):
+    sb = SB.objects.get(id = sb_id)
+    date = sb.actual_date.strftime('%d.%m.%Y')
+    sb_row = f"""
+        <td> {sb.id} </td>
+		<td> {sb.number} </td>
+		<td> {sb.name} </td>
+		<td> {sb.composition} </td>
+		<td> {date} </td>
+		<td> {sb.comment} </td>
+		<td> {sb.cdw_file_name} </td>
+    """
+    return HttpResponse(sb_row)
 
 
 

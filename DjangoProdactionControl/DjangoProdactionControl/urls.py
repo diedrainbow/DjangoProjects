@@ -39,4 +39,5 @@ urlpatterns = [
     path('new_prodact_form/', OrdersList.views.new_prodact_form),
     
     path('load_detail_row/<int:detail_id>', DetailsBase.views.load_detail_row),
+    path('load_sb_row/<int:sb_id>', DetailsBase.views.load_sb_row),
 ]

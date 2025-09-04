@@ -2,7 +2,7 @@
 div.base_content {
 	padding-left: 10px;
 	padding-right: 10px;
-	width: 100%;
+	/* width: 100%; */
 	/* background: #bab2b5; */
 }
 
@@ -18,7 +18,7 @@ div.base_content_header {
 .details_table {
     /* border: 1px solid #000; */
 	border-collapse: condensed;
-    /* width: 100%; */
+    width: 100%;
 	table-layout: fixed;
 	margin: 0 auto;
 	margin-top: 50px;
@@ -95,6 +95,6 @@ img.loadinf_gif {
 .actdate_col 	{width: 80px;}
 .parts_col 		{width: 80px;}
 .times_col 		{width: 50px;}
-/* .descr_col 		{width: 300px;} */
+.descr_col 		{width: 300px;}
 
 

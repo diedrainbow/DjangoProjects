@@ -1,29 +1,69 @@
 from .models import Detail, SB, Material
 from datetime import date, datetime
 from django.utils import timezone
+
 import os
 import csv
 from openpyxl import load_workbook
 
+
 def load_from_xlsx(FILENAME):
     # Загрузка рабочей книги
-    wb = load_workbook(FILENAME)
+    wb = load_workbook(filename=FILENAME, read_only=True)
     # Получение активного листа
     sheet = wb['Список сборочных']
     
     # Получение номера последней строки
     last_row_number = sheet.max_row
     print(f"Номер последней строки с данными: {last_row_number}")
+    
+    for row_number in range(4, 100):
+        sb_number = sheet.cell(row=row_number, column=2).value
+        if sb_number == "": continue
+        
+        try:
+            sb = SB.objects.get(number = sb_number)
+        except SB.DoesNotExist:
+            sb = SB()
+            
+        sb.number       = sb_number
+        sb.name         = sheet.cell(row=row_number, column=3).value
+        
+        composition = sheet.cell(row=row_number, column=4).value
+        if composition == None:
+            composition = ""
+        else:
+            sb.composition  = composition.replace("_x000D_", "; ")
+        
+        sb.actual_date  = DateFromOpenpyxl(sheet.cell(row=row_number, column=5).value)
+        sb.comment      = sheet.cell(row=row_number, column=6).fill.start_color.index
+        
+        cdw_file_name = sheet.cell(row=row_number, column=6).value
+        if cdw_file_name == "" or cdw_file_name == None or sheet.cell(row=row_number, column=8).value == "Нет файла":
+            sb.cdw_file_name = ""
+            sb.cdw_file_folder = ""
+            sb.cdw_file_date = None
+            sb.cdw_valid = 0.0
+        else:
+            sb.cdw_file_name = cdw_file_name
+            sb.cdw_file_folder = sheet.cell(row=row_number, column=7).value
+            sb.cdw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=8).value)
+            color_index = sheet.cell(row=row_number, column=6).fill.start_color.index
+            #print("=== color_index = ", color_index)
+            if color_index == "00000000":
+                sb.cdw_valid = 1.0
+            else:
+                sb.cdw_valid = 0.5
+        
+        sb.save()
+        print(f"Прогресс: {row_number} строк", end='\r')
+
+            
 
     # Чтение данных из ячеек (например, из первой ячейки)
-    cell_value = sheet['B7'].value
-    print(f"Значение ячейки B7: {cell_value}")
+    # cell_value = sheet['B7'].value
+    # print(f"Значение ячейки B7: {cell_value}")
 
-    # Итерация по строкам и столбцам
-    # for row in sheet.iter_rows(min_row=1, max_col=3, max_row=3):
-        # for cell in row:
-            # print(cell.value, end=" ")
-        # print()
 
 
 def load_from_csv(FILENAME):
@@ -96,14 +136,25 @@ def load_from_csv(FILENAME):
     print("\n === Complit")
     
 
+
+def DateFromOpenpyxl(date):
+    if date == None:
+        date = datetime(2000, 1, 1, 1, 1, 1)
+    return timezone.make_aware(date)
+    
+
 def DateTimeFromString(date_string):
     if date_string == "": return None
     # Преобразование строки в объект datetime
     try:
         date_object = datetime.strptime(date_string, "%d.%m.%Y")
     except ValueError as e:
-        date_object = datetime(2000, 1, 1, 1, 1, 1)
+        try:
+            date_object = datetime.strptime(date_string, "%d.%m.%Y %H:%M")
+        except ValueError as e:
+            date_object = datetime(2000, 1, 1, 1, 1, 1)
     return timezone.make_aware(date_object)
+
 
 def GetMaterialNameFromString(material_string):
     if material_string == "": return ""

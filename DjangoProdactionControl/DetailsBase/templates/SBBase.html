@@ -7,8 +7,16 @@
 <script src="{% static 'htmx.min.js' %}"> </script>
 <link rel="stylesheet" type="text/css" href="{% static 'DetailsBaseStyles.css' %}" />
 
-<div class="base_content">
+<div class="base_content_header">
+<div class="base_control_panel">
+	<a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a>
+	<a href="#s666">Go to SB id=666</a>
+	dfdfdf
+</div>
+</div>
 
+
+<div class="base_content">
 <table class="details_table">
 <thead>
 <tr class="head_row">
@@ -16,28 +24,18 @@
 	<th>number</th>
 	<th>name</th>
 	<th>composition</th>
-	<th class="size_col">size</th>
-	<th>comment</th>
 	<th class="actdate_col">actual_date</th>
+	<th class="comment_col">comment</th>
 	<th>cdw_file_name</th>
 </tr>
 </thead>
+
 <tbody>
+
 {% for sb in sbs %} 
-	<tr>
-		<td> {{sb.id}} </td>
-		<td> {{sb.number}} </td>
-		<td> {{sb.name}} </td>
-		<td> {{sb.composition}} </td>
-		<td> {{sb.size}} </td>
-		<td> {{sb.comment}} </td>
-		<td> {{sb.actual_date|date:"d.m.Y G:i"}} </td>
-		
-		<td> {{sb.cdw_file_name}} </td>
-		<!-- <td> {{sb.cdw_file_folder}} </td> -->
-		<!-- <td> {{sb.cdw_file_date|date:"d.m.Y G:i"}} </td> -->
-	</tr>
+	<tr class="detail_row" id="s{{sb.id}}" hx-get="/load_sb_row/{{sb.id}}" hx-trigger="revealed" hx-swap="innerHTML"></tr>
 {% endfor %}
+
 </tbody>
 </table>
 
