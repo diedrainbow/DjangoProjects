@@ -17,14 +17,14 @@ div.base_content_header {
 
 .details_table {
     /* border: 1px solid #000; */
-	border-collapse: condensed;
+	border-collapse: collapse;
     width: 100%;
 	table-layout: fixed;
 	margin: 0 auto;
 	margin-top: 50px;
 	align-items: center;
 	font-size: 0.8rem;
-	/* background: #fff; */
+	background: #fff;
 }
 
 /* thead { */
@@ -56,7 +56,7 @@ div.base_control_panel {
 /* } */
 
 .details_table td {
-    /* border: 1px solid #000; */
+    border: 1px solid #000;
     /* padding: 4px; */
 	padding-left: 5px;
 	padding-right: 5px;
@@ -64,11 +64,13 @@ div.base_control_panel {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	/* vertical-align: bottom; */
-	background: #fff;
+	/* background: #fff; */
 }
 
 tr.detail_row {
 	height: 21px;
+	cursor: pointer;
+	transition: outline 0.3s;
 }
 
 tr.detail_row:hover {
@@ -97,4 +99,20 @@ img.loadinf_gif {
 .times_col 		{width: 50px;}
 .descr_col 		{width: 300px;}
 
+dialog {
+	/* width: 800; */
+	margin: 0 auto;
+	padding: 20px;
+	margin-top: 250px;
+	align-items: center;
+	/* font-size: 0.8rem; */
+	background: #bab2b5;
+}
 
+dialog::backdrop {
+    background-color: rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(10px);
+	position: fixed;
+    inset: 0px;
+    background: rgba(0, 0, 0, 0.1);
+}

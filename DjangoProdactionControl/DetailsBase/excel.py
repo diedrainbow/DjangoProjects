@@ -7,7 +7,7 @@ import csv
 from openpyxl import load_workbook
 
 
-def load_from_xlsx(FILENAME):
+def load_SB_from_xlsx(FILENAME):
     # Загрузка рабочей книги
     wb = load_workbook(filename=FILENAME, read_only=True)
     # Получение активного листа
@@ -17,7 +17,7 @@ def load_from_xlsx(FILENAME):
     last_row_number = sheet.max_row
     print(f"Номер последней строки с данными: {last_row_number}")
     
-    for row_number in range(4, 100):
+    for row_number in range(4, last_row_number):
         sb_number = sheet.cell(row=row_number, column=2).value
         if sb_number == "": continue
         
@@ -36,7 +36,7 @@ def load_from_xlsx(FILENAME):
             sb.composition  = composition.replace("_x000D_", "; ")
         
         sb.actual_date  = DateFromOpenpyxl(sheet.cell(row=row_number, column=5).value)
-        sb.comment      = sheet.cell(row=row_number, column=6).fill.start_color.index
+        sb.comment      = ""
         
         cdw_file_name = sheet.cell(row=row_number, column=6).value
         if cdw_file_name == "" or cdw_file_name == None or sheet.cell(row=row_number, column=8).value == "Нет файла":
@@ -48,8 +48,12 @@ def load_from_xlsx(FILENAME):
             sb.cdw_file_name = cdw_file_name
             sb.cdw_file_folder = sheet.cell(row=row_number, column=7).value
             sb.cdw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=8).value)
-            color_index = sheet.cell(row=row_number, column=6).fill.start_color.index
-            #print("=== color_index = ", color_index)
+            
+            if sheet.cell(row=row_number, column=6).fill is None:
+                color_index = "00000000"
+            else:
+                color_index = sheet.cell(row=row_number, column=6).fill.start_color.index
+            
             if color_index == "00000000":
                 sb.cdw_valid = 1.0
             else:

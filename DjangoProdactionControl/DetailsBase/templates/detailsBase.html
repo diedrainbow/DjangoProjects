@@ -9,9 +9,10 @@
 
 <div class="base_content_header">
 <div class="base_control_panel">
-	<a href="{% url 'urlLoadFromFile' %}">Load from Excel...</a>
+	<a href="{% url 'urlLoadDetailsFromFile' %}">Load from Excel...</a>
 	<a href="#d666">Go to detail id=666</a>
 	dfdfdf
+	<div id="dialog"></div>
 </div>
 </div>
 
@@ -42,7 +43,7 @@
 
 <tbody>
 {% for detail in details %} 
-	<tr class="detail_row" id="d{{detail.id}}" hx-get="/load_detail_row/{{detail.id}}" hx-trigger="revealed" 	hx-swap="innerHTML"></tr>
+	<tr class="detail_row" id="d{{detail.id}}" hx-get="/load_detail_row/{{detail.id}}" hx-trigger="revealed" hx-swap="outerHTML"></tr>
 {% endfor %}
 </tbody>
 </table>

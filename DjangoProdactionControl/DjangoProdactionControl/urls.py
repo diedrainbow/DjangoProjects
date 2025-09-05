@@ -30,7 +30,8 @@ urlpatterns = [
     path('details_base', DetailsBase.views.detailsBase, name='urlDetailsBase'),
     path('sb_base', DetailsBase.views.SBBase, name='urlSBBase'),
     path('materialsBase', DetailsBase.views.materialsBase, name='urlMaterialsBase'),
-    path('details_base/load_from_file', DetailsBase.views.load_from_file, name='urlLoadFromFile'),
+    path('details_base/load_details_from_file', DetailsBase.views.load_details_from_file, name='urlLoadDetailsFromFile'),
+    path('details_base/load_SB_from_file', DetailsBase.views.load_SB_from_file, name='urlLoadSBFromFile'),
     
     # interactions
     re_path(r'^post_new_order/+', OrdersList.views.post_new_order),
@@ -40,4 +41,5 @@ urlpatterns = [
     
     path('load_detail_row/<int:detail_id>', DetailsBase.views.load_detail_row),
     path('load_sb_row/<int:sb_id>', DetailsBase.views.load_sb_row),
+    path('clicked_detail/<int:detail_id>', DetailsBase.views.detail_dialog),
 ]
