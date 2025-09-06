@@ -7,6 +7,34 @@
 <script src="{% static 'htmx.min.js' %}"> </script>
 <link rel="stylesheet" type="text/css" href="{% static 'DetailsBaseStyles.css' %}" />
 
+
+<div class="base_content_header">
+	<div class="base_control_panel">
+		<a href="{% url 'urlLoadSBFromFile' %}">Load from Excel...</a>
+		<a href="#s666">Go to SB id=666</a>
+		dfdfdf
+	</div>
+
+	<table class="head_table">
+		<thead>
+			<tr class="head_row">
+				<th class="id_col">id</th>
+				<th>Имя</th>
+				<th>Оригинал</th>
+				<th>Тип</th>
+				<th>Размер</th>
+				<th>Сорт</th>
+				<th>Цвет</th>
+				<th class="times_col">Время рубки</th>
+				<th class="times_col">Ширина листа</th>
+				<th class="times_col">Длина листа</th>
+				<th class="times_col">Вес кг./кв.м.</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+
 <div class="base_content">
 
 <table class="details_table">

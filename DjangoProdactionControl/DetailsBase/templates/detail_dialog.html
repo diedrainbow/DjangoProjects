@@ -1,0 +1,24 @@
+<dialog
+open="open"
+id="modal"
+aria-labelledby="heading"
+>
+	<h2 id="heading">Detail id = {{detail_form.id.value}} </h2>
+	
+	<form method="post" action="post_detail_form/">
+        {% csrf_token %}
+		<table> 
+			<tr><td></td><td>{{ detail_form.number.value }} {{ detail_form.name.value }}</td></tr>
+			<tr><td></td><td>{{ detail_form.frw_file_name }}</td></tr>
+			<tr><td></td><td>{{ detail_form.cdw_file_name }}</td></tr>
+			{{ detail_form.as_table }} 
+			<tr><input type="submit" value="Send" ></tr>
+		</table>
+	</form>
+
+	<!-- <button type="button" onclick="window.closeMe.close()"> -->
+		<!-- Закрыть с помощью JavaScript -->
+	<!-- </button> -->
+
+	<form method="dialog"><button> Закрыть </button></form>
+</dialog>

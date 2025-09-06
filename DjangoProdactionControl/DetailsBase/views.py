@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Detail, SB, Material
+from .forms import DetailForm #, SB, Material
 from .excel import load_from_csv, load_SB_from_xlsx
     
 
@@ -84,29 +85,16 @@ def load_sb_row(request, sb_id):
         
     return HttpResponse(sb_row)
 
+
 def detail_dialog(request, detail_id):
-    dialog_str = f"""
-        <dialog
-        open="open"
-        id="modal"
-        aria-labelledby="heading"
-        >
-            <h2 id="heading">Detail = {detail_id} </h2>
-            <p>Результат этих кнопок одинаковый.</p>
+    detail = Detail.objects.get(id = detail_id)
+    detail_form = DetailForm(instance=detail)
+    context = {'detail_form': detail_form}
+    return render(request, 'detail_dialog.html', context)
 
-            <button type="button" onclick="window.closeMe.close()">
-                Закрыть с помощью JavaScript
-            </button>
 
-            <form method="dialog">
-                <!-- Если у тега <button> не указан type, то по-умолчанию он будет type="submit" ! -->
-                <button>
-                    Закрыть с помощью формы
-                </button>
-            </form>
-            ::backdrop
-        </dialog>
-    """
-    return HttpResponse(dialog_str)
+
+
+
 
 

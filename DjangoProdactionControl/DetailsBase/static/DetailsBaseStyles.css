@@ -15,6 +15,21 @@ div.base_content_header {
 	background: #bab2b5;
 }
 
+.head_table {
+    /* border: 1px solid #000; */
+	border-collapse: collapse;
+    width: 100%;
+	table-layout: fixed;
+	margin: 0 auto;
+	align-items: center;
+	font-size: 0.8rem;
+	background: #fff;
+}
+
+.head_table th {
+	border: 1px solid #000;
+}
+
 .details_table {
     /* border: 1px solid #000; */
 	border-collapse: collapse;
@@ -96,23 +111,33 @@ img.loadinf_gif {
 .comment_col 	{width: 80px;}
 .actdate_col 	{width: 80px;}
 .parts_col 		{width: 80px;}
-.times_col 		{width: 50px;}
+.times_col 		{width: 60px;}
 .descr_col 		{width: 300px;}
 
 dialog {
 	/* width: 800; */
-	margin: 0 auto;
+	margin: auto auto;
 	padding: 20px;
-	margin-top: 250px;
+	/* margin-top: 80px; */
 	align-items: center;
 	/* font-size: 0.8rem; */
 	background: #bab2b5;
+	border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-dialog::backdrop {
-    background-color: rgb(0 0 0 / 0.6);
-    backdrop-filter: blur(10px);
-	position: fixed;
-    inset: 0px;
-    background: rgba(0, 0, 0, 0.1);
+dialog input {
+	padding: 5px;
 }
+
+dialog button {
+	padding: 5px;
+}
+
+/* dialog::backdrop { */
+    /* background-color: rgb(0 0 0 / 0.6); */
+    /* backdrop-filter: blur(10px); */
+	/* position: fixed; */
+    /* inset: 0px; */
+    /* background: rgba(0, 0, 0, 0.1); */
+/* } */
