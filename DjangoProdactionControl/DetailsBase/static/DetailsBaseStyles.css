@@ -112,7 +112,7 @@ img.loadinf_gif {
 .actdate_col 	{width: 80px;}
 .parts_col 		{width: 80px;}
 .times_col 		{width: 60px;}
-.descr_col 		{width: 300px;}
+/* .descr_col 		{width: 300px;} */
 
 dialog {
 	/* width: 800; */

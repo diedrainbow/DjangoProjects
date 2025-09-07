@@ -8,9 +8,9 @@ aria-labelledby="heading"
 	<form method="post" action="post_detail_form/">
         {% csrf_token %}
 		<table> 
-			<tr><td></td><td>{{ detail_form.number.value }} {{ detail_form.name.value }}</td></tr>
-			<tr><td></td><td>{{ detail_form.frw_file_name }}</td></tr>
-			<tr><td></td><td>{{ detail_form.cdw_file_name }}</td></tr>
+			<!-- <tr><td></td><td>{{ detail_form.number.value }} {{ detail_form.name.value }}</td></tr> -->
+			<!-- <tr><td></td><td>{{ detail_form.frw_file_name }}</td></tr> -->
+			<!-- <tr><td></td><td>{{ detail_form.cdw_file_name }}</td></tr> -->
 			{{ detail_form.as_table }} 
 			<tr><input type="submit" value="Send" ></tr>
 		</table>
