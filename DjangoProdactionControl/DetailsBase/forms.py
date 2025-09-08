@@ -6,9 +6,11 @@ from .models import Detail, SB, Material
 class DetailForm(ModelForm):
     class Meta:
         model = Detail
-        fields = ["material_name", "number", "name", "grave", "size", "marshrut", "poddon", "comment", "frw_file_name", "cdw_file_name"]
+        fields = ["material_name", "number", "name", "grave", "size", "marshrut", "poddon", "comment", "frw_file_name", "cdw_file_name", "stages", "times", "descriptions"]
         widgets = {
             "comment": TextInput(),
+            "stages": TextInput(),
+            "times": TextInput(),
             #"date_start": DateInput(attrs={'type': 'date'}), #Textarea(attrs={"cols": 80, "rows": 20}),
             #"date_end": DateInput(attrs={'type': 'date'}),
         }

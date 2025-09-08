@@ -41,7 +41,7 @@ def detailsBase(request):
     
 def load_detail_row(request, detail_id):
     detail = Detail.objects.get(id = detail_id)
-    date = detail.actual_date.strftime('%d.%m.%Y')
+    date = detail.actual_date.strftime('%d.%m.%Y') # document.getElementById('myModal').showModal()
     detail_row = f"""
         <tr  class="detail_row" id="d{detail.id}"  hx-get="/clicked_detail/{detail.id}" hx-trigger="click" hx-target="#dialog">
         <td> {detail.id} </td>

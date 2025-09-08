@@ -115,7 +115,10 @@ img.loadinf_gif {
 /* .descr_col 		{width: 300px;} */
 
 dialog {
-	/* width: 800; */
+	/* width: 100%; */
+	/* height: 100%; */
+	/* top: 0;  */
+	/* left: 0; */
 	margin: auto auto;
 	padding: 20px;
 	/* margin-top: 80px; */
