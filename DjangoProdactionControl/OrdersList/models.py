@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import date, datetime
-from django.utils import timezone
 
 STATYS_CHOICES = {
     "Prodaction":   "Prodaction",
@@ -12,10 +11,16 @@ STATYS_CHOICES = {
 class Order(models.Model):
     order_number        = models.CharField("Order number title", max_length=9)
     statys              = models.CharField("Statys title", max_length=15, choices=STATYS_CHOICES, default="Pause")
-    date_add            = models.DateTimeField("Date add title", default=timezone.now())
-    date_start          = models.DateField("Date start title", default=timezone.now())
-    date_end            = models.DateField("Date end title", default=timezone.now())
+    date_add            = models.DateTimeField("Date add title")
+    date_start          = models.DateField("Date start title")
+    date_end            = models.DateField("Date end title")
     comment             = models.TextField("Comment title", null=True, blank=True)
+    
+    def __init__(self):
+        date_add = datetime.now()
+        date_start = datetime.now()
+        date_end = datetime.now()
+
 
 KATEGORY_CHOICES = {
     "Ventilator":       "Ventilator",

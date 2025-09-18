@@ -70,6 +70,8 @@ def load_SB_from_xlsx(FILENAME):
 
 
 
+
+
 def load_from_csv(FILENAME):
     try:
         with open(FILENAME, "r", newline="") as file:
@@ -175,10 +177,7 @@ def GetMaterialNameFromString(material_string):
     try:
         material = Material.objects.get(name = material.name)
     except Material.DoesNotExist:
-        if "..." not in material.name:
-            #print("new material "+material.name)
-            material.save()
-        else:
-            material.name = material.name + " [" + material_string + "]"
+        print("new material "+material.name)
+        material.save()
             
     return material.name

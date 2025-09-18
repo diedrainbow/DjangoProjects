@@ -71,8 +71,26 @@ class Material(models.Model):
         ordering = ['name']
 
     def SetMaterialFromString(self, mat):
-        mat = mat.lower()
+        self.original = mat
+        #mat = mat.lower()
         
+        if 'оц.' in mat:
+            mat = mat.replace(' рулон', '')
+            mat = mat.replace(' 1250мм', '')
+            mat = mat.replace(' 1250', '')
+            mat = mat.replace(' марка 350', '')
+            mat = mat.replace(' лист 4000х1250', '')
+        else:
+            mat = mat.replace(' сталь 45', 'ст.45')
+            mat = mat.replace(' сталь', '')
+            mat = mat.replace(' СВМПЭ', '')
+            mat = mat.replace(' 2500х1250 RAL 2004', ' RAL')
+            mat = mat.replace(' оцинкованная', ' оц.')
+        
+        mat = mat.replace(',', '.')
+        self.name = mat
+        
+        '''
         # type
         self.type = "..."
         self.size = "..."
@@ -127,7 +145,7 @@ class Material(models.Model):
         
         self.original = mat
         self.name = self.type + " " + self.size + " " + self.sort
-
+        '''
 
 
 
