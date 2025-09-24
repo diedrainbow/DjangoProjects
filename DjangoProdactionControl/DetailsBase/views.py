@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Detail, SB, Material
 from .forms import DetailForm #, SB, Material
-from .excel import load_from_csv, load_SB_from_xlsx
+from .excel import load_from_csv, load_SB_from_xlsx, load_details_from_xlsx
     
 
 def load_details_from_file(request):
@@ -41,11 +41,17 @@ def detailsBase(request):
     
 def load_detail_row(request, detail_id):
     detail = Detail.objects.get(id = detail_id)
+    
+    if detail.material == None: 
+        material_name = '' 
+    else:
+        material_name = detail.material.name
+        
     date = detail.actual_date.strftime('%d.%m.%Y') # document.getElementById('myModal').showModal()
     detail_row = f"""
         <tr  class="detail_row" id="d{detail.id}"  hx-get="/clicked_detail/{detail.id}" hx-trigger="click" hx-target="#dialog">
         <td> {detail.id} </td>
-		<td> {detail.material_name} </td>
+		<td> {material_name} </td>
 		<td> {detail.number} </td>
 		<td> {detail.name} </td>
 		<td> {detail.grave} </td>

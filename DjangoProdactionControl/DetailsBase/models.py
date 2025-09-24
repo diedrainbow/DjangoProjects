@@ -1,53 +1,5 @@
 from django.db import models
 
-class Detail(models.Model):
-    # Общие данные о детали
-    material_name       = models.CharField(max_length=50, null=True, blank=True)
-    number              = models.CharField(max_length=80)
-    name                = models.CharField(max_length=80, null=True, blank=True)
-    grave               = models.CharField(max_length=10, null=True, blank=True)
-    size                = models.CharField(max_length=30, null=True, blank=True)
-    marshrut            = models.CharField(max_length=60, null=True, blank=True)
-    poddon              = models.CharField(max_length=15, null=True, blank=True)
-    comment             = models.TextField( null=True, blank=True)
-    actual_date         = models.DateTimeField()
-    # Ссылки на файлы чертежа и фрагмента
-    frw_file_name       = models.FileField( null=True, blank=True)
-    frw_file_folder     = models.FilePathField( null=True, blank=True)
-    frw_file_date       = models.DateTimeField( null=True, blank=True)
-    frw_file_parts      = models.TextField( null=True, blank=True)
-    frw_valid           = models.FloatField(default=0)
-    cdw_file_name       = models.FileField( null=True, blank=True)
-    cdw_file_folder     = models.FilePathField( null=True, blank=True)
-    cdw_file_date       = models.DateTimeField( null=True, blank=True)
-    cdw_valid           = models.FloatField(default=0)
-    # Технологические операции
-    stages              = models.TextField(default=";;;;;;")
-    times               = models.TextField(default=";;;;;;")
-    descriptions        = models.TextField(default=";;;;;;")
-    
-    class Meta:
-        ordering = ['number']
-
-
-class SB(models.Model):
-    # Общие данные о сборочном
-    number              = models.CharField(max_length=100)
-    name                = models.CharField(max_length=100, null=True, blank=True)
-    composition         = models.TextField(null=True, blank=True)
-    size                = models.CharField(max_length=50, null=True, blank=True)
-    comment             = models.TextField(null=True, blank=True)
-    actual_date         = models.DateTimeField()
-    # Ссылка на файл чертежа
-    cdw_file_name       = models.FileField(null=True, blank=True)
-    cdw_file_folder     = models.FilePathField(null=True, blank=True)
-    cdw_file_date       = models.DateTimeField(null=True, blank=True)
-    cdw_valid           = models.FloatField(default=0)
-    
-    class Meta:
-        ordering = ['number']
-    
-    
 class Material(models.Model):
     # например: лист 1.0 Zn350
     name                = models.CharField(max_length=50) 
@@ -72,8 +24,9 @@ class Material(models.Model):
 
     def SetMaterialFromString(self, mat):
         self.original = mat
-        #mat = mat.lower()
+        mat = mat.lower()
         
+        '''
         if 'оц.' in mat:
             mat = mat.replace(' рулон', '')
             mat = mat.replace(' 1250мм', '')
@@ -89,8 +42,8 @@ class Material(models.Model):
         
         mat = mat.replace(',', '.')
         self.name = mat
-        
         '''
+        
         # type
         self.type = "..."
         self.size = "..."
@@ -143,9 +96,61 @@ class Material(models.Model):
                 self.sort = sorts[s_key]
                 break
         
-        self.original = mat
         self.name = self.type + " " + self.size + " " + self.sort
-        '''
+        self.name = self.name.replace(',', '.')
+        
+
+class Detail(models.Model):
+    # Общие данные о детали
+    material            = models.ForeignKey(Material, on_delete = models.SET_NULL, null=True, blank=True)
+    number              = models.CharField(max_length=80)
+    name                = models.CharField(max_length=80, null=True, blank=True)
+    grave               = models.CharField(max_length=10, null=True, blank=True)
+    size                = models.CharField(max_length=30, null=True, blank=True)
+    marshrut            = models.CharField(max_length=60, null=True, blank=True)
+    poddon              = models.CharField(max_length=15, null=True, blank=True)
+    comment             = models.TextField( null=True, blank=True)
+    actual_date         = models.DateTimeField()
+    # Ссылки на файлы чертежа и фрагмента
+    frw_file_name       = models.FileField( null=True, blank=True)
+    frw_file_folder     = models.FilePathField( null=True, blank=True)
+    frw_file_date       = models.DateTimeField( null=True, blank=True)
+    frw_file_parts      = models.TextField( null=True, blank=True)
+    frw_valid           = models.FloatField(default=0)
+    cdw_file_name       = models.FileField( null=True, blank=True)
+    cdw_file_folder     = models.FilePathField( null=True, blank=True)
+    cdw_file_date       = models.DateTimeField( null=True, blank=True)
+    cdw_valid           = models.FloatField(default=0)
+    # Технологические операции
+    stages              = models.TextField(default=";;;;;;")
+    times               = models.TextField(default=";;;;;;")
+    descriptions        = models.TextField(default=";;;;;;")
+    
+    class Meta:
+        ordering = ['number']
+
+
+class SB(models.Model):
+    # Общие данные о сборочном
+    number              = models.CharField(max_length=100)
+    name                = models.CharField(max_length=100, null=True, blank=True)
+    composition         = models.TextField(null=True, blank=True)
+    size                = models.CharField(max_length=50, null=True, blank=True)
+    comment             = models.TextField(null=True, blank=True)
+    actual_date         = models.DateTimeField()
+    # Ссылка на файл чертежа
+    cdw_file_name       = models.FileField(null=True, blank=True)
+    cdw_file_folder     = models.FilePathField(null=True, blank=True)
+    cdw_file_date       = models.DateTimeField(null=True, blank=True)
+    cdw_valid           = models.FloatField(default=0)
+    
+    class Meta:
+        ordering = ['number']
+    
+    
+
+        
+        
 
 
 

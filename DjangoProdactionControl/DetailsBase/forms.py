@@ -6,7 +6,7 @@ from .models import Detail, SB, Material
 class DetailForm(ModelForm):
     class Meta:
         model = Detail
-        fields = ["material_name", "number", "name", "grave", "size", "marshrut", "poddon", "comment", "frw_file_name", "cdw_file_name", "stages", "times", "descriptions"]
+        fields = ["material", "number", "name", "grave", "size", "marshrut", "poddon", "comment", "frw_file_name", "cdw_file_name", "stages", "times", "descriptions"]
         widgets = {
             "comment": TextInput(),
             "stages": TextInput(),

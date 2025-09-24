@@ -62,6 +62,100 @@ def load_SB_from_xlsx(FILENAME):
         sb.save()
         print(f"Прогресс: {row_number} строк", end='\r')
 
+
+
+def load_details_from_xlsx(FILENAME):
+    # Загрузка рабочей книги
+    wb = load_workbook(filename=FILENAME, read_only=True)
+    # Получение активного листа
+    sheet = wb['Список деталей']
+    
+    # Получение номера последней строки
+    last_row_number = sheet.max_row
+    print(f"Номер последней строки с данными: {last_row_number}")
+    
+    for row_number in range(4, last_row_number):
+        detail_number = sheet.cell(row=row_number, column=2).value
+        if detail_number == "": continue
+        
+        try:
+            detail = Detail.objects.get(number = detail_number)
+        except Detail.DoesNotExist:
+            detail = Detail()
+        
+        detail.material     = GetMaterialFromString(sheet.cell(row=row_number, column=1).value)
+        detail.number       = detail_number
+        detail.name         = sheet.cell(row=row_number, column=3).value
+        detail.grave        = sheet.cell(row=row_number, column=4).value
+        detail.size         = sheet.cell(row=row_number, column=5).value
+        detail.marshrut     = sheet.cell(row=row_number, column=6).value
+        detail.poddon       = sheet.cell(row=row_number, column=7).value
+        detail.comment      = sheet.cell(row=row_number, column=8).value
+        detail.actual_date  = DateFromOpenpyxl(sheet.cell(row=row_number, column=9).value)
+        
+        frw_file_name = sheet.cell(row=row_number, column=10).value
+        if frw_file_name == "" or frw_file_name == None or sheet.cell(row=row_number, column=12).value == "Нет файла":
+            detail.frw_file_name = ""
+            detail.frw_file_folder = ""
+            detail.frw_file_date = None
+            detail.frw_valid = 0.0
+        else:
+            detail.frw_file_name = frw_file_name
+            detail.frw_file_folder = sheet.cell(row=row_number, column=11).value
+            detail.frw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=12).value)
+            
+            if sheet.cell(row=row_number, column=10).fill is None:
+                color_index = "00000000"
+            else:
+                color_index = sheet.cell(row=row_number, column=10).fill.start_color.index
+            
+            if color_index == "00000000":
+                detail.frw_valid = 1.0
+            else:
+                detail.frw_valid = 0.5
+        
+        cdw_file_name = sheet.cell(row=row_number, column=13).value
+        if cdw_file_name == "" or cdw_file_name == None or sheet.cell(row=row_number, column=15).value == "Нет файла":
+            detail.cdw_file_name = ""
+            detail.cdw_file_folder = ""
+            detail.cdw_file_date = None
+            detail.cdw_valid = 0.0
+        else:
+            detail.cdw_file_name = cdw_file_name
+            detail.cdw_file_folder = sheet.cell(row=row_number, column=14).value
+            detail.cdw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=15).value)
+            
+            if sheet.cell(row=row_number, column=13).fill is None:
+                color_index = "00000000"
+            else:
+                color_index = sheet.cell(row=row_number, column=13).fill.start_color.index
+            
+            if color_index == "00000000":
+                detail.cdw_valid = 1.0
+            else:
+                detail.cdw_valid = 0.5
+        
+        detail.parts = sheet.cell(row=row_number, column=16).value 
+        
+        detail.stages = ""
+        for i in range(17, 25, 2):
+            stage = sheet.cell(row=row_number, column=i).value
+            if stage == None: stage = ""
+            stage = stage.replace(';',',,')
+            detail.stages = detail.stages + stage + ';'
+        detail.stages = detail.stages + ';;'
+        
+        detail.descriptions = ""
+        for i in range(18, 26, 2):
+            descr = sheet.cell(row=row_number, column=i).value
+            if descr == None: descr = ""
+            descr = descr.replace(';',',,')
+            detail.descriptions = detail.descriptions + descr + ';'
+        detail.descriptions = detail.descriptions + ';;'
+        
+        detail.save()
+        print(f"Прогресс: {row_number} строк", end='\r')
+
             
 
     # Чтение данных из ячеек (например, из первой ячейки)
@@ -162,22 +256,21 @@ def DateTimeFromString(date_string):
     return timezone.make_aware(date_object)
 
 
-def GetMaterialNameFromString(material_string):
-    if material_string == "": return ""
+def GetMaterialFromString(material_string):
+    if material_string == '': return None
     
-    try:
-        material = Material.objects.get(original = material_string)
-        return material.name
-    except:
-        pass
-    
-    material = Material()
-    material.SetMaterialFromString( material_string )    
-        
-    try:
-        material = Material.objects.get(name = material.name)
-    except Material.DoesNotExist:
-        print("new material "+material.name)
+    material, created = Material.objects.get_or_create(original = material_string)
+    if created:
+        material.SetMaterialFromString( material_string )
+        print("new material "+material.original)
         material.save()
-            
-    return material.name
+    
+    # try:
+        # material = Material.objects.get(original = material_string)
+    # except Material.DoesNotExist:
+        # material = Material()
+        # material.SetMaterialFromString( material_string )
+        # print("new material "+material.original)
+        # material.save()
+    
+    return material
