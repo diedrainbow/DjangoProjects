@@ -46,25 +46,40 @@ def load_detail_row(request, detail_id):
         material_name = '' 
     else:
         material_name = detail.material.name
-        
     date = detail.actual_date.strftime('%d.%m.%Y') # document.getElementById('myModal').showModal()
+    grave = detail.grave
+    if grave == None: grave = ''
+    comment = detail.comment
+    if comment == None: comment = ''
+    
     detail_row = f"""
         <tr  class="detail_row" id="d{detail.id}"  hx-get="/clicked_detail/{detail.id}" hx-trigger="click" hx-target="#dialog">
         <td> {detail.id} </td>
 		<td> {material_name} </td>
 		<td> {detail.number} </td>
 		<td> {detail.name} </td>
-		<td> {detail.grave} </td>
+		<td> {grave} </td>
 		<td> {detail.size} </td>
 		<td> {detail.marshrut} </td>
 		<td> {detail.poddon} </td>
-		<td> {detail.comment} </td>
+		<td> {comment} </td>
 		<td> {date} </td>
-		
-		<td title='{detail.frw_file_name}'> {detail.frw_file_name} </td>
-		<td title='{detail.cdw_file_name}'> {detail.cdw_file_name} </td>
-		<td> {detail.frw_file_parts} </td>
-		
+    """
+        
+    if 0.0 < detail.frw_valid < 1.0:
+        detail_row = detail_row + f"<td BGCOLOR='yellow'"
+    else:
+        detail_row = detail_row + f"<td"
+    detail_row = detail_row + f" title='{detail.frw_file_name}'> {detail.frw_file_name} </td>"
+        
+    if 0.0 < detail.cdw_valid < 1.0:
+        detail_row = detail_row + f"<td BGCOLOR='yellow'"
+    else:
+        detail_row = detail_row + f"<td"
+    detail_row = detail_row + f" title='{detail.cdw_file_name}'> {detail.cdw_file_name} </td>"
+        
+    detail_row = detail_row + f"""
+        <td> {detail.frw_file_parts} </td>
 		<td> {detail.stages} </td>
 		<td> {detail.times} </td>
 		<td title='{detail.descriptions}'> {detail.descriptions} </td>

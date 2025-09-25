@@ -257,7 +257,7 @@ def DateTimeFromString(date_string):
 
 
 def GetMaterialFromString(material_string):
-    if material_string == '': return None
+    if material_string == '' or material_string == None : return None
     
     material, created = Material.objects.get_or_create(original = material_string)
     if created:
