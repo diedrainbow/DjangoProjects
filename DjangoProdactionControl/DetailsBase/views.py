@@ -46,11 +46,29 @@ def load_detail_row(request, detail_id):
         material_name = '' 
     else:
         material_name = detail.material.name
-    date = detail.actual_date.strftime('%d.%m.%Y') # document.getElementById('myModal').showModal()
+        
     grave = detail.grave
     if grave == None: grave = ''
+    
     comment = detail.comment
     if comment == None: comment = ''
+    
+    date_str = detail.actual_date.strftime('%d.%m.%Y') # document.getElementById('myModal').showModal()
+    act_color = 'white'
+    if detail.actual_date != None and detail.cdw_file_date != None:
+        if detail.actual_date < detail.cdw_file_date: 
+            act_color = 'red'
+        
+    frw_color = 'white'
+    if detail.frw_file_name != None and detail.frw_file_name != '':
+        if detail.frw_file_date != None and detail.cdw_file_date != None:
+            if detail.frw_file_date < detail.cdw_file_date: frw_color = 'red'
+        if 0.0 < detail.frw_valid < 1.0: frw_color = 'yellow'
+    
+    cdw_color = 'white'
+    if detail.cdw_file_name != None and detail.cdw_file_name != '':
+        if 0.0 < detail.cdw_valid < 1.0: cdw_color = 'yellow'
+    
     
     detail_row = f"""
         <tr  class="detail_row" id="d{detail.id}"  hx-get="/clicked_detail/{detail.id}" hx-trigger="click" hx-target="#dialog">
@@ -63,22 +81,9 @@ def load_detail_row(request, detail_id):
 		<td> {detail.marshrut} </td>
 		<td> {detail.poddon} </td>
 		<td> {comment} </td>
-		<td> {date} </td>
-    """
-        
-    if 0.0 < detail.frw_valid < 1.0:
-        detail_row = detail_row + f"<td BGCOLOR='yellow'"
-    else:
-        detail_row = detail_row + f"<td"
-    detail_row = detail_row + f" title='{detail.frw_file_name}'> {detail.frw_file_name} </td>"
-        
-    if 0.0 < detail.cdw_valid < 1.0:
-        detail_row = detail_row + f"<td BGCOLOR='yellow'"
-    else:
-        detail_row = detail_row + f"<td"
-    detail_row = detail_row + f" title='{detail.cdw_file_name}'> {detail.cdw_file_name} </td>"
-        
-    detail_row = detail_row + f"""
+		<td BGCOLOR='{act_color}'> {date_str} </td>
+        <td BGCOLOR='{frw_color}' title='{detail.frw_file_name}'> {detail.frw_file_name} </td>
+        <td BGCOLOR='{cdw_color}' title='{detail.cdw_file_name}'> {detail.cdw_file_name} </td>
         <td> {detail.frw_file_parts} </td>
 		<td> {detail.stages} </td>
 		<td> {detail.times} </td>
@@ -89,21 +94,26 @@ def load_detail_row(request, detail_id):
 
 def load_sb_row(request, sb_id):
     sb = SB.objects.get(id = sb_id)
-    date = sb.actual_date.strftime('%d.%m.%Y')
+    date_str = sb.actual_date.strftime('%d.%m.%Y')
+    
+    act_color = 'white'
+    if sb.actual_date != None and sb.cdw_file_date != None:
+        if sb.actual_date < sb.cdw_file_date: 
+            act_color = 'red'
+            
+    cdw_color = 'white'
+    if sb.cdw_file_name != None and sb.cdw_file_name != '':
+        if 0.0 < sb.cdw_valid < 1.0: cdw_color = 'yellow'
+    
     sb_row = f"""
         <td> {sb.id} </td>
 		<td> {sb.number} </td>
 		<td> {sb.name} </td>
 		<td title='{sb.composition}'> {sb.composition} </td>
-		<td> {date} </td>
+		<td BGCOLOR='{act_color}'> {date_str} </td>
 		<td> {sb.comment} </td>
+        <td BGCOLOR='{cdw_color}' title='{sb.cdw_file_name}'> {sb.cdw_file_name} </td>
     """
-    
-    if 0.0 < sb.cdw_valid < 1.0:
-        sb_row = sb_row + f"<td BGCOLOR='yellow'> {sb.cdw_file_name} </td>"
-    else:
-        sb_row = sb_row + f"<td> {sb.cdw_file_name} </td>"
-        
     return HttpResponse(sb_row)
 
 

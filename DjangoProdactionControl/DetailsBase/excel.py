@@ -1,10 +1,30 @@
 from .models import Detail, SB, Material
 from datetime import date, datetime
+import time
 from django.utils import timezone
 
 import os
 import csv
 from openpyxl import load_workbook
+
+
+class TimeAnalis():
+    prev_t = time.time()
+    times = dict()
+    
+    def time_update(self, key):
+        if key not in self.times: self.times.update( {key:0.0} )
+        t = time.time()
+        self.times[key] += t - self.prev_t
+        self.prev_t = t
+        
+    def get_string(self):
+        str = '=== Times ===\n'
+        for key in self.times:
+            str += key + ': ' + self.times[key] + ';\n'
+        str += '============='
+        return str
+
 
 
 def load_SB_from_xlsx(FILENAME):
@@ -63,7 +83,6 @@ def load_SB_from_xlsx(FILENAME):
         print(f"Прогресс: {row_number} строк", end='\r')
 
 
-
 def load_details_from_xlsx(FILENAME):
     # Загрузка рабочей книги
     wb = load_workbook(filename=FILENAME, read_only=True)
@@ -74,7 +93,9 @@ def load_details_from_xlsx(FILENAME):
     last_row_number = sheet.max_row
     print(f"Номер последней строки с данными: {last_row_number}")
     
-    for row_number in range(4, last_row_number):
+    ta = TimeAnalis()
+    
+    for row_number in range(4, 100):
         detail_number = sheet.cell(row=row_number, column=2).value
         if detail_number == "": continue
         
@@ -274,3 +295,6 @@ def GetMaterialFromString(material_string):
         # material.save()
     
     return material
+
+
+
