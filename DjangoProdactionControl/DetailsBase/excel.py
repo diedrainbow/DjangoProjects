@@ -99,12 +99,19 @@ def load_details_from_xlsx(FILENAME):
         detail_number = sheet.cell(row=row_number, column=2).value
         if detail_number == "": continue
         
+        ta.time_update('На печать инфы и получение номера детали')
+        
         try:
             detail = Detail.objects.get(number = detail_number)
         except Detail.DoesNotExist:
             detail = Detail()
         
+        ta.time_update('На поиск детали в базе данных')
+        
         detail.material     = GetMaterialFromString(sheet.cell(row=row_number, column=1).value)
+        
+        ta.time_update('На поиск или создание материала')
+        
         detail.number       = detail_number
         detail.name         = sheet.cell(row=row_number, column=3).value
         detail.grave        = sheet.cell(row=row_number, column=4).value
@@ -113,6 +120,8 @@ def load_details_from_xlsx(FILENAME):
         detail.poddon       = sheet.cell(row=row_number, column=7).value
         detail.comment      = sheet.cell(row=row_number, column=8).value
         detail.actual_date  = DateFromOpenpyxl(sheet.cell(row=row_number, column=9).value)
+        
+        ta.time_update('На чтение нескольких ячеек и даты')
         
         frw_file_name = sheet.cell(row=row_number, column=10).value
         if frw_file_name == "" or frw_file_name == None or sheet.cell(row=row_number, column=12).value == "Нет файла":
@@ -135,6 +144,8 @@ def load_details_from_xlsx(FILENAME):
             else:
                 detail.frw_valid = 0.5
         
+        ta.time_update('На чтение и операции с ФРВ')
+        
         cdw_file_name = sheet.cell(row=row_number, column=13).value
         if cdw_file_name == "" or cdw_file_name == None or sheet.cell(row=row_number, column=15).value == "Нет файла":
             detail.cdw_file_name = ""
@@ -156,6 +167,8 @@ def load_details_from_xlsx(FILENAME):
             else:
                 detail.cdw_valid = 0.5
         
+        ta.time_update('На чтение и операции с СДВ')
+        
         detail.parts = sheet.cell(row=row_number, column=16).value 
         
         detail.stages = ""
@@ -174,8 +187,13 @@ def load_details_from_xlsx(FILENAME):
             detail.descriptions = detail.descriptions + descr + ';'
         detail.descriptions = detail.descriptions + ';;'
         
+        ta.time_update('На чтение Стадий и Расшифровок')
+        
         detail.save()
-        print(f"Прогресс: {row_number} строк", end='\r')
+        
+        ta.time_update('На сохранение детали в базе')
+        
+        print(f"Прогресс: {row_number} строк.\n" + ta.get_string(), end='\r')
 
             
 
