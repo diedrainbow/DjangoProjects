@@ -19,11 +19,11 @@ class TimeAnalis():
         self.prev_t = t
         
     def get_string(self):
-        str = '=== Times ===\n'
+        s = '=== Times ===\n'
         for key in self.times:
-            str += key + ': ' + self.times[key] + ';\n'
-        str += '============='
-        return str
+            s += key + ': ' + str(self.times[key]) + ';\n'
+        s += '============='
+        return s
 
 
 
@@ -119,9 +119,12 @@ def load_details_from_xlsx(FILENAME):
         detail.marshrut     = sheet.cell(row=row_number, column=6).value
         detail.poddon       = sheet.cell(row=row_number, column=7).value
         detail.comment      = sheet.cell(row=row_number, column=8).value
+        
+        ta.time_update('На чтение нескольких ячеек')
+        
         detail.actual_date  = DateFromOpenpyxl(sheet.cell(row=row_number, column=9).value)
         
-        ta.time_update('На чтение нескольких ячеек и даты')
+        ta.time_update('На чтение и преобразование даты')
         
         frw_file_name = sheet.cell(row=row_number, column=10).value
         if frw_file_name == "" or frw_file_name == None or sheet.cell(row=row_number, column=12).value == "Нет файла":
@@ -134,10 +137,11 @@ def load_details_from_xlsx(FILENAME):
             detail.frw_file_folder = sheet.cell(row=row_number, column=11).value
             detail.frw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=12).value)
             
-            if sheet.cell(row=row_number, column=10).fill is None:
+            fill = sheet.cell(row=row_number, column=10).fill
+            if fill is None:
                 color_index = "00000000"
             else:
-                color_index = sheet.cell(row=row_number, column=10).fill.start_color.index
+                color_index = fill.start_color.index
             
             if color_index == "00000000":
                 detail.frw_valid = 1.0
@@ -157,10 +161,11 @@ def load_details_from_xlsx(FILENAME):
             detail.cdw_file_folder = sheet.cell(row=row_number, column=14).value
             detail.cdw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=15).value)
             
-            if sheet.cell(row=row_number, column=13).fill is None:
+            fill = sheet.cell(row=row_number, column=13).fill
+            if fill is None:
                 color_index = "00000000"
             else:
-                color_index = sheet.cell(row=row_number, column=13).fill.start_color.index
+                color_index = fill.start_color.index
             
             if color_index == "00000000":
                 detail.cdw_valid = 1.0
@@ -196,10 +201,8 @@ def load_details_from_xlsx(FILENAME):
         print(f"Прогресс: {row_number} строк.\n" + ta.get_string(), end='\r')
 
             
-
-    # Чтение данных из ячеек (например, из первой ячейки)
-    # cell_value = sheet['B7'].value
-    # print(f"Значение ячейки B7: {cell_value}")
+    # закрываем книгу после прочтения
+    wb.close()
 
 
 
