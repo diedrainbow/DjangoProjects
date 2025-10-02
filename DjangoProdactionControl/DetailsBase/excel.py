@@ -24,6 +24,12 @@ class TimeAnalis():
             s += key + ': ' + str(self.times[key]) + ';\n'
         s += '============='
         return s
+        
+    def get_sum(self):
+        s = 0.0
+        for key in self.times:
+            s += self.times[key]
+        return str(s)
 
 
 
@@ -95,7 +101,7 @@ def load_details_from_xlsx(FILENAME):
     
     ta = TimeAnalis()
     
-    for row_number in range(4, 100):
+    for row_number in range(999, 2000):
         detail_number = sheet.cell(row=row_number, column=2).value
         if detail_number == "": continue
         
@@ -177,20 +183,18 @@ def load_details_from_xlsx(FILENAME):
         detail.parts = sheet.cell(row=row_number, column=16).value 
         
         detail.stages = ""
+        detail.descriptions = ""
         for i in range(17, 25, 2):
             stage = sheet.cell(row=row_number, column=i).value
+            descr = sheet.cell(row=row_number, column=i+1).value
             if stage == None: stage = ""
-            stage = stage.replace(';',',,')
-            detail.stages = detail.stages + stage + ';'
-        detail.stages = detail.stages + ';;'
-        
-        detail.descriptions = ""
-        for i in range(18, 26, 2):
-            descr = sheet.cell(row=row_number, column=i).value
             if descr == None: descr = ""
-            descr = descr.replace(';',',,')
-            detail.descriptions = detail.descriptions + descr + ';'
-        detail.descriptions = detail.descriptions + ';;'
+            #stage = stage.replace(';',',,')
+            #descr = descr.replace(';',',,')
+            detail.stages += stage + ';'
+            detail.descriptions += descr + ';'
+        detail.stages += ';;'
+        detail.descriptions += ';;'
         
         ta.time_update('На чтение Стадий и Расшифровок')
         
@@ -198,11 +202,12 @@ def load_details_from_xlsx(FILENAME):
         
         ta.time_update('На сохранение детали в базе')
         
-        print(f"Прогресс: {row_number} строк.\n" + ta.get_string(), end='\r')
-
+        #print(f"Прогресс: {row_number} строк.\n" + ta.get_string() + '\n', end='\r')
+        print(f"Прогресс: {row_number} строк. Время: " + ta.get_sum(), end='\r')
             
     # закрываем книгу после прочтения
     wb.close()
+    print('\n', ta.get_string(), '\n')
 
 
 
