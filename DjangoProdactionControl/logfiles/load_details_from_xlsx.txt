@@ -1,0 +1,403 @@
+k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm
+ id: 10;	size: 792
+ id: 22;	size: 530
+ id: 23;	size: 480
+ id: 24;	size: 970
+ id: 25;	size: 510
+ id: 26;	size: 590
+ id: 27;	size: 870
+ id: 28;	size: 490
+ id: 29;	size: 970
+ id: 30;	size: 385
+ id: 31;	size: 770
+ id: 32;	size: 642
+ id: 33;	size: 622
+ id: 34;	size: 1350
+ id: 42;	size: 3690
+ id: 97;	size: 4600
+ id: 119;	size: 2166
+ id: 120;	size: 1500
+ id: 121;	size: 1220
+ id: 122;	size: 800
+ id: 123;	size: 1100
+ id: 124;	size: 100
+ id: 139;	size: 2322
+ id: 140;	size: 1960
+ id: 141;	size: 900
+ id: 148;	size: 2820
+ id: 155;	size: 2034
+ id: 157;	size: 726
+ id: 158;	size: 576
+ id: 159;	size: 2750
+ id: 162;	size: 1300
+ id: 163;	size: 600
+ id: 164;	size: 310
+ id: 165;	size: 50
+ id: 167;	size: 866
+ id: 168;	size: 240
+ id: 169;	size: 200
+ id: 276;	size: 1200
+ id: 280;	size: 766
+ id: 284;	size: 1280
+ id: 285;	size: 680
+ id: 288;	size: 1040
+ id: 291;	size: 800
+ id: 294;	size: 1235
+ id: 295;	size: 1526
+ id: 296;	size: 770
+ id: 297;	size: 1526
+ id: 298;	size: 770
+ id: 299;	size: 1150
+ id: 301;	size: 880
+ id: 302;	size: 50
+ id: 303;	size: 940
+ id: 308;	size: 12000
+ id: 310;	size: 11500
+ id: 311;	size: 8550
+ id: 312;	size: 2300
+ id: 313;	size: 800
+ id: 314;	size: 650
+ id: 315;	size: 5124
+ id: 319;	size: 1244
+ id: 321;	size: 744
+ id: 322;	size: 11500
+ id: 325;	size: 7800
+ id: 326;	size: 3825
+ id: 327;	size: 8954
+ id: 328;	size: 4613
+ id: 329;	size: 572
+ id: 330;	size: 6020
+ id: 331;	size: 6020
+ id: 332;	size: 4790
+ id: 333;	size: 4790
+ id: 334;	size: 3560
+ id: 335;	size: 3560
+ id: 336;	size: 2330
+ id: 337;	size: 2330
+ id: 338;	size: 1100
+ id: 339;	size: 1100
+ id: 340;	size: 800
+ id: 341;	size: 755
+ id: 342;	size: 686
+ id: 343;	size: 686
+ id: 344;	size: 672
+ id: 345;	size: 672
+ id: 346;	size: 660
+ id: 347;	size: 660
+ id: 348;	size: 646
+ id: 349;	size: 646
+ id: 10750;	frw_file_parts: 
+ id: 10751;	frw_file_parts: 
+ id: 10752;	frw_file_parts: 
+ id: 10753;	frw_file_parts: 
+ id: 10754;	frw_file_parts: 
+ id: 10755;	frw_file_parts: 
+ id: 10756;	frw_file_parts: 
+ id: 10757;	frw_file_parts: 
+ id: 10758;	frw_file_parts: 
+ id: 10759;	frw_file_parts: 
+ id: 10760;	frw_file_parts: 
+ id: 10761;	frw_file_parts: 
+ id: 351;	size: 710
+ id: 352;	size: 5125
+ id: 353;	size: 5125
+ id: 354;	size: 3994
+ id: 355;	size: 3994
+ id: 356;	size: 2864
+ id: 357;	size: 2864
+ id: 358;	size: 1734
+ id: 359;	size: 1734
+ id: 360;	size: 604
+ id: 361;	size: 604
+ id: 362;	size: 309
+ id: 363;	size: 309
+ id: 364;	size: 221
+ id: 365;	size: 221
+ id: 10762;	frw_file_parts: 
+ id: 10763;	frw_file_parts: 
+ id: 10764;	frw_file_parts: 
+ id: 10765;	frw_file_parts: 
+ id: 10766;	frw_file_parts: 
+ id: 10767;	frw_file_parts: 
+ id: 10768;	frw_file_parts: 
+ id: 367;	size: 424
+ id: 368;	size: 424
+ id: 369;	size: 1850
+ id: 370;	size: 1850
+ id: 371;	size: 984
+ id: 372;	size: 984
+ id: 10769;	frw_file_parts: 
+ id: 10770;	frw_file_parts: 
+ id: 10771;	frw_file_parts: 
+ id: 10772;	frw_file_parts: 
+ id: 377;	size: 303
+ id: 378;	size: 294
+ id: 379;	size: 1377
+ id: 380;	size: 900
+ id: 381;	size: 2400
+ id: 384;	size: 5409
+ id: 385;	size: 746
+ id: 386;	size: 620
+ id: 387;	size: 610
+ id: 388;	size: 70
+ id: 389;	frw_file_parts: 
+ id: 390;	frw_file_parts: 
+ id: 392;	frw_file_parts: 
+ id: 396;	size: 1170
+ id: 397;	size: 1283
+ id: 398;	size: 2300
+ id: 399;	size: 933
+ id: 400;	size: 588
+ id: 401;	size: 243
+ id: 402;	size: 1283
+ id: 403;	size: 933
+ id: 404;	size: 588
+ id: 405;	size: 243
+ id: 406;	size: 1062
+ id: 408;	size: 2620
+ id: 409;	size: 1870
+ id: 410;	size: 600
+ id: 411;	size: 470
+ id: 412;	size: 1331
+ id: 413;	size: 2031
+ id: 414;	size: 1461
+ id: 419;	size: 1280
+ id: 420;	size: 930
+ id: 421;	size: 590
+ id: 422;	size: 240
+ id: 423;	size: 1280
+ id: 424;	size: 930
+ id: 425;	size: 590
+ id: 426;	size: 240
+ id: 427;	size: 866
+ id: 428;	size: 5000
+ id: 436;	size: 470
+ id: 438;	size: 21900
+ id: 441;	size: 11800
+ id: 444;	size: 726
+ id: 445;	size: 600
+ id: 446;	size: 610
+ id: 447;	size: 70
+ id: 448;	size: 826
+ id: 449;	size: 700
+ id: 450;	size: 725
+ id: 452;	size: 316
+ id: 453;	size: 11800
+ id: 454;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 456;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 457;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 458;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 459;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 460;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 461;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 462;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 463;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 464;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 465;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 466;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 467;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 468;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 469;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 470;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 471;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 472;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 473;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 474;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 475;	size: 20;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 476;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 477;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 478;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 479;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 480;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 481;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 482;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 483;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 484;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 485;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 486;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 487;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 488;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 489;	size: 4135;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 490;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 491;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 492;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 493;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 494;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 525;	size: 20
+ id: 527;	size: 4240
+ id: 531;	actual_date: 2025-10-09 11:27:35+03:00
+ id: 532;	size: 17900
+ id: 535;	size: 4925
+ id: 536;	size: 642
+ id: 540;	size: 2400
+ id: 541;	size: 4925
+ id: 542;	size: 1689
+ id: 543;	size: 1189
+ id: 544;	size: 1524
+ id: 545;	size: 854
+ id: 546;	size: 1142
+ id: 547;	size: 800
+ id: 548;	size: 2340
+ id: 549;	size: 1380
+ id: 550;	size: 205
+ id: 566;	size: 305
+ id: 567;	size: 395
+ id: 568;	size: 200
+ id: 569;	size: 635
+ id: 571;	size: 1089
+ id: 572;	size: 1190
+ id: 573;	size: 1040
+ id: 574;	size: 990
+ id: 575;	size: 1242
+ id: 576;	size: 1142
+ id: 589;	size: 4925
+ id: 591;	size: 2400
+ id: 592;	size: 2100
+ id: 593;	size: 2000
+ id: 594;	size: 800
+ id: 595;	size: 2340
+ id: 596;	size: 2040
+ id: 597;	size: 1940
+ id: 598;	size: 1380
+ id: 599;	size: 1270
+ id: 600;	size: 220
+ id: 601;	size: 205
+ id: 608;	size: 200
+ id: 609;	size: 750
+ id: 611;	size: 1270
+ id: 612;	size: 220
+ id: 613;	size: 972
+ id: 614;	size: 1073
+ id: 615;	size: 923
+ id: 616;	size: 873
+ id: 618;	size: 1150
+ id: 619;	size: 1050
+ id: 620;	size: 635
+ id: 621;	size: 4925
+ id: 622;	size: 2400
+ id: 623;	size: 2100
+ id: 624;	size: 2000
+ id: 625;	size: 800
+ id: 626;	size: 2340
+ id: 627;	size: 2040
+ id: 628;	size: 1940
+ id: 629;	size: 200
+ id: 639;	size: 800
+ id: 640;	size: 2340
+ id: 641;	size: 200
+ id: 647;	size: 2400
+ id: 649;	size: 2340
+ id: 650;	size: 800
+ id: 651;	size: 200
+ id: 654;	size: 150
+ id: 655;	size: 2500
+ id: 656;	size: 4100
+ id: 657;	frw_file_parts: 
+ id: 658;	size: 910
+ id: 661;	size: 760
+ id: 662;	size: 3995
+ id: 663;	size: 760
+ id: 664;	size: 3996
+ id: 665;	frw_file_parts: 
+ id: 667;	size: 1300
+ id: 668;	size: 1200
+ id: 669;	size: 400
+ id: 671;	size: 530
+ id: 672;	size: 1700
+ id: 674;	size: 394
+ id: 675;	size: 40
+ id: 676;	size: 72
+ id: 677;	size: 1843
+ id: 678;	size: 1843
+ id: 679;	size: 1400
+ id: 680;	size: 118
+ id: 681;	size: 600
+ id: 682;	size: 600
+ id: 686;	size: 1020
+ id: 687;	size: 1000
+ id: 688;	size: 690
+ id: 689;	size: 677
+ id: 690;	size: 1000
+ id: 691;	size: 3910
+ id: 692;	size: 1280
+ id: 693;	size: 1265
+ id: 694;	size: 1370
+ id: 695;	size: 4130
+ id: 696;	size: 600
+ id: 697;	size: 3943
+ id: 699;	size: 1370
+ id: 701;	size: 1200
+ id: 703;	size: 3990
+ id: 704;	size: 1160
+ id: 707;	size: 4050
+ id: 708;	size: 1160
+ id: 711;	size: 2590
+ id: 712;	size: 1160
+ id: 713;	size: 810
+ id: 716;	size: 3500
+ id: 717;	size: 4496
+ id: 719;	size: 4492
+ id: 720;	size: 4600
+ id: 721;	size: 2085
+ id: 722;	size: 2085
+ id: 723;	size: 310
+ id: 724;	size: 310
+ id: 725;	size: 768
+ id: 726;	size: 768
+ id: 727;	size: 1440
+ id: 728;	size: 130
+ id: 732;	size: 50
+ id: 734;	size: 920
+ id: 735;	size: 933
+ id: 736;	size: 640
+ id: 737;	size: 862
+ id: 741;	size: 1300
+ id: 742;	size: 1200
+ id: 743;	size: 400
+ id: 745;	size: 530
+ id: 746;	size: 1700
+ id: 748;	size: 394
+ id: 749;	size: 61
+ id: 750;	size: 4412
+ id: 751;	size: 1440
+ id: 752;	size: 1542
+ id: 753;	size: 1207
+ id: 754;	size: 1214
+ id: 755;	size: 1214
+ id: 756;	size: 6920
+ id: 757;	size: 1565
+ id: 758;	size: 1585
+ id: 759;	size: 1605
+ id: 760;	size: 1625
+ id: 761;	size: 4500
+ id: 762;	size: 600
+ id: 764;	size: 4373
+ id: 766;	size: 1540
+ id: 768;	size: 1200
+ id: 771;	size: 4500
+ id: 772;	size: 1160
+ id: 773;	size: 1075
+ id: 775;	size: 3460
+ id: 776;	size: 1160
+ id: 777;	size: 1100
+ id: 781;	size: 293
+ id: 782;	size: 690
+ id: 783;	size: 576
+ id: 784;	size: 3760
+ id: 785;	size: 1160
+ id: 786;	size: 890
+ id: 788;	size: 1200
+ id: 789;	size: 240
+ id: 922;	size: 12000
+ id: 964;	size: 365
+ id: 971;	actual_date: 2025-10-09 11:02:40+03:00
+=== Times ===
+На печать инфы и получение номера детали: 65.6615355014801;
+На поиск или создание материала: 45.10268187522888;
+На чтение нескольких ячеек: 261.6913962364197;
+На чтение и преобразование даты: 44.14320516586304;
+На чтение и операции с ФРВ: 143.16811299324036;
+На чтение и операции с СДВ: 166.85471987724304;
+На чтение Стадий и Расшифровок: 394.69382643699646;
+На поиск и сохранение детали в базе: 51.198962926864624;
+=============

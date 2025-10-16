@@ -99,20 +99,23 @@ def load_details_from_xlsx(FILENAME):
     last_row_number = sheet.max_row
     print(f"Номер последней строки с данными: {last_row_number}")
     
+    # Чтение столбцов из книги в списки
+    col_numbers = [cell.value for cell in sheet['B1:B'+last_row_number]]
+    
+    # Лог-файл
+    logfile = open("d:\DjangoProject\DjangoProdactionControl\logfiles\load_details_from_xlsx(" + datetime.time() + ").txt", "w")
+    logfile.write(FILENAME)
+ 
+    # Объект анализа времени выполнения отдельных сегментов кода
     ta = TimeAnalis()
     
-    for row_number in range(999, 2000):
+    for row_number in range(4, 100):
+        #detail_number = col_numbers[row_number] 
         detail_number = sheet.cell(row=row_number, column=2).value
         if detail_number == "": continue
+        detail = Detail()
         
         ta.time_update('На печать инфы и получение номера детали')
-        
-        try:
-            detail = Detail.objects.get(number = detail_number)
-        except Detail.DoesNotExist:
-            detail = Detail()
-        
-        ta.time_update('На поиск детали в базе данных')
         
         detail.material     = GetMaterialFromString(sheet.cell(row=row_number, column=1).value)
         
@@ -198,16 +201,28 @@ def load_details_from_xlsx(FILENAME):
         
         ta.time_update('На чтение Стадий и Расшифровок')
         
-        detail.save()
+        try:
+            new_detail = Detail.objects.get(number = detail_number)
+        except Detail.DoesNotExist:
+            new_detail = Detail()
         
-        ta.time_update('На сохранение детали в базе')
+        log_str = new_detail.all_propertys_overrade_and_save(detail)
         
-        #print(f"Прогресс: {row_number} строк.\n" + ta.get_string() + '\n', end='\r')
+        if log_str != '':
+            log_str = '\n id: ' + str(new_detail.id) + log_str
+            logfile.write(log_str)
+        
+        ta.time_update('На поиск и сохранение детали в базе')
+        
         print(f"Прогресс: {row_number} строк. Время: " + ta.get_sum(), end='\r')
             
     # закрываем книгу после прочтения
     wb.close()
     print('\n', ta.get_string(), '\n')
+    
+    logfile.write('\n')
+    logfile.write(ta.get_string())
+    logfile.close()
 
 
 
