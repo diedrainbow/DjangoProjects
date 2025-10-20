@@ -133,109 +133,113 @@ class Detail(models.Model):
         log_str = ""
         save_flag = False
         
-        if self.material != det.material:
-            save_flag = True
-            self.material = det.material
-            log_str += ";\tmaterial: " + str(self.material)
-            
-        if self.number != det.number:
-            save_flag = True
-            self.number = det.number
-            log_str += ";\tnumber: " + self.number
-            
-        if self.name != det.name:
-            save_flag = True
-            self.name = det.name
-            log_str += ";\tname: " + self.name
-            
-        if self.grave != det.grave:
-            save_flag = True
-            self.grave = det.grave
-            log_str += ";\tgrave: " + self.grave
+        try:
         
-        if self.size != det.size:
-            save_flag = True
-            self.size = det.size
-            log_str += ";\tsize: " + str(self.size)
+            if self.material != det.material:
+                save_flag = True
+                self.material = det.material
+                log_str += ";\tmaterial: " + str(self.material)
+                
+            if self.number != det.number:
+                save_flag = True
+                self.number = det.number
+                log_str += ";\tnumber: " + self.number
+                
+            if self.name != det.name:
+                save_flag = True
+                self.name = det.name
+                log_str += ";\tname: " + self.name
+                
+            if self.grave != det.grave:
+                save_flag = True
+                self.grave = det.grave
+                log_str += ";\tgrave: " + self.grave
+            
+            if self.size != det.size:
+                save_flag = True
+                self.size = det.size
+                log_str += ";\tsize: " + str(self.size)
+            
+            if self.marshrut != det.marshrut:
+                save_flag = True
+                self.marshrut = det.marshrut
+                log_str += ";\tmarshrut: " + self.marshrut
+            
+            if self.poddon != det.poddon:
+                save_flag = True
+                self.poddon = det.poddon
+                log_str += ";\tpoddon: " + self.poddon
+            
+            if self.comment != det.comment:
+                save_flag = True
+                self.comment = det.comment
+                log_str += ";\tcomment: " + str(self.comment)
+                
+            if self.actual_date != det.actual_date:
+                save_flag = True
+                self.actual_date = det.actual_date
+                log_str += ";\tactual_date: " + str(self.actual_date)
+                
+            if self.frw_file_name != det.frw_file_name:
+                save_flag = True
+                self.frw_file_name = det.frw_file_name
+                log_str += ";\tfrw_file_name: " + str(self.frw_file_name)
+                
+            if self.frw_file_folder != det.frw_file_folder:
+                save_flag = True
+                self.frw_file_folder = det.frw_file_folder
+                log_str += ";\tfrw_file_folder: " + str(self.frw_file_folder)
+                
+            if self.frw_file_date != det.frw_file_date:
+                save_flag = True
+                self.frw_file_date = det.frw_file_date
+                log_str += ";\tfrw_file_date: " + str(self.frw_file_date)
+                
+            if self.frw_file_parts != det.frw_file_parts:
+                save_flag = True
+                self.frw_file_parts = det.frw_file_parts
+                log_str += ";\tfrw_file_parts: " + self.frw_file_parts
+                
+            if self.frw_valid != det.frw_valid:
+                save_flag = True
+                self.frw_valid = det.frw_valid
+                log_str += ";\tfrw_valid: " + str(self.frw_valid)
+                
+            if self.cdw_file_name != det.cdw_file_name:
+                save_flag = True
+                self.cdw_file_name = det.cdw_file_name
+                log_str += ";\tcdw_file_name: " + str(self.cdw_file_name)
+                
+            if self.cdw_file_folder != det.cdw_file_folder:
+                save_flag = True
+                self.cdw_file_folder = det.cdw_file_folder
+                log_str += ";\tcdw_file_folder: " + str(self.cdw_file_folder)
+                
+            if self.cdw_file_date != det.cdw_file_date:
+                save_flag = True
+                self.cdw_file_date = det.cdw_file_date
+                log_str += ";\tcdw_file_date: " + str(self.cdw_file_date)
+                
+            if self.cdw_valid != det.cdw_valid:
+                save_flag = True
+                self.cdw_valid = det.cdw_valid
+                log_str += ";\tcdw_valid: " + str(self.cdw_valid)
+                
+            if self.stages != det.stages:
+                save_flag = True
+                self.stages = det.stages
+                log_str += ";\tstages: " + self.stages
+                
+            if self.descriptions != det.descriptions:
+                save_flag = True
+                self.descriptions = det.descriptions
+                log_str += ";\tdescriptions: " + self.descriptions
+                
+            if save_flag:
+                self.save()
         
-        if self.marshrut != det.marshrut:
-            save_flag = True
-            self.marshrut = det.marshrut
-            log_str += ";\tmarshrut: " + self.marshrut
-        
-        if self.poddon != det.poddon:
-            save_flag = True
-            self.poddon = det.poddon
-            log_str += ";\tpoddon: " + self.poddon
-        
-        if self.comment != det.comment:
-            save_flag = True
-            self.comment = det.comment
-            log_str += ";\tcomment: " + str(self.comment)
-            
-        if self.actual_date != det.actual_date:
-            save_flag = True
-            self.actual_date = det.actual_date
-            log_str += ";\tactual_date: " + str(self.actual_date)
-            
-        if self.frw_file_name != det.frw_file_name:
-            save_flag = True
-            self.frw_file_name = det.frw_file_name
-            log_str += ";\tfrw_file_name: " + str(self.frw_file_name)
-            
-        if self.frw_file_folder != det.frw_file_folder:
-            save_flag = True
-            self.frw_file_folder = det.frw_file_folder
-            log_str += ";\tfrw_file_folder: " + str(self.frw_file_folder)
-            
-        if self.frw_file_date != det.frw_file_date:
-            save_flag = True
-            self.frw_file_date = det.frw_file_date
-            log_str += ";\tfrw_file_date: " + str(self.frw_file_date)
-            
-        if self.frw_file_parts != det.frw_file_parts:
-            save_flag = True
-            self.frw_file_parts = det.frw_file_parts
-            log_str += ";\tfrw_file_parts: " + self.frw_file_parts
-            
-        if self.frw_valid != det.frw_valid:
-            save_flag = True
-            self.frw_valid = det.frw_valid
-            log_str += ";\tfrw_valid: " + str(self.frw_valid)
-            
-        if self.cdw_file_name != det.cdw_file_name:
-            save_flag = True
-            self.cdw_file_name = det.cdw_file_name
-            log_str += ";\tcdw_file_name: " + str(self.cdw_file_name)
-            
-        if self.cdw_file_folder != det.cdw_file_folder:
-            save_flag = True
-            self.cdw_file_folder = det.cdw_file_folder
-            log_str += ";\tcdw_file_folder: " + str(self.cdw_file_folder)
-            
-        if self.cdw_file_date != det.cdw_file_date:
-            save_flag = True
-            self.cdw_file_date = det.cdw_file_date
-            log_str += ";\tcdw_file_date: " + str(self.cdw_file_date)
-            
-        if self.cdw_valid != det.cdw_valid:
-            save_flag = True
-            self.cdw_valid = det.cdw_valid
-            log_str += ";\tcdw_valid: " + str(self.cdw_valid)
-            
-        if self.stages != det.stages:
-            save_flag = True
-            self.stages = det.stages
-            log_str += ";\tstages: " + self.stages
-            
-        if self.descriptions != det.descriptions:
-            save_flag = True
-            self.descriptions = det.descriptions
-            log_str += ";\tdescriptions: " + self.descriptions
-            
-        if save_flag:
-            self.save()
-            
+        except Exception as ex:
+            log_str = '\n === ERROR === ' + ex
         return log_str
 
 

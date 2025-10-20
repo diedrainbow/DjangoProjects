@@ -100,122 +100,173 @@ def load_details_from_xlsx(FILENAME):
     print(f"Номер последней строки с данными: {last_row_number}")
     
     # Чтение столбцов из книги в списки
-    col_numbers = [cell.value for cell in sheet['B1:B'+last_row_number]]
+    last_row_number_str = str(last_row_number)
+    col_material = sheet['A1:A'+last_row_number_str]
+    print("col_material load", end='\r')
+    col_number = sheet['B1:B'+last_row_number_str]
+    print("col_number load", end='\r')
+    col_name = sheet['C1:C'+last_row_number_str]
+    print("col_name load", end='\r')
+    col_grave = sheet['D1:D'+last_row_number_str]
+    print("col_grave load", end='\r')
+    col_size = sheet['E1:E'+last_row_number_str]
+    print("col_size load", end='\r')
+    col_marsh = sheet['F1:F'+last_row_number_str]
+    print("col_marsh load", end='\r')
+    col_poddon = sheet['G1:G'+last_row_number_str]
+    print("col_poddon load", end='\r')
+    col_comment = sheet['H1:H'+last_row_number_str]
+    print("col_comment load", end='\r')
+    col_date = sheet['I1:I'+last_row_number_str]
+    print("col_date load", end='\r')
     
-    # Лог-файл
-    logfile = open("d:\DjangoProject\DjangoProdactionControl\logfiles\load_details_from_xlsx(" + datetime.time() + ").txt", "w")
+    col_frw_name = sheet['J1:J'+last_row_number_str]
+    print("col_frw_name load", end='\r')
+    col_frw_dir = sheet['K1:K'+last_row_number_str]
+    print("col_frw_dir load", end='\r')
+    col_frw_date = sheet['L1:L'+last_row_number_str]
+    print("col_frw_date load", end='\r')
+    col_frw_parts = sheet['P1:P'+last_row_number_str]
+    print("col_frw_parts load", end='\r')
+    
+    col_cdw_name = sheet['M1:M'+last_row_number_str]
+    print("col_cdw_name load", end='\r')
+    col_cdw_dir = sheet['N1:N'+last_row_number_str]
+    print("col_cdw_dir load", end='\r')
+    col_cdw_date = sheet['O1:O'+last_row_number_str]
+    print("col_cdw_date load", end='\r')
+    
+    col_stage1 = sheet['Q1:Q'+last_row_number_str]
+    print("col_stage1 load", end='\r')
+    col_descr1 = sheet['R1:R'+last_row_number_str]
+    print("col_descr1 load", end='\r')
+    col_stage2 = sheet['S1:S'+last_row_number_str]
+    print("col_stage2 load", end='\r')
+    col_descr2 = sheet['T1:T'+last_row_number_str]
+    print("col_descr2 load", end='\r')
+    col_stage3 = sheet['U1:U'+last_row_number_str]
+    print("col_stage3 load", end='\r')
+    col_descr3 = sheet['V1:V'+last_row_number_str]
+    print("col_descr3 load", end='\r')
+    col_stage4 = sheet['W1:W'+last_row_number_str]
+    print("col_stage4 load", end='\r')
+    col_descr4 = sheet['X1:X'+last_row_number_str]
+    print("col_descr4 load")
+    
+    # Лог-файл 
+    #logfile = open(r"d:\DjangoProject\DjangoProdactionControl\logfiles\load_details_from_xlsx(" + str(time.time()) + ").txt", "w")
+    logfile = open(r"d:\django\DjangoProdactionControl\logfiles\load_details_from_xlsx(" + str(time.time()) + ").txt", "w")
     logfile.write(FILENAME)
  
     # Объект анализа времени выполнения отдельных сегментов кода
     ta = TimeAnalis()
     
-    for row_number in range(4, 100):
-        #detail_number = col_numbers[row_number] 
-        detail_number = sheet.cell(row=row_number, column=2).value
-        if detail_number == "": continue
-        detail = Detail()
-        
-        ta.time_update('На печать инфы и получение номера детали')
-        
-        detail.material     = GetMaterialFromString(sheet.cell(row=row_number, column=1).value)
-        
-        ta.time_update('На поиск или создание материала')
-        
-        detail.number       = detail_number
-        detail.name         = sheet.cell(row=row_number, column=3).value
-        detail.grave        = sheet.cell(row=row_number, column=4).value
-        detail.size         = sheet.cell(row=row_number, column=5).value
-        detail.marshrut     = sheet.cell(row=row_number, column=6).value
-        detail.poddon       = sheet.cell(row=row_number, column=7).value
-        detail.comment      = sheet.cell(row=row_number, column=8).value
-        
-        ta.time_update('На чтение нескольких ячеек')
-        
-        detail.actual_date  = DateFromOpenpyxl(sheet.cell(row=row_number, column=9).value)
-        
-        ta.time_update('На чтение и преобразование даты')
-        
-        frw_file_name = sheet.cell(row=row_number, column=10).value
-        if frw_file_name == "" or frw_file_name == None or sheet.cell(row=row_number, column=12).value == "Нет файла":
-            detail.frw_file_name = ""
-            detail.frw_file_folder = ""
-            detail.frw_file_date = None
-            detail.frw_valid = 0.0
-        else:
-            detail.frw_file_name = frw_file_name
-            detail.frw_file_folder = sheet.cell(row=row_number, column=11).value
-            detail.frw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=12).value)
-            
-            fill = sheet.cell(row=row_number, column=10).fill
-            if fill is None:
-                color_index = "00000000"
-            else:
-                color_index = fill.start_color.index
-            
-            if color_index == "00000000":
-                detail.frw_valid = 1.0
-            else:
-                detail.frw_valid = 0.5
-        
-        ta.time_update('На чтение и операции с ФРВ')
-        
-        cdw_file_name = sheet.cell(row=row_number, column=13).value
-        if cdw_file_name == "" or cdw_file_name == None or sheet.cell(row=row_number, column=15).value == "Нет файла":
-            detail.cdw_file_name = ""
-            detail.cdw_file_folder = ""
-            detail.cdw_file_date = None
-            detail.cdw_valid = 0.0
-        else:
-            detail.cdw_file_name = cdw_file_name
-            detail.cdw_file_folder = sheet.cell(row=row_number, column=14).value
-            detail.cdw_file_date = DateFromOpenpyxl(sheet.cell(row=row_number, column=15).value)
-            
-            fill = sheet.cell(row=row_number, column=13).fill
-            if fill is None:
-                color_index = "00000000"
-            else:
-                color_index = fill.start_color.index
-            
-            if color_index == "00000000":
-                detail.cdw_valid = 1.0
-            else:
-                detail.cdw_valid = 0.5
-        
-        ta.time_update('На чтение и операции с СДВ')
-        
-        detail.parts = sheet.cell(row=row_number, column=16).value 
-        
-        detail.stages = ""
-        detail.descriptions = ""
-        for i in range(17, 25, 2):
-            stage = sheet.cell(row=row_number, column=i).value
-            descr = sheet.cell(row=row_number, column=i+1).value
-            if stage == None: stage = ""
-            if descr == None: descr = ""
-            #stage = stage.replace(';',',,')
-            #descr = descr.replace(';',',,')
-            detail.stages += stage + ';'
-            detail.descriptions += descr + ';'
-        detail.stages += ';;'
-        detail.descriptions += ';;'
-        
-        ta.time_update('На чтение Стадий и Расшифровок')
-        
+    for row_number in range(3, 100): # last_row_number-1
+    
         try:
-            new_detail = Detail.objects.get(number = detail_number)
-        except Detail.DoesNotExist:
-            new_detail = Detail()
-        
-        log_str = new_detail.all_propertys_overrade_and_save(detail)
-        
-        if log_str != '':
-            log_str = '\n id: ' + str(new_detail.id) + log_str
-            logfile.write(log_str)
-        
-        ta.time_update('На поиск и сохранение детали в базе')
-        
-        print(f"Прогресс: {row_number} строк. Время: " + ta.get_sum(), end='\r')
+    
+            detail_number = str(col_number[row_number][0].value)
+            if detail_number == "": continue
+            detail = Detail()
             
+            ta.time_update('На печать инфы и получение номера детали')
+            
+            detail.material     = GetMaterialFromString(col_material[row_number][0].value)
+            
+            ta.time_update('На поиск или создание материала')
+            
+            detail.number       = str(detail_number)
+            detail.name         = str(col_name[row_number][0].value)
+            detail.grave        = tostr(col_grave[row_number][0].value)
+            detail.size         = str(col_size[row_number][0].value)
+            detail.marshrut     = str(col_marsh[row_number][0].value)
+            detail.poddon       = str(col_poddon[row_number][0].value)
+            detail.comment      = tostr(col_comment[row_number][0].value)
+            
+            ta.time_update('На чтение нескольких ячеек')
+            
+            detail.actual_date  = DateFromOpenpyxl(col_date[row_number][0].value)
+            
+            ta.time_update('На чтение и преобразование даты')
+            
+            frw_file_name = col_frw_name[row_number][0].value
+            if frw_file_name == "" or frw_file_name == None or col_frw_date[row_number][0].value == "Нет файла":
+                detail.frw_file_name = ""
+                detail.frw_file_folder = ""
+                detail.frw_file_date = None
+                detail.frw_valid = 0.0
+            else:
+                detail.frw_file_name = frw_file_name
+                detail.frw_file_folder = col_frw_dir[row_number][0].value
+                detail.frw_file_date = DateFromOpenpyxl(col_frw_date[row_number][0].value)
+                
+                #fill = sheet.cell(row=row_number+1, column=10).fill
+                fill = col_frw_name[row_number][0].fill
+                if fill is None: color_index = "00000000"
+                else: color_index = fill.start_color.index
+                    
+                if color_index == "00000000": detail.frw_valid = 1.0
+                else: detail.frw_valid = 0.5
+            
+            ta.time_update('На чтение и операции с ФРВ')
+            
+            cdw_file_name = col_cdw_name[row_number][0].value
+            if cdw_file_name == "" or cdw_file_name == None or col_cdw_date[row_number][0].value == "Нет файла":
+                detail.cdw_file_name = ""
+                detail.cdw_file_folder = ""
+                detail.cdw_file_date = None
+                detail.cdw_valid = 0.0
+            else:
+                detail.cdw_file_name = cdw_file_name
+                detail.cdw_file_folder = col_cdw_dir[row_number][0].value
+                detail.cdw_file_date = DateFromOpenpyxl(col_cdw_date[row_number][0].value)
+                
+                #fill = sheet.cell(row=row_number+1, column=13).fill
+                fill = col_cdw_name[row_number][0].fill
+                if fill is None: color_index = "00000000"
+                else: color_index = fill.start_color.index
+                    
+                if color_index == "00000000": detail.cdw_valid = 1.0
+                else: detail.cdw_valid = 0.5
+             
+            ta.time_update('На чтение и операции с СДВ')
+            
+            detail.parts = col_frw_parts[row_number][0].value
+            
+            detail.stages = tostr(col_stage1[row_number][0].value) + ';'
+            detail.stages += tostr(col_stage2[row_number][0].value) + ';'
+            detail.stages += tostr(col_stage3[row_number][0].value) + ';'
+            detail.stages += tostr(col_stage4[row_number][0].value) + ';'
+            detail.stages += ';;'
+            
+            detail.descriptions = tostr(col_descr1[row_number][0].value) + ';'
+            detail.descriptions += tostr(col_descr2[row_number][0].value) + ';'
+            detail.descriptions += tostr(col_descr3[row_number][0].value) + ';'
+            detail.descriptions += tostr(col_descr4[row_number][0].value) + ';'
+            detail.descriptions += ';;'
+            
+            ta.time_update('На чтение Стадий и Расшифровок')
+            
+            try:
+                new_detail = Detail.objects.get(number = detail_number)
+            except Detail.DoesNotExist:
+                new_detail = Detail()
+            
+            log_str = new_detail.all_propertys_overrade_and_save(detail)
+            
+            if log_str != '':
+                log_str = '\n id: ' + str(new_detail.id) + log_str
+                logfile.write(log_str)
+            
+            ta.time_update('На поиск и сохранение детали в базе')
+            
+            print(f"Прогресс: {row_number} строк. Время: " + ta.get_sum(), end='\r')
+        
+        except Exception as ex:
+            log_str = '\n === ERROR === row: ' + str(row_number) + '; ' + str(ex)
+            logfile.write(log_str)
+            print(log_str)
+        
     # закрываем книгу после прочтения
     wb.close()
     print('\n', ta.get_string(), '\n')
@@ -225,7 +276,10 @@ def load_details_from_xlsx(FILENAME):
     logfile.close()
 
 
-
+def tostr(val):
+    if val == None: val = ''
+    else: val = str(val)
+    return val #.encode('UTF-8', errors='ignore')
 
 
 def load_from_csv(FILENAME):
