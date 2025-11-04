@@ -39,6 +39,7 @@ urlpatterns = [
     re_path(r'^post_new_prodact/+', OrdersList.views.post_new_prodact),
     path('new_prodact_form/', OrdersList.views.new_prodact_form),
     
+    path('get_details_data_json/<path:details_numbers>', DetailsBase.views.get_details_data_json),
     path('load_detail_row/<int:detail_id>', DetailsBase.views.load_detail_row),
     path('load_sb_row/<int:sb_id>', DetailsBase.views.load_sb_row),
     path('clicked_detail/<int:detail_id>', DetailsBase.views.detail_dialog),
