@@ -128,7 +128,7 @@ class Detail(models.Model):
     
     class Meta:
         ordering = ['number']
-        
+    
     def all_propertys_overrade_and_save(self, det):
         log_str = ""
         save_flag = False

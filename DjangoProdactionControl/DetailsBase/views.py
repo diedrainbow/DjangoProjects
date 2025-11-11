@@ -32,7 +32,13 @@ def materialsBase(request):
     context = {'mat': mat}
     return render(request, 'materialsBase.html', context)
     
-    
+def get_details_data_json(request):
+    # Retrieve a QuerySet of dictionaries, specifying the fields you need
+    queryset = Detail.objects.all().values('field1', 'field2', 'field3')
+    # Convert the QuerySet to a list of dictionaries
+    data = list(queryset)
+    # Return the data as a JsonResponse
+    return JsonResponse(data, safe=False) # safe=False is needed for lists
     
 def detailsBase(request):
     details = Detail.objects.only("id")
