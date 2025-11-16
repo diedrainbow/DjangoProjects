@@ -11,13 +11,13 @@ def load_details_from_file(request):
     #load_from_csv(FILENAME_CSV)
     
     #FILENAME_XLSX = r"k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm"
-    FILENAME_XLSX = r"d:\Documents\_База деталей 16-10-25\База деталей 9.xlsm"
+    FILENAME_XLSX = r"d:\django\DjangoProdactionControl\9-я версия\База деталей 9.xlsm"
     load_details_from_xlsx(FILENAME_XLSX)
     return redirect('urlDetailsBase')
     
 def load_SB_from_file(request):
-    FILENAME_XLSX = r"k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm"
-    #FILENAME_XLSX = r"d:\Documents\_База деталей 25-07-25\9-я версия\База деталей 9.xlsm"
+    #FILENAME_XLSX = r"k:\Обменник\_База деталей\9-я версия\База деталей 9.xlsm"
+    FILENAME_XLSX = r"d:\django\DjangoProdactionControl\9-я версия\База деталей 9.xlsm"
     load_SB_from_xlsx(FILENAME_XLSX)
     return redirect('urlSBBase')
 
