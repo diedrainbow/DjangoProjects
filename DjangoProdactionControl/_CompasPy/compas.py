@@ -40,7 +40,10 @@ def stamp(doc7):
 
         if style_filename in ['graphic.lyt', 'Graphic.lyt'] and style_number == 1:
             stamp = doc7.LayoutSheets.Item(sheet).Stamp
-            return {"Scale": re.search(r"\d+:\d+", stamp.Text(6).Str).group(),
+            match = re.search(r"\d+:\d+", stamp.Text(6).Str)
+            sc = ""
+            if match: sc = match.group()
+            return {"Scale": sc,
                     "Designer": stamp.Text(110).Str}
 
     return {"Scale": 'Неопределенный стиль оформления',
@@ -99,6 +102,51 @@ def count_dimension(doc7, module7):
                      dimensions.Tolerances.Count
 
     return count_dim
+    
+    
+# Подсчёт максимальных размеров для отдельных видов
+def get_max_dimensions(doc7, module7):
+    IKompasDocument2D = doc7._oleobj_.QueryInterface(module7.NamesToIIDMap['IKompasDocument2D'],
+                                                     pythoncom.IID_IDispatch)
+    doc2D = module7.IKompasDocument2D(IKompasDocument2D)
+    views = doc2D.ViewsAndLayersManager.Views
+    
+    view_dimensions = dict()
+    
+    count_dim = 0
+    for i in range(views.Count):
+        ISymbols2DContainer = views.View(i)._oleobj_.QueryInterface(module7.NamesToIIDMap['ISymbols2DContainer'],
+                                                                    pythoncom.IID_IDispatch)
+        dimensions = module7.ISymbols2DContainer(ISymbols2DContainer)
+        
+        # Складываем линейные, горизонтальные размеры
+        max_horizontal_dim = 0
+        for j in range(dimensions.LineDimensions.Count):
+            max_horizontal_dim = max(max_horizontal_dim, dimensions.LineDimensions.LineDimension(j).X1)
+        
+        # Складываем все необходимые размеры
+        count_dim += dimensions.AngleDimensions.Count + \
+                     dimensions.ArcDimensions.Count + \
+                     dimensions.Bases.Count + \
+                     dimensions.BreakLineDimensions.Count + \
+                     dimensions.BreakRadialDimensions.Count + \
+                     dimensions.DiametralDimensions.Count + \
+                     dimensions.Leaders.Count + \
+                     dimensions.LineDimensions.Count + \
+                     dimensions.RadialDimensions.Count + \
+                     dimensions.RemoteElements.Count + \
+                     dimensions.Roughs.Count + \
+                     dimensions.Tolerances.Count
+        
+        i_view = views.View(i)
+        view_name = i_view.Name
+        
+        view_dimensions[view_name] = max_horizontal_dim
+        count_dim = 0
+
+    return view_dimensions
+
+
 
 # Функция проверяет, запущена ли программа Kompas 3D
 # def is_running():
@@ -122,14 +170,15 @@ def parse_design_documents(paths):
                                    Visible=True,
                                    ReadOnly=True)       # Откроем файл в видимом режиме без права его изменять
 
-        row = amount_sheet(doc7)                        # Посчитаем кол-во листов каждого формат
-        row.update(stamp(doc7))                         # Читаем основную надпись
-        row.update({
-            "Filename": doc7.Name,                      # Имя файла
-            "CountTD": count_demand(doc7, module7),     # Количество пунктов технических требований
-            "CountDim": count_dimension(doc7, module7), # Количество размеров на чертеже
-        })
-        table.append(row)                               # Добавляем строку параметров в таблицу
+        #row = amount_sheet(doc7)                        # Посчитаем кол-во листов каждого формат
+        #row.update(stamp(doc7))                         # Читаем основную надпись
+        # row = get_max_dimensions(doc7, module7)
+        # row.update({
+            # "Filename": doc7.Name,                      # Имя файла
+            # "CountTD": count_TT(doc7, module7),     # Количество пунктов технических требований
+            # "CountDim": count_dimension(doc7, module7), # Количество размеров на чертеже
+        # })
+        table.append(get_max_dimensions(doc7, module7))                               # Добавляем строку параметров в таблицу
 
         doc7.Close(const7.kdDoNotSaveChanges)           # Закроем файл без изменения
 
