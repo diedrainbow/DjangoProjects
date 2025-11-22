@@ -1,5 +1,6 @@
 import os
 import re
+import math
 #import subprocess
 import pythoncom
 from win32com.client import Dispatch, gencache
@@ -103,7 +104,11 @@ def count_dimension(doc7, module7):
 
     return count_dim
     
-    
+# Нахождение длины отрезка с оруглением до сотых
+def get_lenght(x1, y1, x2, y2):
+    l = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    return round(l*100)/100
+
 # Подсчёт максимальных размеров для отдельных видов
 def get_max_dimensions(doc7, module7):
     IKompasDocument2D = doc7._oleobj_.QueryInterface(module7.NamesToIIDMap['IKompasDocument2D'],
@@ -113,36 +118,37 @@ def get_max_dimensions(doc7, module7):
     
     view_dimensions = dict()
     
-    count_dim = 0
     for i in range(views.Count):
         ISymbols2DContainer = views.View(i)._oleobj_.QueryInterface(module7.NamesToIIDMap['ISymbols2DContainer'],
                                                                     pythoncom.IID_IDispatch)
         dimensions = module7.ISymbols2DContainer(ISymbols2DContainer)
         
-        # Складываем линейные, горизонтальные размеры
+        # Проверяем линейные размеры
         max_horizontal_dim = 0
+        max_vertical_dim = 0
         for j in range(dimensions.LineDimensions.Count):
-            max_horizontal_dim = max(max_horizontal_dim, dimensions.LineDimensions.LineDimension(j).X1)
+            d = dimensions.LineDimensions.LineDimension(j)
+            
+            if d.Orientation == 1:
+                dl = get_lenght(d.X1, d.Y1, d.X2, d.Y1)
+                max_horizontal_dim = max(max_horizontal_dim, dl)
+            if d.Orientation == 2:
+                dl = get_lenght(d.X1, d.Y1, d.X1, d.Y2)
+                max_vertical_dim = max(max_vertical_dim, dl)
         
-        # Складываем все необходимые размеры
-        count_dim += dimensions.AngleDimensions.Count + \
-                     dimensions.ArcDimensions.Count + \
-                     dimensions.Bases.Count + \
-                     dimensions.BreakLineDimensions.Count + \
-                     dimensions.BreakRadialDimensions.Count + \
-                     dimensions.DiametralDimensions.Count + \
-                     dimensions.Leaders.Count + \
-                     dimensions.LineDimensions.Count + \
-                     dimensions.RadialDimensions.Count + \
-                     dimensions.RemoteElements.Count + \
-                     dimensions.Roughs.Count + \
-                     dimensions.Tolerances.Count
+        # Проверяем диаметры
+        max_diametral = 0
+        for k in range(dimensions.DiametralDimensions.Count):
+            d = dimensions.DiametralDimensions.DiametralDimension(k)
+            dl = d.Radius * 2
+            max_diametral = max(max_diametral, dl)
+        
+        max_horizontal_dim = max(max_horizontal_dim, max_diametral)
+        max_vertical_dim = max(max_vertical_dim, max_diametral)
         
         i_view = views.View(i)
         view_name = i_view.Name
-        
-        view_dimensions[view_name] = max_horizontal_dim
-        count_dim = 0
+        view_dimensions[view_name] = str(max_horizontal_dim) + "x" + str(max_vertical_dim)
 
     return view_dimensions
 
@@ -178,7 +184,9 @@ def parse_design_documents(paths):
             # "CountTD": count_TT(doc7, module7),     # Количество пунктов технических требований
             # "CountDim": count_dimension(doc7, module7), # Количество размеров на чертеже
         # })
-        table.append(get_max_dimensions(doc7, module7))                               # Добавляем строку параметров в таблицу
+        dict = get_max_dimensions(doc7, module7)
+        dict["Filename"] = doc7.Name
+        table.append(dict)                               # Добавляем строку параметров в таблицу
 
         doc7.Close(const7.kdDoNotSaveChanges)           # Закроем файл без изменения
 
