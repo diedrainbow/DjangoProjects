@@ -170,7 +170,7 @@ def parse_design_documents(paths):
     app7.Visible = True                             # Показываем окно пользователю (если скрыто)
     app7.HideMessage = const7.ksHideMessageNo       # Отвечаем НЕТ на любые вопросы программы
 
-    table = []                                      # Создаём таблицу параметров
+    table = []                                  # Создаём таблицу параметров
     for path in paths:
         doc7 = app7.Documents.Open(PathName=path,
                                    Visible=True,
@@ -184,9 +184,10 @@ def parse_design_documents(paths):
             # "CountTD": count_TT(doc7, module7),     # Количество пунктов технических требований
             # "CountDim": count_dimension(doc7, module7), # Количество размеров на чертеже
         # })
-        dict = get_max_dimensions(doc7, module7)
-        dict["Filename"] = doc7.Name
-        table.append(dict)                               # Добавляем строку параметров в таблицу
+        dct = get_max_dimensions(doc7, module7)
+        #dct["Filename"] = doc7.Name
+        dct["Filepath"] = path
+        table.append(dct)                               # Добавляем строку параметров в таблицу
 
         doc7.Close(const7.kdDoNotSaveChanges)           # Закроем файл без изменения
 
