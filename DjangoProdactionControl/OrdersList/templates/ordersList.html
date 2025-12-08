@@ -27,7 +27,7 @@
 			<span class="order_element_start">{{ order.date_start|date:"d.m.Y" }} </span>
 			<span class="order_element_stop">{{ order.date_end|date:"d.m.Y" }} </span>
 			<span class="order_element_comm">{{ order.comment }} </span>
-			<span class="order_element_buttons">-</span>
+			<span class="order_element_buttons">Edit</span>
 		</summary>
 		<div class="prodacts_list"  hx-get="/load_prodacts/{{ order.order_number }}" hx-trigger="intersect">
 			<img class="loadinf_gif" src="{% static 'loading.gif' %}" alt="Loading..."/>

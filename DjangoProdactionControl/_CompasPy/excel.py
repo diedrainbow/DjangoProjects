@@ -9,6 +9,7 @@ class ExcelDetailsBase():
     # col_sb_numbers
     
     def load(self, FILENAME):
+        self.filename = FILENAME
         self.wb = Workbook()
         self.det_sheet = self.wb.active
         
@@ -32,12 +33,12 @@ class ExcelDetailsBase():
     
     def close(self):
         # закрываем книгу после прочтения
-        self.wb.save('test.xlsx')
+        self.wb.save(self.filename)
         self.wb.close()
     
     def write_info(self, info):
         #self.det_sheet.append(info)
-        row_number = 2
+        row_number = self.det_sheet.max_row
         for file_info in info:
             for key in file_info:
                 if key != 'Filepath': 

@@ -3,6 +3,7 @@ import re
 import math
 #import subprocess
 import pythoncom
+import win32com
 from win32com.client import Dispatch, gencache
 
 # Подключение к API7 программы Kompas 3D
@@ -106,8 +107,10 @@ def count_dimension(doc7, module7):
     
 # Нахождение длины отрезка с оруглением до сотых
 def get_lenght(x1, y1, x2, y2):
-    l = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-    return round(l*100)/100
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+def my_round(x):
+    return round(x*100)/100
 
 # Подсчёт максимальных размеров для отдельных видов
 def get_max_dimensions(doc7, module7):
@@ -119,7 +122,8 @@ def get_max_dimensions(doc7, module7):
     view_dimensions = dict()
     
     for i in range(views.Count):
-        ISymbols2DContainer = views.View(i)._oleobj_.QueryInterface(module7.NamesToIIDMap['ISymbols2DContainer'],
+        view = views.View(i)
+        ISymbols2DContainer = view._oleobj_.QueryInterface(module7.NamesToIIDMap['ISymbols2DContainer'],
                                                                     pythoncom.IID_IDispatch)
         dimensions = module7.ISymbols2DContainer(ISymbols2DContainer)
         
@@ -143,15 +147,57 @@ def get_max_dimensions(doc7, module7):
             dl = d.Radius * 2
             max_diametral = max(max_diametral, dl)
         
-        max_horizontal_dim = max(max_horizontal_dim, max_diametral)
-        max_vertical_dim = max(max_vertical_dim, max_diametral)
+        max_horizontal_dim = my_round(max(max_horizontal_dim, max_diametral))
+        max_vertical_dim = my_round(max(max_vertical_dim, max_diametral))
         
-        i_view = views.View(i)
-        view_name = i_view.Name
-        view_dimensions[view_name] = str(max_horizontal_dim) + "x" + str(max_vertical_dim)
+        # IAssociationView = views.View(i)._oleobj_.QueryInterface(module7.NamesToIIDMap['IAssociationView'],
+                                                                    # pythoncom.IID_IDispatch)
+        # association_view = module7.IAssociationView(views.View(i))
+        # p_name = association_view.ProjectionName
+        
+        # Пытаемся получить IAssociationView через QueryInterface
+        model_name = ""
+        try:
+            assoc_view_ole = view._oleobj_.QueryInterface(module7.NamesToIIDMap['IAssociationView'],pythoncom.IID_IDispatch)
+            assoc_view = module7.IAssociationView(assoc_view_ole)
+            #print("IAssociationView получен успешно!")
+            #print(dir(assoc_view))
+            
+            #model_pointer = assoc_view.ModelPointer
+            # if not model_pointer:
+                # print("Вид не ссылается на 3D‑модель")
+                # exit()
+                
+            # Прямой доступ к свойству ModelPointer через OLE
+            #model_pointer_ole = win32com.client.GetObject(assoc_view_ole).GetProperty("ModelPointer")
+            #model_pointer_ole = assoc_view._oleobj_.QueryInterface(module7.NamesToIIDMap['IModelObject'],pythoncom.IID_IDispatch)
+            # Приводим к интерфейсу IModelPointer
+            #model_pointer = module7.IModelPointer(model_pointer_ole)
+
+            model_object_ole = assoc_view._oleobj_.QueryInterface(module7.NamesToIIDMap['IModelObject'],pythoncom.IID_IDispatch)
+            # if not model_object:
+                # print("Не удалось получить объект модели")
+                # exit()
+                
+            properties = model_object.Properties  # коллекция свойств модели
+            # if not properties:
+                # print("Свойства модели не найдены")
+                # exit()
+                
+            prop = properties.Property(1)  # получаем свойство по индексу
+            model_name = prop.Value + ' -> '
+            
+        except pythoncom.com_error as e:
+            print(f"Ошибка получения IAssociationView: {e}")
+
+        
+        view_dimensions[model_name+view.Name] = str(max_horizontal_dim) + "x" + str(max_vertical_dim)
 
     return view_dimensions
 
+
+
+#['Angle', 'Application', 'AssociationObjects', 'Background', 'BaseObject', 'BaseView', 'BendLinesStyle', 'BendLinesVisible', 'BreakLinesStyle', 'BreakLinesVisible', 'CLSID', 'CenterLinesVisible', 'Color', 'Comment', 'CreateLocalView', 'Current', 'Delete', 'DimensionLayoutScaling', 'DrawingObjectParamType', 'DrawingObjectType', 'ExplodedView', 'FindFace', 'FindFaceEdges', 'GetProjectionObjects', 'GetProjectionPoint', 'HiddenLines', 'HiddenLinesStyle', 'HiddenLinesVisible', 'IsAssociationObjectsVisible', 'IsViewProjectionPointInBreakView', 'LayerNumber', 'Layers', 'Local', 'Name', 'Number', 'ObjectCount', 'Parent', 'ProjectionLink', 'ProjectionMatrix', 'ProjectionName', 'Reference', 'RestoreStyles', 'SameHatch', 'Scale', 'Section', 'SetProjectionObjects', 'SourceFileName', 'Temp', 'Type', 'Unfold', 'Update', 'UseOcclusion', 'Valid', 'Variable', 'Variables', 'VariablesCount', 'ViewType', 'Visible', 'VisibleLinesStyle', 'X', 'Y', '_ApplyTypes_', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', '_get_good_object_', '_get_good_single_object_', '_oleobj_', '_prop_map_get_', '_prop_map_put_', 'coclass_clsid']
 
 
 # Функция проверяет, запущена ли программа Kompas 3D
@@ -172,6 +218,7 @@ def parse_design_documents(paths):
 
     table = []                                  # Создаём таблицу параметров
     for path in paths:
+        if not path.endswith('.cdw'): continue
         doc7 = app7.Documents.Open(PathName=path,
                                    Visible=True,
                                    ReadOnly=True)       # Откроем файл в видимом режиме без права его изменять

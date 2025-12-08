@@ -1,0 +1,279 @@
+# -*- coding: utf-8 -*-
+#|13
+
+import pythoncom
+from win32com.client import Dispatch, gencache
+
+import LDefin2D
+import MiscellaneousHelpers as MH
+
+import os
+import re
+import math
+###import subprocess
+##import pythoncom
+##import win32com
+##from win32com.client import Dispatch, gencache
+
+#  Подключим константы API Компас
+kompas6_constants = gencache.EnsureModule("{75C9F5D0-B5B8-4526-8681-9903C567D2ED}", 0, 1, 0).constants
+kompas6_constants_3d = gencache.EnsureModule("{2CAF168C-7961-4B90-9DA2-701419BEEFE3}", 0, 1, 0).constants
+
+#  Подключим описание интерфейсов API5
+kompas6_api5_module = gencache.EnsureModule("{0422828C-F174-495E-AC5D-D31014DBBE87}", 0, 1, 0)
+kompas_object = kompas6_api5_module.KompasObject(Dispatch("Kompas.Application.5")._oleobj_.QueryInterface(kompas6_api5_module.KompasObject.CLSID, pythoncom.IID_IDispatch))
+MH.iKompasObject  = kompas_object
+
+#  Подключим описание интерфейсов API7
+kompas_api7_module = gencache.EnsureModule("{69AC2981-37C0-4379-84FD-5DD2F3C0A520}", 0, 1, 0)
+application = kompas_api7_module.IApplication(Dispatch("Kompas.Application.7")._oleobj_.QueryInterface(kompas_api7_module.IApplication.CLSID, pythoncom.IID_IDispatch))
+MH.iApplication  = application
+
+
+Documents = application.Documents
+#  Получим активный документ
+kompas_document = application.ActiveDocument
+kompas_document_3d = kompas_api7_module.IKompasDocument3D(kompas_document)
+iDocument3D = kompas_object.ActiveDocument3D()
+
+print("333")
+
+### Подключение к API7 программы Kompas 3D
+##def get_kompas_api7():
+##    module = gencache.EnsureModule("{69AC2981-37C0-4379-84FD-5DD2F3C0A520}", 0, 1, 0)
+##    api = module.IKompasAPIObject(Dispatch("Kompas.Application.7")._oleobj_.QueryInterface(module.IKompasAPIObject.CLSID, pythoncom.IID_IDispatch))
+##    const = gencache.EnsureModule("{75C9F5D0-B5B8-4526-8681-9903C567D2ED}", 0, 1, 0).constants
+##    return module, api, const
+
+### Печатаем название программы
+##def get_application_name():
+##    module7, api7, const7 = get_kompas_api7()   # Подключаемся к API7
+##    app7 = api7.Application                     # Получаем основной интерфейс
+##    app7.Visible = True                         # Показываем окно пользователю (если скрыто)
+##    app7.HideMessage = const7.ksHideMessageNo   # Отвечаем НЕТ на любые вопросы программы
+##    print(app7.ApplicationName(FullName=True))  # Печатаем название программы
+
+### Посчитаем количество листов каждого из формата
+##def amount_sheet(doc7):
+##    sheets = {"A0": 0, "A1": 0, "A2": 0, "A3": 0, "A4": 0, "A5": 0}
+##    for sheet in range(doc7.LayoutSheets.Count):
+##        format = doc7.LayoutSheets.Item(sheet).Format  # sheet - номер листа, отсчёт начинается от 0
+##        sheets["A" + str(format.Format)] += 1 * format.FormatMultiplicity
+##    return sheets
+
+### Прочитаем масштаб из штампа, ячейка №6
+##def stamp_scale(doc7):
+##    stamp = doc7.LayoutSheets.Item(0).Stamp  # Item(0) указывает на штамп первого листа
+##    return stamp.Text(6).Str
+
+### Прочитаем основную надпись чертежа
+##def stamp(doc7):
+##    for sheet in range(doc7.LayoutSheets.Count):
+##        style_filename = os.path.basename(doc7.LayoutSheets.Item(sheet).LayoutLibraryFileName)
+##        style_number = int(doc7.LayoutSheets.Item(sheet).LayoutStyleNumber)
+##
+##        if style_filename in ['graphic.lyt', 'Graphic.lyt'] and style_number == 1:
+##            stamp = doc7.LayoutSheets.Item(sheet).Stamp
+##            match = re.search(r"\d+:\d+", stamp.Text(6).Str)
+##            sc = ""
+##            if match: sc = match.group()
+##            return {"Scale": sc,
+##                    "Designer": stamp.Text(110).Str}
+##
+##    return {"Scale": 'Неопределенный стиль оформления',
+##            "Designer": 'Неопределенный стиль оформления'}
+
+### Просмотр всех ячеек
+##def parse_stamp(doc7, number_sheet):
+##    stamp = doc7.LayoutSheets.Item(number_sheet).Stamp
+##    for i in range(10000):
+##        if stamp.Text(i).Str:
+##            print('Номер ячейки = %-5d Значение = %s' % (i, stamp.Text(i).Str))
+
+### Подсчет технических требований, в том случае, если включена автоматическая нумерация
+##def count_TT(doc7, module7):
+##    doc2D_s = doc7._oleobj_.QueryInterface(module7.NamesToIIDMap['IDrawingDocument'],
+##                                           pythoncom.IID_IDispatch)
+##    doc2D = module7.IDrawingDocument(doc2D_s)
+##    text_TT = doc2D.TechnicalDemand.Text
+##
+##    count_tt = 0                                 # Количество пунктов технических требований
+##    for i in range(text_TT.Count):               # Проходим по каждой строчке технических требований
+##        if text_TT.TextLines[i].Numbering == 1:  # и проверяем, есть ли у строки нумерация
+##            count_tt += 1
+##
+##    # Если нет нумерации, но есть текст
+##    if not count_tt and text_TT.TextLines[0]:
+##        count_tt += 1
+##
+##    return count_tt
+
+### Подсчёт размеров на чертеже, для каждого вида по отдельности
+##def count_dimension(doc7, module7):
+##    IKompasDocument2D = doc7._oleobj_.QueryInterface(module7.NamesToIIDMap['IKompasDocument2D'],
+##                                                     pythoncom.IID_IDispatch)
+##    doc2D = module7.IKompasDocument2D(IKompasDocument2D)
+##    views = doc2D.ViewsAndLayersManager.Views
+##
+##    count_dim = 0
+##    for i in range(views.Count):
+##        ISymbols2DContainer = views.View(i)._oleobj_.QueryInterface(module7.NamesToIIDMap['ISymbols2DContainer'],
+##                                                                    pythoncom.IID_IDispatch)
+##        dimensions = module7.ISymbols2DContainer(ISymbols2DContainer)
+##
+##        # Складываем все необходимые размеры
+##        count_dim += dimensions.AngleDimensions.Count + \
+##                     dimensions.ArcDimensions.Count + \
+##                     dimensions.Bases.Count + \
+##                     dimensions.BreakLineDimensions.Count + \
+##                     dimensions.BreakRadialDimensions.Count + \
+##                     dimensions.DiametralDimensions.Count + \
+##                     dimensions.Leaders.Count + \
+##                     dimensions.LineDimensions.Count + \
+##                     dimensions.RadialDimensions.Count + \
+##                     dimensions.RemoteElements.Count + \
+##                     dimensions.Roughs.Count + \
+##                     dimensions.Tolerances.Count
+##
+##    return count_dim
+
+# Нахождение длины отрезка с оруглением до сотых
+def get_lenght(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+def my_round(x):
+    return round(x*100)/100
+
+# Подсчёт максимальных размеров для отдельных видов
+def get_max_dimensions(doc7, module7):
+    IKompasDocument2D = doc7._oleobj_.QueryInterface(module7.NamesToIIDMap['IKompasDocument2D'],
+                                                     pythoncom.IID_IDispatch)
+    doc2D = module7.IKompasDocument2D(IKompasDocument2D)
+    views = doc2D.ViewsAndLayersManager.Views
+
+    view_dimensions = dict()
+
+    for i in range(views.Count):
+        view = views.View(i)
+        ISymbols2DContainer = view._oleobj_.QueryInterface(module7.NamesToIIDMap['ISymbols2DContainer'],
+                                                                    pythoncom.IID_IDispatch)
+        dimensions = module7.ISymbols2DContainer(ISymbols2DContainer)
+
+        # Проверяем линейные размеры
+        max_horizontal_dim = 0
+        max_vertical_dim = 0
+        for j in range(dimensions.LineDimensions.Count):
+            d = dimensions.LineDimensions.LineDimension(j)
+
+            if d.Orientation == 1:
+                dl = get_lenght(d.X1, d.Y1, d.X2, d.Y1)
+                max_horizontal_dim = max(max_horizontal_dim, dl)
+            if d.Orientation == 2:
+                dl = get_lenght(d.X1, d.Y1, d.X1, d.Y2)
+                max_vertical_dim = max(max_vertical_dim, dl)
+
+        # Проверяем диаметры
+        max_diametral = 0
+        for k in range(dimensions.DiametralDimensions.Count):
+            d = dimensions.DiametralDimensions.DiametralDimension(k)
+            dl = d.Radius * 2
+            max_diametral = max(max_diametral, dl)
+
+        max_horizontal_dim = my_round(max(max_horizontal_dim, max_diametral))
+        max_vertical_dim = my_round(max(max_vertical_dim, max_diametral))
+
+        # IAssociationView = views.View(i)._oleobj_.QueryInterface(module7.NamesToIIDMap['IAssociationView'],
+                                                                    # pythoncom.IID_IDispatch)
+        # association_view = module7.IAssociationView(views.View(i))
+        # p_name = association_view.ProjectionName
+
+        # Пытаемся получить IAssociationView через QueryInterface
+        model_name = ""
+        try:
+            assoc_view_ole = view._oleobj_.QueryInterface(module7.NamesToIIDMap['IAssociationView'],pythoncom.IID_IDispatch)
+            assoc_view = module7.IAssociationView(assoc_view_ole)
+            #print("IAssociationView получен успешно!")
+            #print(dir(assoc_view))
+
+            #model_pointer = assoc_view.ModelPointer
+            # if not model_pointer:
+                # print("Вид не ссылается на 3D‑модель")
+                # exit()
+
+            # Прямой доступ к свойству ModelPointer через OLE
+            #model_pointer_ole = win32com.client.GetObject(assoc_view_ole).GetProperty("ModelPointer")
+            #model_pointer_ole = assoc_view._oleobj_.QueryInterface(module7.NamesToIIDMap['IModelObject'],pythoncom.IID_IDispatch)
+            # Приводим к интерфейсу IModelPointer
+            #model_pointer = module7.IModelPointer(model_pointer_ole)
+
+            model_object_ole = assoc_view._oleobj_.QueryInterface(module7.NamesToIIDMap['IModelObject'],pythoncom.IID_IDispatch)
+            # if not model_object:
+                # print("Не удалось получить объект модели")
+                # exit()
+
+            properties = model_object.Properties  # коллекция свойств модели
+            # if not properties:
+                # print("Свойства модели не найдены")
+                # exit()
+
+            prop = properties.Property(1)  # получаем свойство по индексу
+            model_name = prop.Value + ' -> '
+
+        except pythoncom.com_error as e:
+            print("Ошибка получения IAssociationView: " + str(e))
+
+
+        view_dimensions[model_name+view.Name] = str(max_horizontal_dim) + "x" + str(max_vertical_dim)
+
+    return view_dimensions
+
+
+
+#['Angle', 'Application', 'AssociationObjects', 'Background', 'BaseObject', 'BaseView', 'BendLinesStyle', 'BendLinesVisible', 'BreakLinesStyle', 'BreakLinesVisible', 'CLSID', 'CenterLinesVisible', 'Color', 'Comment', 'CreateLocalView', 'Current', 'Delete', 'DimensionLayoutScaling', 'DrawingObjectParamType', 'DrawingObjectType', 'ExplodedView', 'FindFace', 'FindFaceEdges', 'GetProjectionObjects', 'GetProjectionPoint', 'HiddenLines', 'HiddenLinesStyle', 'HiddenLinesVisible', 'IsAssociationObjectsVisible', 'IsViewProjectionPointInBreakView', 'LayerNumber', 'Layers', 'Local', 'Name', 'Number', 'ObjectCount', 'Parent', 'ProjectionLink', 'ProjectionMatrix', 'ProjectionName', 'Reference', 'RestoreStyles', 'SameHatch', 'Scale', 'Section', 'SetProjectionObjects', 'SourceFileName', 'Temp', 'Type', 'Unfold', 'Update', 'UseOcclusion', 'Valid', 'Variable', 'Variables', 'VariablesCount', 'ViewType', 'Visible', 'VisibleLinesStyle', 'X', 'Y', '_ApplyTypes_', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', '_get_good_object_', '_get_good_single_object_', '_oleobj_', '_prop_map_get_', '_prop_map_put_', 'coclass_clsid']
+
+
+# Функция проверяет, запущена ли программа Kompas 3D
+# def is_running():
+    # proc_list = subprocess.Popen('tasklist /NH /FI "IMAGENAME eq KOMPAS*"',
+                                 # shell=False,
+                                 # stdout=subprocess.PIPE).communicate()[0]
+    # return True if proc_list else False
+
+##def parse_design_documents(paths):
+##    # is_run = is_running()                           # Установим флаг, который нам говорит,
+##                                                    # запущена ли программа до запуска нашего скрипта
+##
+##    module7, api7, const7 = get_kompas_api7()       # Подключаемся к программе
+##    app7 = api7.Application                         # Получаем основной интерфейс программы
+##    app7.Visible = True                             # Показываем окно пользователю (если скрыто)
+##    app7.HideMessage = const7.ksHideMessageNo       # Отвечаем НЕТ на любые вопросы программы
+##
+##    table = []                                  # Создаём таблицу параметров
+##    for path in paths:
+##        if not path.endswith('.cdw'): continue
+##        doc7 = app7.Documents.Open(PathName=path,
+##                                   Visible=True,
+##                                   ReadOnly=True)       # Откроем файл в видимом режиме без права его изменять
+##
+##        #row = amount_sheet(doc7)                        # Посчитаем кол-во листов каждого формат
+##        #row.update(stamp(doc7))                         # Читаем основную надпись
+##        # row = get_max_dimensions(doc7, module7)
+##        # row.update({
+##            # "Filename": doc7.Name,                      # Имя файла
+##            # "CountTD": count_TT(doc7, module7),     # Количество пунктов технических требований
+##            # "CountDim": count_dimension(doc7, module7), # Количество размеров на чертеже
+##        # })
+##        dct = get_max_dimensions(doc7, module7)
+##        #dct["Filename"] = doc7.Name
+##        dct["Filepath"] = path
+##        table.append(dct)                               # Добавляем строку параметров в таблицу
+##
+##        doc7.Close(const7.kdDoNotSaveChanges)           # Закроем файл без изменения
+##
+##    # if not is_run: app7.Quit()                          # Выходим из программы
+##    return table
+
+# Подсчёт максимальных размеров для отдельных видов
+print( get_max_dimensions(kompas_document, kompas_api7_module))
+
+
