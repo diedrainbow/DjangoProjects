@@ -3,7 +3,8 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>DjangoProdactionControl</Name>
     <RootNamespace>DjangoProdactionControl</RootNamespace>
-    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,6 +31,20 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DetailsBase\admin.py" />
+    <Compile Include="DetailsBase\apps.py" />
+    <Compile Include="DetailsBase\excel.py" />
+    <Compile Include="DetailsBase\forms.py" />
+    <Compile Include="DetailsBase\migrations\0001_initial.py" />
+    <Compile Include="DetailsBase\migrations\0002_remove_detail_description1_and_more.py" />
+    <Compile Include="DetailsBase\migrations\0003_material_color_material_original.py" />
+    <Compile Include="DetailsBase\migrations\0004_alter_detail_options_alter_material_options_and_more.py" />
+    <Compile Include="DetailsBase\migrations\__init__.py" />
+    <Compile Include="DetailsBase\models.py" />
+    <Compile Include="DetailsBase\tests.py" />
+    <Compile Include="DetailsBase\views.py" />
+    <Compile Include="DetailsBase\__init__.py" />
+    <Compile Include="DjangoProdactionControl\models.py" />
     <Compile Include="manage.py" />
     <Compile Include="DjangoProdactionControl\__init__.py" />
     <Compile Include="DjangoProdactionControl\settings.py" />
@@ -37,6 +52,13 @@
     <Compile Include="DjangoProdactionControl\wsgi.py" />
     <Compile Include="OrdersList\admin.py" />
     <Compile Include="OrdersList\apps.py" />
+    <Compile Include="OrdersList\forms.py" />
+    <Compile Include="OrdersList\migrations\0001_initial.py" />
+    <Compile Include="OrdersList\migrations\0002_remove_prodact_number_prodact_number_in_order_and_more.py" />
+    <Compile Include="OrdersList\migrations\0003_alter_order_date_add_alter_order_date_end_and_more.py" />
+    <Compile Include="OrdersList\migrations\0004_alter_order_date_add_alter_order_date_end_and_more.py" />
+    <Compile Include="OrdersList\migrations\0005_alter_order_date_add_alter_order_date_end_and_more.py" />
+    <Compile Include="OrdersList\migrations\0006_alter_order_date_add_alter_order_date_end_and_more.py" />
     <Compile Include="OrdersList\migrations\__init__.py" />
     <Compile Include="OrdersList\models.py" />
     <Compile Include="OrdersList\tests.py" />
@@ -44,22 +66,87 @@
     <Compile Include="OrdersList\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DetailsBase\details.csv" />
+    <Content Include="DetailsBase\details2.csv" />
+    <Content Include="DetailsBase\migrations\__pycache__\0001_initial.cpython-313.pyc" />
+    <Content Include="DetailsBase\migrations\__pycache__\0002_remove_detail_description1_and_more.cpython-313.pyc" />
+    <Content Include="DetailsBase\migrations\__pycache__\0003_material_color_material_original.cpython-313.pyc" />
+    <Content Include="DetailsBase\migrations\__pycache__\0004_alter_detail_options_alter_material_options_and_more.cpython-313.pyc" />
+    <Content Include="DetailsBase\migrations\__pycache__\__init__.cpython-313.pyc" />
+    <Content Include="DetailsBase\sb.csv" />
+    <Content Include="DetailsBase\static\DetailsBaseStyles.css" />
+    <Content Include="DetailsBase\templates\detailsBase.html" />
+    <Content Include="DetailsBase\templates\detail_dialog.html" />
+    <Content Include="DetailsBase\templates\materialsBase.html" />
+    <Content Include="DetailsBase\templates\SBBase.html" />
+    <Content Include="DetailsBase\__pycache__\admin.cpython-313.pyc" />
+    <Content Include="DetailsBase\__pycache__\apps.cpython-313.pyc" />
+    <Content Include="DetailsBase\__pycache__\excel.cpython-313.pyc" />
+    <Content Include="DetailsBase\__pycache__\forms.cpython-313.pyc" />
+    <Content Include="DetailsBase\__pycache__\models.cpython-313.pyc" />
+    <Content Include="DetailsBase\__pycache__\views.cpython-313.pyc" />
+    <Content Include="DetailsBase\__pycache__\__init__.cpython-313.pyc" />
     <Content Include="DjangoProdactionControl\static\baseStylesheet.css" />
+    <Content Include="DjangoProdactionControl\static\BodorPro.ico" />
+    <Content Include="DjangoProdactionControl\static\htmx.min.js" />
+    <Content Include="DjangoProdactionControl\static\loading.gif" />
     <Content Include="DjangoProdactionControl\templates\base.html" />
+    <Content Include="DjangoProdactionControl\__pycache__\settings.cpython-313.pyc" />
+    <Content Include="DjangoProdactionControl\__pycache__\urls.cpython-313.pyc" />
+    <Content Include="DjangoProdactionControl\__pycache__\wsgi.cpython-313.pyc" />
+    <Content Include="DjangoProdactionControl\__pycache__\__init__.cpython-313.pyc" />
+    <Content Include="OrdersList\migrations\__pycache__\0001_initial.cpython-313.pyc" />
+    <Content Include="OrdersList\migrations\__pycache__\0002_remove_prodact_number_prodact_number_in_order_and_more.cpython-313.pyc" />
+    <Content Include="OrdersList\migrations\__pycache__\0003_alter_order_date_add_alter_order_date_end_and_more.cpython-313.pyc" />
+    <Content Include="OrdersList\migrations\__pycache__\0004_alter_order_date_add_alter_order_date_end_and_more.cpython-313.pyc" />
+    <Content Include="OrdersList\migrations\__pycache__\0005_alter_order_date_add_alter_order_date_end_and_more.cpython-313.pyc" />
+    <Content Include="OrdersList\migrations\__pycache__\0006_alter_order_date_add_alter_order_date_end_and_more.cpython-313.pyc" />
+    <Content Include="OrdersList\migrations\__pycache__\__init__.cpython-313.pyc" />
     <Content Include="OrdersList\static\OrdersListStyles.css" />
+    <Content Include="OrdersList\static\prodactsListScripts.js" />
+    <Content Include="OrdersList\static\ProdactsListStyles.css" />
     <Content Include="OrdersList\templates\ordersList.html" />
+    <Content Include="OrdersList\templates\partials\cell_edit.html" />
+    <Content Include="OrdersList\templates\partials\cell_value.html" />
+    <Content Include="OrdersList\templates\partials\new_prodact_form.html" />
+    <Content Include="OrdersList\templates\prodactsList.html" />
+    <Content Include="OrdersList\__pycache__\admin.cpython-313.pyc" />
+    <Content Include="OrdersList\__pycache__\apps.cpython-313.pyc" />
+    <Content Include="OrdersList\__pycache__\forms.cpython-313.pyc" />
+    <Content Include="OrdersList\__pycache__\models.cpython-313.pyc" />
+    <Content Include="OrdersList\__pycache__\views.cpython-313.pyc" />
+    <Content Include="OrdersList\__pycache__\__init__.cpython-313.pyc" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DetailsBase\" />
+    <Folder Include="DetailsBase\migrations\" />
+    <Folder Include="DetailsBase\migrations\__pycache__\" />
+    <Folder Include="DetailsBase\static\" />
+    <Folder Include="DetailsBase\templates\" />
+    <Folder Include="DetailsBase\__pycache__\" />
     <Folder Include="DjangoProdactionControl\" />
     <Folder Include="DjangoProdactionControl\static\" />
     <Folder Include="DjangoProdactionControl\templates\" />
+    <Folder Include="DjangoProdactionControl\__pycache__\" />
     <Folder Include="OrdersList\" />
     <Folder Include="OrdersList\migrations\" />
+    <Folder Include="OrdersList\migrations\__pycache__\" />
     <Folder Include="OrdersList\static\" />
     <Folder Include="OrdersList\templates\" />
+    <Folder Include="OrdersList\templates\partials\" />
+    <Folder Include="OrdersList\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
+    <Interpreter Include="env1\">
+      <Id>env1</Id>
+      <Version>3.13</Version>
+      <Description>env1 (Python 3.13 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
     <Interpreter Include="env\">
       <Id>env</Id>
       <Version>3.9</Version>
